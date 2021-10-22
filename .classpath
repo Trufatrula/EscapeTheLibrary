@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="lib" path="lib/GLEngine-0.0.1-SNAPSHOT-all.jar"/>
+	<classpathentry kind="lib" path="lib/physx-jni-0.4.14-native-linux64.jar"/>
+	<classpathentry kind="lib" path="lib/physx-jni-0.4.14-native-mac64.jar"/>
+	<classpathentry kind="lib" path="lib/physx-jni-0.4.14-native-win64.jar"/>
+	<classpathentry kind="lib" path="lib/physx-jni-0.4.14.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
