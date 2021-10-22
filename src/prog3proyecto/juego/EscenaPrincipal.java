@@ -1,7 +1,11 @@
 package prog3proyecto.juego;
 
+import org.joml.Vector3f;
+
 import com.lndf.glengine.asset.Asset;
+import com.lndf.glengine.engine.DeltaTime;
 import com.lndf.glengine.model.Model;
+import com.lndf.glengine.scene.Component;
 import com.lndf.glengine.scene.GameObject;
 import com.lndf.glengine.scene.Scene;
 import com.lndf.glengine.scene.components.FPCamera;
@@ -19,7 +23,7 @@ public class EscenaPrincipal extends Scene {
 		this.subscribeToUpdates();
 		luzDemoObject.getTransform().getRotation().rotateX(-(float) Math.PI / 4 );
 		luzDemoObject.getTransform().getRotation().rotateY((float) Math.PI / 4 );
-
+		
 		demoModel = new Model(new Asset("resource:/models/demomodel/demo.obj"));
 		camara = new FPCamera((float) Math.PI / 4, 100);
 		cameraObject.addComponent(camara);
@@ -28,16 +32,23 @@ public class EscenaPrincipal extends Scene {
 		this.addObject(cameraObject);
 		this.addObject(luzDemoObject);
 		this.setAmbientLight(0.1f);
+		luzDemoObject.addComponent(new Component() {
+			float r = 0f;
+			float d = 0.8f;
+			@Override
+			public void update() {
+				luzDemo.setColor(new Vector3f(r, 0, 0));
+				r += d*DeltaTime.get();
+				if(r>1 || r<0 ) {
+					d = -d;
+				}
+				this.getGameObject().getTransform().getRotation().rotateX((float)(( Math.PI / 4)*DeltaTime.get()));
+			}
+		});  
 	}
 	
 	public FPCamera getCamara() {
 		return camara;
-	}
-	
-	@Override
-	public void destroy() {
-		super.destroy();
-		
 	}
 	
 }
