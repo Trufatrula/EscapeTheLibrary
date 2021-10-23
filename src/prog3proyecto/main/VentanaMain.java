@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import com.lndf.glengine.gl.DefaultMaterial;
 
@@ -17,14 +20,32 @@ public class VentanaMain extends JFrame {
 	private boolean juegoStarted = false;
 	
 	public VentanaMain() {
+		JPanel panel = new JPanel();
 		JButton botonJugar = new JButton("JUGAR");
+		JButton botonOpciones = new JButton("OPCIONES");
+		JLabel lnombre = new JLabel("Nombre de usuario: ");
+		JTextField tnombre = new JTextField(15);
 		
-		add(botonJugar);
+		panel.add(lnombre);
+		panel.add(tnombre);
+		panel.add(botonJugar);
+		panel.add(botonOpciones);
+		add(panel);
 		
 		botonJugar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				startJuego();
+				if(tnombre.getText().equals("")) {
+				} else {
+					startJuego();
+				}
+			}
+		});
+		
+		botonOpciones.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				startOpciones();
 			}
 		});
 		
@@ -42,6 +63,10 @@ public class VentanaMain extends JFrame {
 				juegoStarted = false;
 			};
 		}.start();
+	}
+	
+	public void startOpciones()	{
+		
 	}
 	
 	public static void main(String[] args) {
