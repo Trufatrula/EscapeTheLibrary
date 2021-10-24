@@ -35,7 +35,7 @@ public class VentanaMain extends JFrame {
 		botonJugar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(tnombre.getText().equals("")) {
+				if(tnombre.getText().isEmpty()) {
 				} else {
 					startJuego();
 				}
