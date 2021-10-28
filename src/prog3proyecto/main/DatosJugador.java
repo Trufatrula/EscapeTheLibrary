@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 public class DatosJugador {
 	
@@ -24,11 +25,9 @@ public class DatosJugador {
 	private int fase = 0;
 	private double tiempoFase = 0;
 	
-	private VentanaMain vent;
 	private JLabel dest;
 	
-	public DatosJugador(VentanaMain vent, JLabel dest) {
-		this.vent = vent;
+	public DatosJugador(JLabel dest) {
 		this.dest = dest;
 	}
 	
@@ -48,20 +47,25 @@ public class DatosJugador {
 		String strTiempoJuego = doubleDeTiempoAString(tiempoJuego);
 		String strTiempoEnPartida = doubleDeTiempoAString(tiempoEnPartida);
 		String strTiempoFase = doubleDeTiempoAString(tiempoFase);
-		String msg = "Posición:\n" +
-					 "   X: " + pX + "\n" +
-					 "   Y: " + pY + "\n" +
-					 "   Z: " + pZ + "\n\n" +
-					 "Rotación:\n" +
-					 "   X: " + rX + "\n" +
-					 "   Y: " + rY + "\n" +
-					 "   Z: " + rZ + "\n\n" +
-					 "Usuario: " + usuario + "\n" +
-					 "Tiempo total: " + strTiempoJuego + "\n" +
-					 "Tiempo en partida: " + strTiempoEnPartida + "\n\n" +
-					 "Fase: " + fase + "\n" + 
-					 "Tiempo en la fase: " +  strTiempoFase;
-		//TODO: actualizar la ventana
+		String msg = "<html>Posición X/Y/Z:" +
+					 " " + pX + " /" +
+					 " " + pY + " / " +
+					 " " + pZ + "<br>" +
+					 "Rotación X/Y/Z:" +
+					 " " + rX + " /" +
+					 " " + rY + " /" +
+					 " " + rZ + "<br><br>" +
+					 "Usuario: " + usuario + "<br>" +
+					 "Tiempo total: " + strTiempoJuego + "<br>" +
+					 "Tiempo en partida: " + strTiempoEnPartida + "<br><br>" +
+					 "Fase: " + fase + "<br>" + 
+					 "Tiempo en la fase: " +  strTiempoFase + "</html>";
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				dest.setText(msg);
+			}
+		});
 	}
 	
 	public void setPos(float x, float y, float z) {
@@ -98,8 +102,18 @@ public class DatosJugador {
 	
 	public void addTiempo(double tiempo) {
 		setTiempoJuego(tiempoJuego + tiempo);
-		setTiempoEnPartida(tiempoJuego + tiempo);
+		setTiempoEnPartida(tiempoEnPartida + tiempo);
 		setTiempoFase(tiempoFase + tiempo);
+	}
+	
+	public void reset() {
+		setPos(0, 0, 0);
+		setRotacion(0, 0, 0);
+		setUsuario("");
+		setTiempoJuego(0);
+		setTiempoEnPartida(0);
+		setTiempoFase(0);
+		setFase(0);
 	}
 	
 }

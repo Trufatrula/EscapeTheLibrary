@@ -1,11 +1,10 @@
 package prog3proyecto.main;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,6 +20,8 @@ public class VentanaMain extends JFrame {
 	private static final long serialVersionUID = 4636392744743705348L;
 	
 	private boolean juegoStarted = false;
+	
+	private DatosJugador datos;
 	
 	public VentanaMain() {
 		JPanel panelPrincipal = crearPanelPrincipal();
@@ -111,11 +112,21 @@ public class VentanaMain extends JFrame {
 	
 	private JPanel crearPanelJuego() {
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(1, 3));
+		panel.setLayout(new BorderLayout());
 		
-		panel.add(new JButton("1"));
-		panel.add(new JButton("2"));
-		panel.add(new JButton("3"));
+		JLabel msgDatos = new JLabel();
+		msgDatos.setVerticalAlignment(JLabel.TOP);
+		msgDatos.setVerticalTextPosition(JLabel.TOP);
+		msgDatos.setAlignmentY(TOP_ALIGNMENT);
+		msgDatos.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 0));
+		
+		datos = new DatosJugador(msgDatos);
+		
+		panel.add(msgDatos);
+		panel.add(new JButton("RightButtonTest"), BorderLayout.EAST);
+		
+		datos.addTiempo(1);
+		datos.actualizar();
 		
 		return panel;
 	}
