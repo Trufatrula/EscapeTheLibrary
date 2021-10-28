@@ -1,5 +1,6 @@
 package prog3proyecto.main;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,8 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import com.lndf.glengine.gl.DefaultMaterial;
 
 import prog3proyecto.juego.Juego;
 
@@ -20,6 +19,18 @@ public class VentanaMain extends JFrame {
 	private boolean juegoStarted = false;
 	
 	public VentanaMain() {
+		JPanel panelPrincipal = crearPanelPrincipal();
+		JPanel panelJuego = crearPanelJuego();
+		
+		add(panelPrincipal);
+		//remove(panelPrincipal);
+		//add(panelJuego);
+		
+		this.setVisible(true);
+		this.setSize(800, 600);
+	}
+	
+	private JPanel crearPanelPrincipal() {
 		JPanel panel = new JPanel();
 		JButton botonJugar = new JButton("JUGAR");
 		JButton botonOpciones = new JButton("OPCIONES");
@@ -29,8 +40,7 @@ public class VentanaMain extends JFrame {
 		panel.add(lnombre);
 		panel.add(tnombre);
 		panel.add(botonJugar);
-		panel.add(botonOpciones);
-		add(panel);
+		panel.add(botonOpciones);;
 		
 		botonJugar.addActionListener(new ActionListener() {
 			@Override
@@ -49,8 +59,18 @@ public class VentanaMain extends JFrame {
 			}
 		});
 		
-		this.setVisible(true);
-		this.setSize(800, 600);
+		return panel;
+	}
+	
+	private JPanel crearPanelJuego() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(1, 3));
+		
+		panel.add(new JButton("1"));
+		panel.add(new JButton("2"));
+		panel.add(new JButton("3"));
+		
+		return panel;
 	}
 	
 	public void startJuego() {
