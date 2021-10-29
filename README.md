@@ -17,3 +17,8 @@ El tercer puzzle será un espacio amplio con un vacío a un lado, el espacio amp
 
 El tiempo que ha tardado cada usuario en pasarse cada puzzle y el tiempo total de juego se almacenará en una base de datos que podrá ser consultada en el menú del juego en forma de tabla.
 
+![vs](https://user-images.githubusercontent.com/71408357/139401839-34f0cc98-3c2e-4fe0-89b2-7acb60a3989e.PNG)
+
+![eg](https://user-images.githubusercontent.com/71408357/139401965-0f8016dc-f637-4f18-aa21-2c4e86ab9d93.PNG)
+
+
