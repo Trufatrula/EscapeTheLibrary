@@ -28,8 +28,8 @@ public class VentanaMain extends JFrame {
 		JPanel panelJuego = crearPanelJuego();
 		
 		add(panelPrincipal);
-		//remove(panelPrincipal);
-		//add(panelJuego);
+		remove(panelPrincipal);
+		add(panelJuego);
 		
 		this.setVisible(true);
 		this.setSize(800, 600);
@@ -112,7 +112,11 @@ public class VentanaMain extends JFrame {
 	
 	private JPanel crearPanelJuego() {
 		JPanel panel = new JPanel();
+		JPanel panelW = new JPanel();
+		JPanel panelE = new JPanel();
+		
 		panel.setLayout(new BorderLayout());
+		panelW.setLayout(new BorderLayout());
 		
 		JLabel msgDatos = new JLabel();
 		msgDatos.setVerticalAlignment(JLabel.TOP);
@@ -120,9 +124,19 @@ public class VentanaMain extends JFrame {
 		msgDatos.setAlignmentY(TOP_ALIGNMENT);
 		msgDatos.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 0));
 		
+		JLabel controles = new JLabel("<html>Controles:<br>"
+				+ "TODO</html>");
+		controles.setVerticalAlignment(JLabel.BOTTOM);
+		controles.setVerticalTextPosition(JLabel.BOTTOM);
+		controles.setAlignmentY(BOTTOM_ALIGNMENT);
+		controles.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 0));
+		
 		datos = new DatosJugador(msgDatos);
 		
-		panel.add(msgDatos);
+		panelW.add(msgDatos, BorderLayout.CENTER);
+		panelW.add(controles, BorderLayout.SOUTH);
+		
+		panel.add(panelW);
 		panel.add(new JButton("RightButtonTest"), BorderLayout.EAST);
 		
 		datos.addTiempo(1);
