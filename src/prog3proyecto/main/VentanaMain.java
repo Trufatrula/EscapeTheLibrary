@@ -28,8 +28,8 @@ public class VentanaMain extends JFrame {
 		JPanel panelJuego = crearPanelJuego();
 		
 		add(panelPrincipal);
-		remove(panelPrincipal);
-		add(panelJuego);
+		//remove(panelPrincipal);
+		//add(panelJuego);
 		
 		this.setVisible(true);
 		this.setSize(800, 600);
