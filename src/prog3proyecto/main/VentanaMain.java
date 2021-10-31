@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import prog3proyecto.juego.Juego;
 
@@ -23,13 +24,14 @@ public class VentanaMain extends JFrame {
 	
 	private DatosJugador datos;
 	
+	private JPanel panelPrincipal;
+	private JPanel panelJuego;
+	
 	public VentanaMain() {
-		JPanel panelPrincipal = crearPanelPrincipal();
-		JPanel panelJuego = crearPanelJuego();
+		panelPrincipal = crearPanelPrincipal();
+		panelJuego = crearPanelJuego();
 		
 		add(panelPrincipal);
-		//remove(panelPrincipal);
-		//add(panelJuego);
 		
 		this.setVisible(true);
 		this.setSize(800, 600);
@@ -139,7 +141,6 @@ public class VentanaMain extends JFrame {
 		panel.add(panelW);
 		panel.add(new JButton("RightButtonTest"), BorderLayout.EAST);
 		
-		datos.addTiempo(1);
 		datos.actualizar();
 		
 		return panel;
@@ -148,13 +149,30 @@ public class VentanaMain extends JFrame {
 	public void startJuego() {
 		if (juegoStarted) return;
 		juegoStarted = true;
+		remove(panelPrincipal);
+		add(panelJuego);
+		revalidate();
+		repaint();
 		new Thread() {
 			@Override
 			public void run() {
 				Juego.juego();
 				juegoStarted = false;
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						remove(panelJuego);
+						add(panelPrincipal);
+						revalidate();
+						repaint();
+					}
+				});
 			};
 		}.start();
+	}
+	
+	public void terminarJuego() {
+		//TODO: hacer la función para terminar el hilo
 	}
 	
 	public void startOpciones()	{
