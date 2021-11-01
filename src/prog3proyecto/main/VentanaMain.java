@@ -162,6 +162,7 @@ public class VentanaMain extends JFrame {
 		hiloJuego = new Thread() {
 			@Override
 			public void run() {
+				datos.reset();
 				datos.setUsuario(nombre);
 				datos.actualizar();
 				Juego.juego(datos);
