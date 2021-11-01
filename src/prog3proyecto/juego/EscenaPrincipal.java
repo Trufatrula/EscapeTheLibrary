@@ -11,21 +11,23 @@ import com.lndf.glengine.scene.Scene;
 import com.lndf.glengine.scene.components.FPCamera;
 import com.lndf.glengine.scene.components.lighting.DirectionalLight;
 
+import prog3proyecto.main.DatosJugador;
+
 public class EscenaPrincipal extends Scene {
 	
 	private Model demoModel;
 	private FPCamera camara;
+	private GameObject jugador;
+	private DatosJugador datos;
 	
-	public EscenaPrincipal() {
+	public EscenaPrincipal(DatosJugador datos) {
 		this.subscribeToUpdates();
-		this.addUpdateRunnable(new ActualizarEscena());
+		this.addUpdateRunnable(new ActualizarEscena(this));
+		this.datos = datos;
 		GameObject cameraObject = new GameObject();
 		GameObject luzDemoObject = new GameObject();
 		DirectionalLight luzDemo = new DirectionalLight();
-
-		luzDemoObject.getTransform().getRotation().rotateX(-(float) Math.PI / 4 );
-		luzDemoObject.getTransform().getRotation().rotateY((float) Math.PI / 4 );
-		
+		this.jugador = cameraObject;
 		demoModel = new Model(new Asset("resource:/models/demomodel/demo.obj"));
 		camara = new FPCamera((float) Math.PI / 4, 100);
 		cameraObject.addComponent(camara);
@@ -53,4 +55,11 @@ public class EscenaPrincipal extends Scene {
 		return camara;
 	}
 	
+	public GameObject getJugador() {
+		return jugador;
+	}
+	
+	public DatosJugador getDatos() {
+		return datos;
+	}
 }

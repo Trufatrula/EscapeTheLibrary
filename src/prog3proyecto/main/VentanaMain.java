@@ -91,7 +91,7 @@ public class VentanaMain extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(tnombre.getText().isEmpty()) {
 				} else {
-					startJuego();
+					startJuego(tnombre.getText());
 				}
 			}
 		});
@@ -153,7 +153,7 @@ public class VentanaMain extends JFrame {
 		return panel;
 	}
 	
-	public void startJuego() {
+	public void startJuego(String nombre) {
 		if (hiloJuego != null) return;
 		remove(panelPrincipal);
 		add(panelJuego);
@@ -162,7 +162,9 @@ public class VentanaMain extends JFrame {
 		hiloJuego = new Thread() {
 			@Override
 			public void run() {
-				Juego.juego();
+				datos.setUsuario(nombre);
+				datos.actualizar();
+				Juego.juego(datos);
 				hiloJuego = null;
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
