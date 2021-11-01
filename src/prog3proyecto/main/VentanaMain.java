@@ -3,6 +3,8 @@ package prog3proyecto.main;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
@@ -20,8 +22,7 @@ public class VentanaMain extends JFrame {
 
 	private static final long serialVersionUID = 4636392744743705348L;
 	
-	private boolean juegoStarted = false;
-	
+	private Thread hiloJuego = null;
 	private DatosJugador datos;
 	
 	private JPanel panelPrincipal;
@@ -35,6 +36,13 @@ public class VentanaMain extends JFrame {
 		
 		this.setVisible(true);
 		this.setSize(800, 600);
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				terminarJuego();
+			}
+		});
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
 	private JPanel crearPanelPrincipal() {
@@ -98,14 +106,14 @@ public class VentanaMain extends JFrame {
 		botonCrearUsuario.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				startOpciones();
+				crearUsuario();
 			}
 		});
 		
 		botonBorrarUsuario.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				startOpciones();
+				eliminarUsuario();
 			}
 		});
 		
@@ -126,8 +134,7 @@ public class VentanaMain extends JFrame {
 		msgDatos.setAlignmentY(TOP_ALIGNMENT);
 		msgDatos.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 0));
 		
-		JLabel controles = new JLabel("<html>Controles:<br>"
-				+ "TODO</html>");
+		JLabel controles = new JLabel("<html>Controles:<br>TODO</html>");
 		controles.setVerticalAlignment(JLabel.BOTTOM);
 		controles.setVerticalTextPosition(JLabel.BOTTOM);
 		controles.setAlignmentY(BOTTOM_ALIGNMENT);
@@ -147,17 +154,16 @@ public class VentanaMain extends JFrame {
 	}
 	
 	public void startJuego() {
-		if (juegoStarted) return;
-		juegoStarted = true;
+		if (hiloJuego != null) return;
 		remove(panelPrincipal);
 		add(panelJuego);
 		revalidate();
 		repaint();
-		new Thread() {
+		hiloJuego = new Thread() {
 			@Override
 			public void run() {
 				Juego.juego();
-				juegoStarted = false;
+				hiloJuego = null;
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
 					public void run() {
@@ -168,15 +174,26 @@ public class VentanaMain extends JFrame {
 					}
 				});
 			};
-		}.start();
+		};
+		hiloJuego.start();
 	}
 	
 	public void terminarJuego() {
-		//TODO: hacer la función para terminar el hilo
+		if (hiloJuego != null) {
+			hiloJuego.interrupt();
+		}
 	}
 	
 	public void startOpciones()	{
-		
+		//TODO: hacer las opciones
+	}
+	
+	public void crearUsuario() {
+		//TODO: crear usuario
+	}
+	
+	public void eliminarUsuario() {
+		//TODO: borrar usuario
 	}
 	
 	public static void main(String[] args) {

@@ -17,10 +17,12 @@ public class EscenaPrincipal extends Scene {
 	private FPCamera camara;
 	
 	public EscenaPrincipal() {
+		this.subscribeToUpdates();
+		this.addUpdateRunnable(new ActualizarEscena());
 		GameObject cameraObject = new GameObject();
 		GameObject luzDemoObject = new GameObject();
 		DirectionalLight luzDemo = new DirectionalLight();
-		this.subscribeToUpdates();
+
 		luzDemoObject.getTransform().getRotation().rotateX(-(float) Math.PI / 4 );
 		luzDemoObject.getTransform().getRotation().rotateY((float) Math.PI / 4 );
 		
