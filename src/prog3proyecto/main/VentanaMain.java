@@ -121,30 +121,37 @@ public class VentanaMain extends JFrame {
 	}
 	
 	private JPanel crearPanelJuego() {
+		//Crear paneles
 		JPanel panel = new JPanel();
 		JPanel panelW = new JPanel();
 		JPanel panelE = new JPanel();
 		
+		//Configurar paneles
 		panel.setLayout(new BorderLayout());
 		panelW.setLayout(new BorderLayout());
 		
+		//Configurar panel de datos
 		JLabel msgDatos = new JLabel();
 		msgDatos.setVerticalAlignment(JLabel.TOP);
 		msgDatos.setVerticalTextPosition(JLabel.TOP);
 		msgDatos.setAlignmentY(TOP_ALIGNMENT);
 		msgDatos.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 0));
 		
+		//Configurar panel de controles
 		JLabel controles = new JLabel("<html>Controles:<br>TODO</html>");
 		controles.setVerticalAlignment(JLabel.BOTTOM);
 		controles.setVerticalTextPosition(JLabel.BOTTOM);
 		controles.setAlignmentY(BOTTOM_ALIGNMENT);
 		controles.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 0));
 		
+		//Crear los datos de juego
 		datos = new DatosJugador(msgDatos);
 		
+		//Finalizar panel W
 		panelW.add(msgDatos, BorderLayout.CENTER);
 		panelW.add(controles, BorderLayout.SOUTH);
 		
+		//Finalizar panel
 		panel.add(panelW);
 		panel.add(new JButton("RightButtonTest"), BorderLayout.EAST);
 		

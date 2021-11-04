@@ -8,6 +8,10 @@ import java.text.SimpleDateFormat;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
+/**
+ * Clase para guardar los datos que se comarten entre la ventana de swing y el juego
+ * 
+ */
 public class DatosJugador {
 	
 	private float pX = 0;
@@ -31,6 +35,9 @@ public class DatosJugador {
 		this.dest = dest;
 	}
 	
+	/**
+	 * Devolver la hora POSIX en un string HH:mm:ss
+	 */
 	private static String doubleDeTiempoAString(double tiempo) {
 		String s = String.format("%06d", (int)tiempo);   
 		DateFormat format = new SimpleDateFormat("HHmmss");
@@ -43,6 +50,9 @@ public class DatosJugador {
 		}
 	}
 	
+	/**
+	 * Enviar las actualizaciónes a swing
+	 */
 	public void actualizar() {
 		String strTiempoJuego = doubleDeTiempoAString(tiempoJuego);
 		String strTiempoEnPartida = doubleDeTiempoAString(tiempoEnPartida);
@@ -100,12 +110,18 @@ public class DatosJugador {
 		this.fase = fase;
 	}
 	
+	/**
+	 * Añadir tiempo a todos los tiempos
+	 */
 	public void addTiempo(double tiempo) {
 		setTiempoJuego(tiempoJuego + tiempo);
 		setTiempoEnPartida(tiempoEnPartida + tiempo);
 		setTiempoFase(tiempoFase + tiempo);
 	}
 	
+	/**
+	 * Resetear todo a 0
+	 */
 	public void reset() {
 		setPos(0, 0, 0);
 		setRotacion(0, 0, 0);
