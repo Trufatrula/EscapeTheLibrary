@@ -5,9 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -45,10 +47,11 @@ public class VentanaMain extends JFrame {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
+	//Creación de los paneles y sus elementos
 	private JPanel crearPanelPrincipal() {
-		JPanel panel = new JPanel();
+
+		JPanel panel = new JPanel();		
 		panel.setLayout(new BorderLayout());
-		
 		JPanel panelN = new JPanel();
 		//panelN.setBackground(Color.green);
 		JPanel panelW = new JPanel();
@@ -61,18 +64,40 @@ public class VentanaMain extends JFrame {
 		JPanel panelS = new JPanel();
 		//panelS.setBackground(Color.yellow);
 		
-		String nombres[] = {"Kaladin", "Shallan", "Dalinar", "Adolin", "Sagaz", "Navani", "Szeth"};
+		//Prueba con usuarios
+		Usuario user1 = new Usuario("Kaladin");
+		Usuario user2 = new Usuario("Shallan");
+		Usuario user3 = new Usuario("Dalinar");
+		Usuario user4 = new Usuario("Adolin");
+		Usuario user5 = new Usuario("Kelsier");
+		Usuario user6 = new Usuario("Vin");
 		
-		JButton botonJugar = new JButton("JUGAR");
-		JButton botonOpciones = new JButton("OPCIONES");
+		ArrayList<Usuario> usuarios = new ArrayList<>();
+		
+		usuarios.add(user1);
+		usuarios.add(user2);
+		usuarios.add(user3);
+		usuarios.add(user4);
+		usuarios.add(user5);
+		usuarios.add(user6);
+		
+		DefaultListModel<String> modelo = new DefaultListModel<>();
+		JList<String> listaUsuarios = new JList<>(modelo);
+		
+		for (Usuario u : usuarios) {
+			modelo.addElement(u.getNombre());
+		}
+	
+		JButton botonJugar = new JButton("Jugar");
+		JButton botonOpciones = new JButton("Opciones");
 		JButton botonCrearUsuario = new JButton("Nuevo");
 		JButton botonBorrarUsuario = new JButton("Borrar");
 		JLabel lnombre = new JLabel("Nombre de usuario: ");
 		JTextField tnombre = new JTextField(15);
-		JList<String> a = new JList<String>(nombres);
-		DefaultListCellRenderer renderer =  (DefaultListCellRenderer)a.getCellRenderer();  
+		DefaultListCellRenderer renderer =  (DefaultListCellRenderer)listaUsuarios.getCellRenderer();  
 		renderer.setHorizontalAlignment(JLabel.CENTER);  
 		
+		//Añadir elementos a paneles
 		panel.add(panelN, BorderLayout.NORTH);
 		panel.add(panelW, BorderLayout.WEST);
 		panel.add(panelC, BorderLayout.CENTER);
@@ -82,7 +107,8 @@ public class VentanaMain extends JFrame {
 		panelN.add(tnombre);
 		panelS.add(botonJugar);
 		panelS.add(botonOpciones);
-		panelW.add(a, BorderLayout.CENTER);
+		//panelW.add(a, BorderLayout.CENTER);
+		panelW.add(listaUsuarios, BorderLayout.CENTER);
 		panelWS.add(botonCrearUsuario);
 		panelWS.add(botonBorrarUsuario);
 		
@@ -121,6 +147,7 @@ public class VentanaMain extends JFrame {
 	}
 	
 	private JPanel crearPanelJuego() {
+		
 		//Crear paneles
 		JPanel panel = new JPanel();
 		JPanel panelW = new JPanel();
@@ -188,6 +215,7 @@ public class VentanaMain extends JFrame {
 		hiloJuego.start();
 	}
 	
+	//Interrumpe el hilo del juego
 	public void terminarJuego() {
 		if (hiloJuego != null) {
 			hiloJuego.interrupt();

@@ -16,6 +16,7 @@ public class ActualizarEscena implements Runnable {
 		if (Thread.currentThread().isInterrupted()) {
 			Window.getWindow().setClose(true);
 		}
+		//Se recogen los datos del juego y se guardan todo el rato
 		GameObject jugador = escena.getJugador();
 		DatosJugador datos = escena.getDatos();
 		Vector3f posicion = jugador.getTransform().getWorldPosition();
