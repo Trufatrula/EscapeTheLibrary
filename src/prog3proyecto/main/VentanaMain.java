@@ -30,6 +30,7 @@ public class VentanaMain extends JFrame {
 	private JPanel panelPrincipal;
 	private JPanel panelJuego;
 	
+
 	public VentanaMain() {
 		panelPrincipal = crearPanelPrincipal();
 		panelJuego = crearPanelJuego();
@@ -64,7 +65,7 @@ public class VentanaMain extends JFrame {
 		JPanel panelS = new JPanel();
 		//panelS.setBackground(Color.yellow);
 		
-		//Prueba con usuarios
+		//Usuarios de prueba
 		Usuario user1 = new Usuario("Kaladin");
 		Usuario user2 = new Usuario("Shallan");
 		Usuario user3 = new Usuario("Dalinar");
@@ -87,7 +88,8 @@ public class VentanaMain extends JFrame {
 		for (Usuario u : usuarios) {
 			modelo.addElement(u);
 		}
-	
+		
+		//Crear elementos
 		JButton botonJugar = new JButton("Jugar");
 		JButton botonOpciones = new JButton("Opciones");
 		JButton botonCrearUsuario = new JButton("Nuevo");
