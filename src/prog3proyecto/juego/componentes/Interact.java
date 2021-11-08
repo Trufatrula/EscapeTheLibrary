@@ -1,6 +1,5 @@
 package prog3proyecto.juego.componentes;
 
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import com.lndf.glengine.scene.Component;

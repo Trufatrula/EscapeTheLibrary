@@ -12,14 +12,16 @@ public class Juego {
 	public static Logger logger = Logger.getLogger(Juego.class.getName());
 	
 	public static Window ventanaPrincipal;
+	public static EscenaPrincipal escena;
 	
 	public static void juego(DatosJugador datos) {
 		logger.log(Level.FINE, "Iniciando juego");
 		ventanaPrincipal = Window.createWindow("Juego de Prog 3", 800, 600, true);
-		EscenaPrincipal escena = new EscenaPrincipal(datos);
+		escena = new EscenaPrincipal(datos);
 		ventanaPrincipal.addDrawable(escena.getCamara());
 		ventanaPrincipal.mainLoop();
 		escena.destroy();
+		escena = null;
 		logger.log(Level.FINE, "Terminando juego");
 		Window.terminate();
 	}

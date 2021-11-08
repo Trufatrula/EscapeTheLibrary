@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -19,6 +20,10 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+
+import org.joml.Vector3f;
+
+import com.lndf.glengine.engine.Window;
 
 import prog3proyecto.juego.EscenaPrincipal;
 import prog3proyecto.juego.Juego;
@@ -159,6 +164,7 @@ public class VentanaMain extends JFrame {
 		//Crear paneles
 		JPanel panel = new JPanel();
 		JPanel panelW = new JPanel();
+		JPanel panelE = new JPanel();
 		
 		//Configurar paneles
 		panel.setLayout(new BorderLayout());
@@ -181,17 +187,106 @@ public class VentanaMain extends JFrame {
 		//Crear los datos de juego
 		datos = new DatosJugador(msgDatos);
 		
+		//Configurar panel de cheats (panel E)
+		JPanel panelCoords = new JPanel();
+		JPanel panelTPYRotar = new JPanel();
+		JTextField xTextField = new JTextField(10);
+		JTextField yTextField = new JTextField(10);
+		JTextField zTextField = new JTextField(10);
+		JButton botonTP = new JButton("Teletransportarse");
+		JButton botonRotar = new JButton("Rotar cámara");
+		panelE.setLayout(new BoxLayout(panelE, BoxLayout.PAGE_AXIS));
+		panelE.setAlignmentY(JPanel.TOP_ALIGNMENT);
+		panelE.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
+		panelCoords.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
+		
+		//Crear inputs de cordenadas
+		panelCoords.add(new JLabel("X: "));
+		panelCoords.add(xTextField);
+		panelCoords.add(new JLabel("Y: "));
+		panelCoords.add(yTextField);
+		panelCoords.add(new JLabel("Z: "));
+		panelCoords.add(zTextField);
+		
+		//Crear panel de teletransportarse y rotar cámara
+		panelTPYRotar.add(botonTP);
+		panelTPYRotar.add(botonRotar);
+		
+		//Botones de TP y rotaciónº
+		botonTP.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				setPosicion(xTextField.getText(), yTextField.getText(), zTextField.getText());
+				xTextField.setText("");
+				yTextField.setText("");
+				zTextField.setText("");
+			}
+		});
+		botonRotar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				setRotacion(xTextField.getText(), yTextField.getText(), zTextField.getText());
+				xTextField.setText("");
+				yTextField.setText("");
+				zTextField.setText("");
+			}
+		});
+		
 		//Finalizar panel W
 		panelW.add(msgDatos, BorderLayout.CENTER);
 		panelW.add(controles, BorderLayout.SOUTH);
 		
+		//Finalizar panel E
+		panelE.add(panelCoords);
+		panelE.add(panelTPYRotar);
+		
 		//Finalizar panel
 		panel.add(panelW);
-		panel.add(new JButton("RightButtonTest"), BorderLayout.EAST);
+		panel.add(panelE, BorderLayout.EAST);
 		
 		datos.actualizar();
 		
 		return panel;
+	}
+	
+	public void setPosicion(String x, String y, String z) {
+		if (Juego.escena != null) {
+			final float fx, fy, fz;
+			try {
+				fx = Float.parseFloat(x);
+				fy = Float.parseFloat(y);
+				fz = Float.parseFloat(z);
+			} catch (Exception e) {
+				logger.log(Level.WARNING, "Error interpretando coordenadas");
+				return;
+			}
+			Window.getWindow().addEndOfLoopRunnable(new Runnable() {
+				@Override
+				public void run() {
+					Juego.escena.getJugador().getTransform().setPosition(new Vector3f(fx, fy, fz));
+				}
+			});
+		}
+	}
+	
+	public void setRotacion(String x, String y, String z) {
+		if (Juego.escena != null) {
+			final float fx, fy, fz;
+			try {
+				fx = Float.parseFloat(x);
+				fy = Float.parseFloat(y);
+				fz = Float.parseFloat(z);
+			} catch (Exception e) {
+				logger.log(Level.WARNING, "Error interpretando coordenadas");
+				return;
+			}
+			Window.getWindow().addEndOfLoopRunnable(new Runnable() {
+				@Override
+				public void run() {
+					Juego.escena.getJugador().getTransform().rotateEuler(new Vector3f(fx, fy, fz));
+				}
+			});
+		}
 	}
 	
 	public void startJuego(String nombre) {
