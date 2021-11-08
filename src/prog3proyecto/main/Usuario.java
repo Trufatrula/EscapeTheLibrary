@@ -1,11 +1,11 @@
 package prog3proyecto.main;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 public class Usuario {
 	
 	private String nombre;
-	private ArrayList<String> tiempos = new ArrayList<String>();
+    //private ArrayList<String> tiempos = new ArrayList<String>();
 	
 	public Usuario(String nombre) {
 		this.nombre = nombre;

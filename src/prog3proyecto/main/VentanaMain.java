@@ -81,11 +81,11 @@ public class VentanaMain extends JFrame {
 		usuarios.add(user5);
 		usuarios.add(user6);
 		
-		DefaultListModel<String> modelo = new DefaultListModel<>();
-		JList<String> listaUsuarios = new JList<>(modelo);
+		DefaultListModel<Usuario> modelo = new DefaultListModel<>();
+		JList<Usuario> listaUsuarios = new JList<>(modelo);
 		
 		for (Usuario u : usuarios) {
-			modelo.addElement(u.getNombre());
+			modelo.addElement(u);
 		}
 	
 		JButton botonJugar = new JButton("Jugar");
@@ -151,7 +151,6 @@ public class VentanaMain extends JFrame {
 		//Crear paneles
 		JPanel panel = new JPanel();
 		JPanel panelW = new JPanel();
-		JPanel panelE = new JPanel();
 		
 		//Configurar paneles
 		panel.setLayout(new BorderLayout());
