@@ -12,6 +12,7 @@ import com.lndf.glengine.scene.components.Camera;
 import com.lndf.glengine.scene.components.lighting.DirectionalLight;
 
 import prog3proyecto.juego.componentes.Movimiento;
+import prog3proyecto.juego.componentes.Rotacion;
 import prog3proyecto.main.DatosJugador;
 
 public class EscenaPrincipal extends Scene {
@@ -21,6 +22,7 @@ public class EscenaPrincipal extends Scene {
 	private GameObject jugador;
 	private DatosJugador datos;
 	private Movimiento movimiento;
+	private Rotacion rotacion;
 	
 	public EscenaPrincipal(DatosJugador datos) {
 		this.subscribeToUpdates();
@@ -32,8 +34,10 @@ public class EscenaPrincipal extends Scene {
 		demoModel = new Model(new Asset("resource:/models/demomodel/demo.obj"));
 		camara = new Camera((float) Math.PI / 4, 100);
 		movimiento = new Movimiento();
+		rotacion = new Rotacion();
 		jugador.addComponent(camara);
 		jugador.addComponent(movimiento);
+		jugador.addComponent(rotacion);
 		luzDemoObject.addComponent(luzDemo);
 		this.addObject(demoModel.createGameObject());
 		this.addObject(jugador);
