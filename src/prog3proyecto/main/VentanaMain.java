@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
@@ -18,11 +20,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import prog3proyecto.juego.EscenaPrincipal;
 import prog3proyecto.juego.Juego;
 
 public class VentanaMain extends JFrame {
 	
 	private static final long serialVersionUID = 4636392744743705348L;
+	
+	public static Logger logger = Logger.getLogger(EscenaPrincipal.class.getName());
 	
 	private Thread hiloJuego = null;
 	private DatosJugador datos;
@@ -224,7 +229,8 @@ public class VentanaMain extends JFrame {
 	}
 	
 	public void startOpciones()	{
-		//TODO: hacer las opciones
+		logger.log(Level.FINE, "Abriendo opciones");
+		//TODO: abrir opciones
 	}
 	
 	public void crearUsuario() {
