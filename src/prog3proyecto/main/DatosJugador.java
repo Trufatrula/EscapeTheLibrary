@@ -1,9 +1,12 @@
 package prog3proyecto.main;
 
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
@@ -13,6 +16,8 @@ import javax.swing.SwingUtilities;
  * 
  */
 public class DatosJugador {
+	
+	public static Logger logger = Logger.getLogger(DatosJugador.class.getName());
 	
 	private float pX = 0;
 	private float pY = 0;
@@ -27,7 +32,8 @@ public class DatosJugador {
 	private double tiempoEnPartida = 0;
 	
 	private int fase = 0;
-	private double tiempoFase = 0;
+	
+	private HashMap<Integer, Double> fases = new HashMap<Integer, Double>();
 	
 	private JLabel dest;
 	
@@ -56,7 +62,7 @@ public class DatosJugador {
 	public void actualizar() {
 		String strTiempoJuego = doubleDeTiempoAString(tiempoJuego);
 		String strTiempoEnPartida = doubleDeTiempoAString(tiempoEnPartida);
-		String strTiempoFase = doubleDeTiempoAString(tiempoFase);
+		String strTiempoFase = doubleDeTiempoAString(this.getTiempoFase());
 		String msg = "<html>Posición X/Y/Z:" +
 					 " " + pX + " /" +
 					 " " + pY + " / " +
@@ -103,20 +109,74 @@ public class DatosJugador {
 	}
 	
 	public void setTiempoFase(double tiempo) {
-		this.tiempoFase = tiempo;
+		this.fases.put(this.fase, tiempo);
 	}
 	
 	public void setFase(int fase) {
 		this.fase = fase;
+		logger.log(Level.FINE, "Cambiando a fase " + fase);
 	}
 	
+	public double getTiempoFase() {
+		if (this.fases.containsKey(this.fase)) return this.fases.get(this.fase);
+		return 0;
+	}
+	
+	public HashMap<Integer, Double> getFases() {
+		return fases;
+	}
+
+	public void setFases(HashMap<Integer, Double> fases) {
+		this.fases = fases;
+	}
+
+	public float getpX() {
+		return pX;
+	}
+
+	public float getpY() {
+		return pY;
+	}
+
+	public float getpZ() {
+		return pZ;
+	}
+
+	public float getrX() {
+		return rX;
+	}
+
+	public float getrY() {
+		return rY;
+	}
+
+	public float getrZ() {
+		return rZ;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public double getTiempoJuego() {
+		return tiempoJuego;
+	}
+
+	public double getTiempoEnPartida() {
+		return tiempoEnPartida;
+	}
+
+	public int getFase() {
+		return fase;
+	}
+
 	/**
 	 * Añadir tiempo a todos los tiempos
 	 */
 	public void addTiempo(double tiempo) {
 		setTiempoJuego(tiempoJuego + tiempo);
 		setTiempoEnPartida(tiempoEnPartida + tiempo);
-		setTiempoFase(tiempoFase + tiempo);
+		setTiempoFase(this.getTiempoFase() + tiempo);
 	}
 	
 	/**

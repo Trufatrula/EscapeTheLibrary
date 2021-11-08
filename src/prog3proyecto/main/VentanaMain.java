@@ -236,10 +236,12 @@ public class VentanaMain extends JFrame {
 	
 	public void crearUsuario() {
 		//TODO: crear usuario
+		logger.log(Level.FINE, "Usuario {} creado");
 	}
 	
 	public void eliminarUsuario() {
 		//TODO: borrar usuario
+		logger.log(Level.FINE, "Usuario {} eliminado");
 	}
 	
 	public static void main(String[] args) {
