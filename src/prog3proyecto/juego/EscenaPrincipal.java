@@ -1,16 +1,20 @@
 package prog3proyecto.juego;
 
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 import com.lndf.glengine.asset.Asset;
 import com.lndf.glengine.engine.DeltaTime;
+import com.lndf.glengine.gl.DefaultMaterial;
 import com.lndf.glengine.model.Model;
+import com.lndf.glengine.primitives.Cube;
 import com.lndf.glengine.scene.Component;
 import com.lndf.glengine.scene.GameObject;
 import com.lndf.glengine.scene.Scene;
 import com.lndf.glengine.scene.components.Camera;
 import com.lndf.glengine.scene.components.lighting.DirectionalLight;
 
+import prog3proyecto.juego.componentes.Interact;
 import prog3proyecto.juego.componentes.Movimiento;
 import prog3proyecto.juego.componentes.Rotacion;
 import prog3proyecto.main.DatosJugador;
@@ -56,6 +60,28 @@ public class EscenaPrincipal extends Scene {
 				this.getGameObject().getTransform().getRotation().rotateX((float)(( Math.PI / 4)*DeltaTime.get()));
 			}
 		});  
+		
+		DefaultMaterial plomo = new DefaultMaterial(new Vector4f(0.4f,0.6f,1f,1), new Vector4f(1,1,1,1), 30);
+		Cube cubito = new Cube(plomo);
+		cubito.getTransform().setPosition(new Vector3f(15,0,0));
+		this.addObject(cubito);
+		cubito.addComponent(new Interact(jugador) {
+
+			
+			@Override
+			public void entrarInteract() {
+				System.out.println("ESTAMOS ENTRANDO");
+				
+			}
+
+			@Override
+			public void salirInteract() {
+				System.out.println("ESTAMOS SALIENDO");
+				
+			}
+			
+		});
+		
 	}
 	
 	public Camera getCamara() {
