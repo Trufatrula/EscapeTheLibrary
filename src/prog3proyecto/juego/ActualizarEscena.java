@@ -1,5 +1,8 @@
 package prog3proyecto.juego;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.joml.Vector3f;
 
 import com.lndf.glengine.engine.DeltaTime;
@@ -9,6 +12,8 @@ import prog3proyecto.main.DatosJugador;
 
 public class ActualizarEscena implements Runnable {
 
+	public static Logger logger = Logger.getLogger(ActualizarEscena.class.getName());
+	
 	private EscenaPrincipal escena;
 	
 	@Override
@@ -25,6 +30,8 @@ public class ActualizarEscena implements Runnable {
 		datos.setRotacion(rotacion.x, rotacion.y, rotacion.z);
 		datos.addTiempo(DeltaTime.get());
 		datos.actualizar();
+		recursivo(10);
+		logger.log(Level.FINEST, "Actualizado los datos en la ventana con DeltaTime " + DeltaTime.get());
 	}
 	
 	public ActualizarEscena (EscenaPrincipal escena) {

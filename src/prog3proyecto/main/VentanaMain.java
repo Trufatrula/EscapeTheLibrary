@@ -21,7 +21,7 @@ import javax.swing.SwingUtilities;
 import prog3proyecto.juego.Juego;
 
 public class VentanaMain extends JFrame {
-
+	
 	private static final long serialVersionUID = 4636392744743705348L;
 	
 	private Thread hiloJuego = null;
