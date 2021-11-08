@@ -55,7 +55,7 @@ public class VentanaMain extends JFrame {
 	
 	//Creación de los paneles y sus elementos
 	private JPanel crearPanelPrincipal() {
-
+		logger.log(Level.FINE, "Creando panel");
 		JPanel panel = new JPanel();		
 		panel.setLayout(new BorderLayout());
 		JPanel panelN = new JPanel();
@@ -78,8 +78,9 @@ public class VentanaMain extends JFrame {
 		Usuario user5 = new Usuario("Kelsier");
 		Usuario user6 = new Usuario("Vin");
 		
+		logger.log(Level.FINE, "Añadiendo los usuarios a listas");
 		ArrayList<Usuario> usuarios = new ArrayList<>();
-		
+	
 		usuarios.add(user1);
 		usuarios.add(user2);
 		usuarios.add(user3);
