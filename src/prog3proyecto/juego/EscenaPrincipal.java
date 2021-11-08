@@ -8,32 +8,35 @@ import com.lndf.glengine.model.Model;
 import com.lndf.glengine.scene.Component;
 import com.lndf.glengine.scene.GameObject;
 import com.lndf.glengine.scene.Scene;
-import com.lndf.glengine.scene.components.FPCamera;
+import com.lndf.glengine.scene.components.Camera;
 import com.lndf.glengine.scene.components.lighting.DirectionalLight;
 
+import prog3proyecto.juego.componentes.Movimiento;
 import prog3proyecto.main.DatosJugador;
 
 public class EscenaPrincipal extends Scene {
 	
 	private Model demoModel;
-	private FPCamera camara;
+	private Camera camara;
 	private GameObject jugador;
 	private DatosJugador datos;
+	private Movimiento movimiento;
 	
 	public EscenaPrincipal(DatosJugador datos) {
 		this.subscribeToUpdates();
 		this.addUpdateRunnable(new ActualizarEscena(this));
 		this.datos = datos;
-		GameObject cameraObject = new GameObject();
 		GameObject luzDemoObject = new GameObject();
 		DirectionalLight luzDemo = new DirectionalLight();
-		this.jugador = cameraObject;
+		jugador = new GameObject();
 		demoModel = new Model(new Asset("resource:/models/demomodel/demo.obj"));
-		camara = new FPCamera((float) Math.PI / 4, 100);
-		cameraObject.addComponent(camara);
+		camara = new Camera((float) Math.PI / 4, 100);
+		movimiento = new Movimiento();
+		jugador.addComponent(camara);
+		jugador.addComponent(movimiento);
 		luzDemoObject.addComponent(luzDemo);
 		this.addObject(demoModel.createGameObject());
-		this.addObject(cameraObject);
+		this.addObject(jugador);
 		this.addObject(luzDemoObject);
 		this.setAmbientLight(0.1f);
 		luzDemoObject.addComponent(new Component() {
@@ -51,7 +54,7 @@ public class EscenaPrincipal extends Scene {
 		});  
 	}
 	
-	public FPCamera getCamara() {
+	public Camera getCamara() {
 		return camara;
 	}
 	
