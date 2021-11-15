@@ -92,7 +92,7 @@ public class VentanaMain extends JFrame {
 		usuarios.add(user4);
 		usuarios.add(user5);
 		usuarios.add(user6);
-		
+
 		DefaultListModel<Usuario> modelo = new DefaultListModel<>();
 		JList<Usuario> listaUsuarios = new JList<>(modelo);
 		
@@ -160,7 +160,6 @@ public class VentanaMain extends JFrame {
 	}
 	
 	private JPanel crearPanelJuego() {
-		
 		//Crear paneles
 		JPanel panel = new JPanel();
 		JPanel panelW = new JPanel();
