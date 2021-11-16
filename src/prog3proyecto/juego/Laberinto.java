@@ -64,10 +64,10 @@ public class Laberinto {
 		String a = "";
 		for (int i = 0; i < alto; i++) {
 			for (int j = 0; j < ancho; j++) {
-				if (getPared(i, j)) {
-					a += "#";
+				if (getPared(j, i)) {
+					a += "##";
 				} else {
-					a += " ";
+					a += "  ";
 				}
 			}
 			a += "\n";
@@ -76,7 +76,7 @@ public class Laberinto {
 	}
 	
 //	public static void main(String[] args) {
-//		Laberinto a = new Laberinto(15, 15);
+//		Laberinto a = new Laberinto(30, 30);
 //		System.out.println(a.toString());
 //	}
 	
