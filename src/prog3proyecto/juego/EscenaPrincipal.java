@@ -36,7 +36,7 @@ public class EscenaPrincipal extends Scene {
 		GameObject luzDemoObject = new GameObject();
 		DirectionalLight luzDemo = new DirectionalLight();
 		jugador = new GameObject();
-		demoModel = new Model(new Asset("resource:/models/demomodel/demo.obj"));
+		demoModel = new Model(new Asset("resource:/models/demomodel/emeritofecartus.fbx"));
 		camara = new Camera((float) Math.PI / 4, 100);
 		movimiento = new Movimiento();
 		rotacion = new Rotacion();
