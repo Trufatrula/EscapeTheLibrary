@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,7 @@ public class VentanaMain extends JFrame {
 	
 
 	public VentanaMain() {
+		
 		panelPrincipal = crearPanelPrincipal();
 		panelJuego = crearPanelJuego();
 		
@@ -50,6 +52,17 @@ public class VentanaMain extends JFrame {
 		this.setVisible(true);
 		this.setSize(800, 600);
 		this.addWindowListener(new WindowAdapter() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				if (new File("usuarios.db").exists()) {
+					BaseDatos.abrirConexion(false);
+				} else {
+					BaseDatos.abrirConexion(true); 
+				}
+				//verUsuarios();
+			}
+			
 			@Override
 			public void windowClosing(WindowEvent e) {
 				terminarJuego();
@@ -76,22 +89,22 @@ public class VentanaMain extends JFrame {
 		//panelS.setBackground(Color.yellow);
 		
 		//Usuarios de prueba
-		Usuario user1 = new Usuario("Kaladin");
-		Usuario user2 = new Usuario("Shallan");
-		Usuario user3 = new Usuario("Dalinar");
-		Usuario user4 = new Usuario("Adolin");
-		Usuario user5 = new Usuario("Kelsier");
-		Usuario user6 = new Usuario("Vin");
+//		Usuario user1 = new Usuario("Kaladin");
+//		Usuario user2 = new Usuario("Shallan");
+//		Usuario user3 = new Usuario("Dalinar");
+//		Usuario user4 = new Usuario("Adolin");
+//		Usuario user5 = new Usuario("Kelsier");
+//		Usuario user6 = new Usuario("Vin");
 		
 		logger.log(Level.FINE, "Añadiendo los usuarios a listas");
 		ArrayList<Usuario> usuarios = new ArrayList<>();
 	
-		usuarios.add(user1);
-		usuarios.add(user2);
-		usuarios.add(user3);
-		usuarios.add(user4);
-		usuarios.add(user5);
-		usuarios.add(user6);
+//		usuarios.add(user1);
+//		usuarios.add(user2);
+//		usuarios.add(user3);
+//		usuarios.add(user4);
+//		usuarios.add(user5);
+//		usuarios.add(user6);
 
 		DefaultListModel<Usuario> modelo = new DefaultListModel<>();
 		JList<Usuario> listaUsuarios = new JList<>(modelo);
