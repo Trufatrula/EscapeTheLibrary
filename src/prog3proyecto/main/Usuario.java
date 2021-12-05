@@ -17,8 +17,8 @@ public class Usuario {
 
 		this.nombre = nombre;
 		this.tiempo1 = tiempo1;
-		this.tiempo1 = tiempo2;
-		this.tiempo1 = tiempo3;
+		this.tiempo2 = tiempo2;
+		this.tiempo3 = tiempo3;
 		this.tiempoTotal = tiempoTotal;
 		this.partidasJugadas = partidasJugadas;
 	}

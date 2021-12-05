@@ -11,16 +11,15 @@ public class BaseDatos {
 	private static Logger logger = Logger.getLogger(BaseDatos.class.getName());
 	
 	public static void abrirConexion(boolean crear) {
-		
 		try {
 			Class.forName("org.sqlite.JDBC"); 
 			conexion = DriverManager.getConnection("jdbc:sqlite:usuarios.db");
+			statement = conexion.createStatement();
 			if(crear) {
-				Statement statement = conexion.createStatement();
 				String sent = "DROP TABLE IF EXISTS usuario";
 				logger.log( Level.INFO, "Statement: " + sent );
 				statement.executeUpdate( sent );
-				sent = "CREATE TABLE usuario (nombre varchar(30) PRIMARY KEY, tiempo1 bigint, tiempo2 bigint, tiempo3 bigint, tiempoTotal bigint, partidasJugadas int;";
+				sent = "CREATE TABLE usuario (nombre varchar(30) PRIMARY KEY, tiempo1 bigint, tiempo2 bigint, tiempo3 bigint, tiempoTotal bigint, partidasJugadas int);";
 				logger.log( Level.INFO, "Statement: " + sent );
 				statement.executeUpdate( sent );
 			}
@@ -67,7 +66,7 @@ public class BaseDatos {
 		}
 	}
 	
-	public static ArrayList<Usuario> getUsuarios( Usuario usuario ) {
+	public static ArrayList<Usuario> getUsuarios() {
 		String sent = "select * from usuario;";
 		logger.log( Level.INFO, "Statement: " + sent );
 		try {
@@ -76,7 +75,7 @@ public class BaseDatos {
 			while(rs.next()) {
 				String nombre = rs.getString("nombre");
 				long tiempo1 = rs.getLong("tiempo1");
-				long tiempo2 = rs.getLong("tiempo3");
+				long tiempo2 = rs.getLong("tiempo2");
 				long tiempo3 = rs.getLong("tiempo3");
 				long tiempoTotal = rs.getLong("tiempoTotal");
 				int partidasJugadas = rs.getInt("partidasJugadas");
