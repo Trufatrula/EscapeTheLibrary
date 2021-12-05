@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="lib/GLEngine-0.0.1-SNAPSHOT-all.jar"/>
 	<classpathentry kind="lib" path="lib/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
 	<classpathentry kind="lib" path="lib/org.junit_4.13.0.v20200204-1500.jar"/>
+	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.36.0.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
