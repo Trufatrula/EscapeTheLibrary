@@ -1,5 +1,6 @@
 package prog3proyecto.juego;
 
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -57,7 +58,8 @@ public class EscenaPrincipal extends Scene {
 				if(r>1 || r<0 ) {
 					d = -d;
 				}
-				this.getGameObject().getTransform().getRotation().rotateX((float)(( Math.PI / 4)*DeltaTime.get()));
+				Quaternionf r = this.getGameObject().getTransform().getRotation().rotateX((float)(( Math.PI / 4)*DeltaTime.get()));
+				this.getGameObject().getTransform().setRotation(r);
 			}
 		});  
 		

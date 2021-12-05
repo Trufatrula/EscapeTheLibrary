@@ -83,7 +83,7 @@ public class Movimiento extends Component {
 	public void update() {
 		GameObject obj = this.getGameObject();
 		Transform t = obj.getTransform();
-		Vector3f pos = t.getPosition(); 
+		Vector3f pos = t.getPosition();
 		Vector3f mover = new Vector3f();
 		float step = (float) (speed * DeltaTime.get());
 		
@@ -116,7 +116,7 @@ public class Movimiento extends Component {
 			t.getDown().mul(y, mover);
 		}
 		pos.add(mover);
-		
+		t.setPosition(pos);
 	}
 	
 	

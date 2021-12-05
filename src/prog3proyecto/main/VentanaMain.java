@@ -24,7 +24,7 @@ import javax.swing.SwingUtilities;
 
 import org.joml.Vector3f;
 
-import com.lndf.glengine.engine.Window;
+import com.lndf.glengine.engine.Engine;
 
 import prog3proyecto.juego.EscenaPrincipal;
 import prog3proyecto.juego.Juego;
@@ -272,7 +272,7 @@ public class VentanaMain extends JFrame {
 				logger.log(Level.WARNING, "Error interpretando coordenadas");
 				return;
 			}
-			Window.getWindow().addEndOfLoopRunnable(new Runnable() {
+			Engine.addEndOfLoopRunnable(new Runnable() {
 				@Override
 				public void run() {
 					Juego.escena.getJugador().getTransform().setPosition(new Vector3f(fx, fy, fz));
@@ -292,7 +292,7 @@ public class VentanaMain extends JFrame {
 				logger.log(Level.WARNING, "Error interpretando coordenadas");
 				return;
 			}
-			Window.getWindow().addEndOfLoopRunnable(new Runnable() {
+			Engine.addEndOfLoopRunnable(new Runnable() {
 				@Override
 				public void run() {
 					Juego.escena.getJugador().getTransform().rotateEuler(new Vector3f(fx, fy, fz));
