@@ -42,12 +42,12 @@ public class EscenaPrincipal extends Scene {
 		Cube c1 = new Cube(m);
 		c1.addComponent(new BoxCollider(new PhysicalMaterial(0.5f,0.5f,0.5f)));
 		c1.addComponent(new DynamicRigidBody());
-		c1.getTransform().setPosition(new Vector3f(0, 200, -5));
+		c1.getTransform().setPosition(new Vector3f(0, 40, -3));
 		this.addObject(c1);
 		Cube c2 = new Cube(m);
 		c2.addComponent(new BoxCollider(new PhysicalMaterial(0.5f,0.5f,0.5f)));
 		c2.addComponent(new DynamicRigidBody());
-		c2.getTransform().setPosition(new Vector3f(0, 204, -5));
+		c2.getTransform().setPosition(new Vector3f(0, 50, -3));
 		this.addObject(c2);
 	}
 	
