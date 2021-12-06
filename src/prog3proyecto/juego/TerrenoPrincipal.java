@@ -7,6 +7,7 @@ import com.lndf.glengine.gl.Mesh;
 import com.lndf.glengine.model.Model;
 import com.lndf.glengine.physics.PhysicalTriangleMesh;
 import com.lndf.glengine.physics.PhysicalMaterial;
+import com.lndf.glengine.scene.Component;
 import com.lndf.glengine.scene.GameObject;
 import com.lndf.glengine.scene.components.MeshRenderer;
 import com.lndf.glengine.scene.components.physics.TriangleMeshCollider;
@@ -32,13 +33,12 @@ public class TerrenoPrincipal extends GameObject {
 	}
 	
 	private void crearFisicas(GameObject obj) {
-		MeshRenderer renderer = (MeshRenderer) obj.getComponent(MeshRenderer.class);
-		if (renderer != null) {
-			for (Mesh mesh : renderer.getMeshes().keySet()) {
-				PhysicalTriangleMesh TriangleMesh = new PhysicalTriangleMesh(mesh);
-				TriangleMeshCollider collider = new TriangleMeshCollider(materialFisico, TriangleMesh);
-				obj.addComponent(collider);
-			}
+		for (Component comp : obj.getComponents(MeshRenderer.class)) {
+			MeshRenderer renderer = (MeshRenderer) comp;
+			Mesh mesh = renderer.getMesh();
+			PhysicalTriangleMesh TriangleMesh = new PhysicalTriangleMesh(mesh);
+			TriangleMeshCollider collider = new TriangleMeshCollider(materialFisico, TriangleMesh);
+			obj.addComponent(collider);
 		}
 		for (GameObject child : obj.getChildren()) {
 			crearFisicas(child);
