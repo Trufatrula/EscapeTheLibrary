@@ -1,6 +1,8 @@
 package prog3proyecto.main;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -201,16 +203,19 @@ public class VentanaMain extends JFrame {
 		
 		//Configurar panel de cheats (panel E)
 		JPanel panelCoords = new JPanel();
-		JPanel panelTPYRotar = new JPanel();
+		JPanel panelRotacion = new JPanel();
 		JTextField xTextField = new JTextField(10);
 		JTextField yTextField = new JTextField(10);
 		JTextField zTextField = new JTextField(10);
+		JTextField pitchTextField = new JTextField(10);
+		JTextField yawTextField = new JTextField(10);
 		JButton botonTP = new JButton("Teletransportarse");
 		JButton botonRotar = new JButton("Rotar cámara");
 		panelE.setLayout(new BoxLayout(panelE, BoxLayout.PAGE_AXIS));
 		panelE.setAlignmentY(JPanel.TOP_ALIGNMENT);
 		panelE.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
 		panelCoords.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
+		panelRotacion.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
 		
 		//Crear inputs de cordenadas
 		panelCoords.add(new JLabel("X: "));
@@ -220,9 +225,10 @@ public class VentanaMain extends JFrame {
 		panelCoords.add(new JLabel("Z: "));
 		panelCoords.add(zTextField);
 		
-		//Crear panel de teletransportarse y rotar cámara
-		panelTPYRotar.add(botonTP);
-		panelTPYRotar.add(botonRotar);
+		panelRotacion.add(new JLabel("Pitch: "));
+		panelRotacion.add(pitchTextField);
+		panelRotacion.add(new JLabel("Yaw: "));
+		panelRotacion.add(yawTextField);
 		
 		//Botones de TP y rotaciónº
 		botonTP.addActionListener(new ActionListener() {
@@ -249,8 +255,10 @@ public class VentanaMain extends JFrame {
 		panelW.add(controles, BorderLayout.SOUTH);
 		
 		//Finalizar panel E
+		panelE.add(botonTP);
 		panelE.add(panelCoords);
-		panelE.add(panelTPYRotar);
+		panelE.add(botonRotar);
+		panelE.add(panelRotacion);
 		
 		//Finalizar panel
 		panel.add(panelW);
