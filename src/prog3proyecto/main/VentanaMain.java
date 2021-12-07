@@ -1,28 +1,29 @@
 package prog3proyecto.main;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 import org.joml.Vector3f;
 
@@ -43,13 +44,29 @@ public class VentanaMain extends JFrame {
 	private JPanel panelPrincipal;
 	private JPanel panelJuego;
 	
+	private DefaultTableModel mUsuarios;
+	private JTable tUsuarios;
+	
+	private ArrayList<Usuario> listaUsuarios;
+	
 
 	public VentanaMain() {
+		
+		tUsuarios = new JTable() {
+			private static final long serialVersionUID = -3985044683211177377L;
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		tUsuarios.getTableHeader().setReorderingAllowed(false);
+		tUsuarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		panelPrincipal = crearPanelPrincipal();
 		panelJuego = crearPanelJuego();
 		
 		add(panelPrincipal);
+		panelPrincipal.add(new JScrollPane(tUsuarios), BorderLayout.CENTER );
 		
 		this.setVisible(true);
 		this.setSize(800, 600);
@@ -62,7 +79,7 @@ public class VentanaMain extends JFrame {
 				} else {
 					BaseDatos.abrirConexion(true); 
 				}
-				//verUsuarios();
+				verUsuarios();
 			}
 			
 			@Override
@@ -75,99 +92,67 @@ public class VentanaMain extends JFrame {
 	
 	//Creación de los paneles y sus elementos
 	private JPanel crearPanelPrincipal() {
+
 		logger.log(Level.FINE, "Creando panel");
 		JPanel panel = new JPanel();		
 		panel.setLayout(new BorderLayout());
 		JPanel panelN = new JPanel();
 		//panelN.setBackground(Color.green);
-		JPanel panelW = new JPanel();
-		//panelW.setBackground(Color.red);
-		panelW.setLayout(new BorderLayout());
-		JPanel panelWS = new JPanel();
-		//panelWS.setBackground(Color.black);
 		JPanel panelC = new JPanel();
 		//panelC.setBackground(Color.blue);
 		JPanel panelS = new JPanel();
 		//panelS.setBackground(Color.yellow);
 		
-		//Usuarios de prueba
-//		Usuario user1 = new Usuario("Kaladin");
-//		Usuario user2 = new Usuario("Shallan");
-//		Usuario user3 = new Usuario("Dalinar");
-//		Usuario user4 = new Usuario("Adolin");
-//		Usuario user5 = new Usuario("Kelsier");
-//		Usuario user6 = new Usuario("Vin");
-		
-		logger.log(Level.FINE, "Añadiendo los usuarios a listas");
-		ArrayList<Usuario> usuarios = new ArrayList<>();
-	
-//		usuarios.add(user1);
-//		usuarios.add(user2);
-//		usuarios.add(user3);
-//		usuarios.add(user4);
-//		usuarios.add(user5);
-//		usuarios.add(user6);
-
-		DefaultListModel<Usuario> modelo = new DefaultListModel<>();
-		JList<Usuario> listaUsuarios = new JList<>(modelo);
-		
-		for (Usuario u : usuarios) {
-			modelo.addElement(u);
-		}
-		
 		//Crear elementos
 		JButton botonJugar = new JButton("Jugar");
 		JButton botonOpciones = new JButton("Opciones");
-		JButton botonCrearUsuario = new JButton("Nuevo");
-		JButton botonBorrarUsuario = new JButton("Borrar");
+		JButton botonCrearUsuario = new JButton("Crear usuario");
+		JButton botonBorrarUsuario = new JButton("Borrar usuario");
 		JLabel lnombre = new JLabel("Nombre de usuario: ");
 		JTextField tnombre = new JTextField(15);
-		DefaultListCellRenderer renderer =  (DefaultListCellRenderer)listaUsuarios.getCellRenderer();  
-		renderer.setHorizontalAlignment(JLabel.CENTER);  
 		
 		//Añadir elementos a paneles
 		panel.add(panelN, BorderLayout.NORTH);
-		panel.add(panelW, BorderLayout.WEST);
 		panel.add(panelC, BorderLayout.CENTER);
 		panel.add(panelS, BorderLayout.SOUTH);
-		panelW.add(panelWS, BorderLayout.SOUTH);
 		panelN.add(lnombre);
 		panelN.add(tnombre);
 		panelS.add(botonJugar);
 		panelS.add(botonOpciones);
-		//panelW.add(a, BorderLayout.CENTER);
-		panelW.add(listaUsuarios, BorderLayout.CENTER);
-		panelWS.add(botonCrearUsuario);
-		panelWS.add(botonBorrarUsuario);
+
+		panelS.add(botonCrearUsuario);
+		panelS.add(botonBorrarUsuario);
 		
 		botonJugar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(tnombre.getText().isEmpty()) {
-				} else {
-					startJuego(tnombre.getText());
+				int sel = tUsuarios.getSelectedRow();
+				if(sel == -1) {
+					logger.log(Level.FINE, "No hay usuario selecionado");
+					return;
 				}
+				startJuego(listaUsuarios.get(sel).getNombre());
 			}
 		});
-		
-		botonOpciones.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				startOpciones();
-			}
-		});
-		
+			
 		botonCrearUsuario.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				crearUsuario();
+				crearUsuario(tnombre.getText());
+				tnombre.setText("");
 			}
 		});
 		
 		botonBorrarUsuario.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				eliminarUsuario();
+				int sel = tUsuarios.getSelectedRow();
+				if(sel == -1) {
+					logger.log(Level.FINE, "No hay usuario selecionado");
+					return;
+				}
+				eliminarUsuario(listaUsuarios.get(sel));
+				verUsuarios();
 			}
 		});
 		
@@ -344,19 +329,62 @@ public class VentanaMain extends JFrame {
 		}
 	}
 	
-	public void startOpciones()	{
-		logger.log(Level.FINE, "Abriendo opciones");
-		//TODO: abrir opciones
+	public void crearUsuario(String nombre) {
+		try {
+			if(nombre.isEmpty()) {
+			} else {
+				BaseDatos.meterUsuario(new Usuario(nombre, 0, 0, 0, 0, 0));
+				verUsuarios();
+			}
+			logger.log(Level.FINE, "Usuario creado");
+		} catch(Exception e) {
+			logger.log(Level.WARNING, "Usuario no creado");
+		}
 	}
 	
-	public void crearUsuario() {
-		//TODO: crear usuario
-		logger.log(Level.FINE, "Usuario {} creado");
+	public void eliminarUsuario(Usuario usuario) {
+		
+		try {
+			BaseDatos.eliminarUsuario(usuario);
+			logger.log(Level.FINE, "Usuario eliminado");
+		} catch (Exception e) {
+			logger.log(Level.WARNING, "Usuario no eliminado");
+		}
 	}
 	
-	public void eliminarUsuario() {
-		//TODO: borrar usuario
-		logger.log(Level.FINE, "Usuario {} eliminado");
+	private void cargarUsuarios() {
+		listaUsuarios = BaseDatos.getUsuarios();
+	}
+	
+	private void verUsuarios() {
+		Vector<String> vectorColumnas = new Vector<String>( Arrays.asList( "Nombre", "Laberinto", "Fuego Puzzle", "Balance Centrico", "TiempoTotal", "Partidas Jugadas" ) );
+		mUsuarios = new DefaultTableModel(
+			new Vector<Vector<Object>>(),
+			vectorColumnas
+		);
+		
+		cargarUsuarios();
+		for (Usuario u : listaUsuarios) {
+			String tiempo1Str = DatosJugador.doubleDeTiempoAString(u.getTiempo1());
+			String tiempo2Str = DatosJugador.doubleDeTiempoAString(u.getTiempo2());
+			String tiempo3Str = DatosJugador.doubleDeTiempoAString(u.getTiempo3());
+			String tiempoTotalStr = DatosJugador.doubleDeTiempoAString(u.getTiempoTotal());
+			
+			mUsuarios.addRow( new Object[] { u.getNombre(), tiempo1Str, tiempo2Str, tiempo3Str, tiempoTotalStr, u.getPartidasJugadas() } );
+		}
+		tUsuarios.setModel( mUsuarios );
+		tUsuarios.getColumnModel().getColumn(0).setMinWidth(210);
+		tUsuarios.getColumnModel().getColumn(0).setMaxWidth(30);
+		tUsuarios.getColumnModel().getColumn(1).setMinWidth(110);
+		tUsuarios.getColumnModel().getColumn(1).setMaxWidth(20);
+		tUsuarios.getColumnModel().getColumn(2).setMinWidth(110);
+		tUsuarios.getColumnModel().getColumn(2).setMaxWidth(20);
+		tUsuarios.getColumnModel().getColumn(3).setMinWidth(110);
+		tUsuarios.getColumnModel().getColumn(3).setMaxWidth(20);
+		tUsuarios.getColumnModel().getColumn(4).setMinWidth(110);
+		tUsuarios.getColumnModel().getColumn(4).setMaxWidth(20);
+		tUsuarios.getColumnModel().getColumn(5).setMinWidth(110);
+		tUsuarios.getColumnModel().getColumn(5).setMaxWidth(20);		
 	}
 	
 	public static void main(String[] args) {

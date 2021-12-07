@@ -44,8 +44,8 @@ public class DatosJugador {
 	/**
 	 * Devolver la hora POSIX en un string HH:mm:ss
 	 */
-	private static String doubleDeTiempoAString(double tiempo) {
-		String s = String.format("%06d", (int)tiempo);   
+	public static String doubleDeTiempoAString(double tiempo) {
+		String s = String.format("%06d", (long)tiempo);   
 		DateFormat format = new SimpleDateFormat("HHmmss");
 		DateFormat formatOut = new SimpleDateFormat("HH:mm:ss");
 		try {
