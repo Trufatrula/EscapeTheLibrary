@@ -31,6 +31,7 @@ import com.lndf.glengine.engine.Engine;
 
 import prog3proyecto.juego.EscenaPrincipal;
 import prog3proyecto.juego.Juego;
+import prog3proyecto.juego.Jugador;
 
 public class VentanaMain extends JFrame {
 	
@@ -228,10 +229,9 @@ public class VentanaMain extends JFrame {
 		botonRotar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				setRotacion(xTextField.getText(), yTextField.getText(), zTextField.getText());
-				xTextField.setText("");
-				yTextField.setText("");
-				zTextField.setText("");
+				setRotacion(pitchTextField.getText(), yawTextField.getText());
+				yawTextField.setText("");
+				pitchTextField.setText("");
 			}
 		});
 		
@@ -274,13 +274,12 @@ public class VentanaMain extends JFrame {
 		}
 	}
 	
-	public void setRotacion(String x, String y, String z) {
+	public void setRotacion(String p, String y) {
 		if (Juego.escena != null) {
-			final float fx, fy, fz;
+			final float fp, fy;
 			try {
-				fx = Float.parseFloat(x);
+				fp = Float.parseFloat(p);
 				fy = Float.parseFloat(y);
-				fz = Float.parseFloat(z);
 			} catch (Exception e) {
 				logger.log(Level.WARNING, "Error interpretando coordenadas");
 				return;
@@ -288,7 +287,9 @@ public class VentanaMain extends JFrame {
 			Engine.addEndOfLoopRunnable(new Runnable() {
 				@Override
 				public void run() {
-					Juego.escena.getJugador().getTransform().rotateEuler(new Vector3f(fx, fy, fz));
+					Jugador jugador = (Jugador) Juego.escena.getJugador();
+					jugador.setPitch(fp);
+					jugador.setYaw(fy);
 				}
 			});
 		}

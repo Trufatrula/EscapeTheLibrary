@@ -14,11 +14,6 @@ public class DatosJugadorTest {
 		assertEquals(1f, datos.getpX(), 1e-15f);
 		assertEquals(2f, datos.getpY(), 1e-15f);
 		assertEquals(3f, datos.getpZ(), 1e-15f);
-		//rotation
-		datos.setRotacion(3, 2, 1);
-		assertEquals(3f, datos.getrX(), 1e-15f);
-		assertEquals(2f, datos.getrY(), 1e-15f);
-		assertEquals(1f, datos.getrZ(), 1e-15f);
 		//Usuario
 		datos.setUsuario("test");
 		assertTrue(datos.getUsuario().equals("test"));

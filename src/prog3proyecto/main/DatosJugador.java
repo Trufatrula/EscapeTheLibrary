@@ -23,9 +23,8 @@ public class DatosJugador {
 	private float pY = 0;
 	private float pZ = 0;
 	
-	private float rX = 0;
+	private float rP = 0;
 	private float rY = 0;
-	private float rZ = 0;
 	
 	private String usuario  = "";
 	private double tiempoJuego = 0;
@@ -67,10 +66,9 @@ public class DatosJugador {
 					 " " + pX + " /" +
 					 " " + pY + " / " +
 					 " " + pZ + "<br>" +
-					 "Rotación X/Y/Z:" +
-					 " " + rX + " /" +
-					 " " + rY + " /" +
-					 " " + rZ + "<br><br>" +
+					 "Rotación Pitch/Yaw:" +
+					 " " + rP + " /" +
+					 " " + rY + "<br><br>" +
 					 "Usuario: " + usuario + "<br>" +
 					 "Tiempo total: " + strTiempoJuego + "<br>" +
 					 "Tiempo en partida: " + strTiempoEnPartida + "<br><br>" +
@@ -90,10 +88,9 @@ public class DatosJugador {
 		this.pZ = z;
 	}
 	
-	public void setRotacion(float x, float y, float z) {
-		this.rX = x;
+	public void setRotacion(float y, float p) {
 		this.rY = y;
-		this.rZ = z;
+		this.rP = p;
 	}
 	
 	public void setUsuario(String usuario) {
@@ -142,16 +139,12 @@ public class DatosJugador {
 		return pZ;
 	}
 
-	public float getrX() {
-		return rX;
+	public float getrP() {
+		return rP;
 	}
 
 	public float getrY() {
 		return rY;
-	}
-
-	public float getrZ() {
-		return rZ;
 	}
 
 	public String getUsuario() {
@@ -184,7 +177,7 @@ public class DatosJugador {
 	 */
 	public void reset() {
 		setPos(0, 0, 0);
-		setRotacion(0, 0, 0);
+		setRotacion(0, 0);
 		setUsuario("");
 		setTiempoJuego(0);
 		setTiempoEnPartida(0);

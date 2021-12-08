@@ -9,8 +9,8 @@ import com.lndf.glengine.scene.components.Camera;
 import com.lndf.glengine.scene.components.physics.CapsuleCollider;
 import com.lndf.glengine.scene.components.physics.DynamicRigidBody;
 
-import prog3proyecto.juego.componentes.Movimiento;
 import prog3proyecto.juego.componentes.MovimientoFisicas;
+import prog3proyecto.juego.componentes.RotacionFisicas;
 
 public class Jugador extends GameObject{
 	
@@ -23,7 +23,9 @@ public class Jugador extends GameObject{
 		PhysicalMaterial material = new PhysicalMaterial(128, 64, 0);
 		this.rigidBody = new DynamicRigidBody();
 		MovimientoFisicas mov = new MovimientoFisicas(this.rigidBody);
+		RotacionFisicas rot = new RotacionFisicas();
 		rigidBody.setXRotationLock(true);
+		rigidBody.setYRotationLock(true);
 		rigidBody.setZRotationLock(true);
 		CapsuleCollider colisionador = new CapsuleCollider(material, 0.25f, 0.25f);
 		colisionador.setRotation(new Quaternionf().rotateZ(((float) Math.PI / 2)));
@@ -36,6 +38,7 @@ public class Jugador extends GameObject{
 		this.addComponent(colisionador);
 		this.addComponent(colisionador);
 		this.addComponent(mov);
+		this.addComponent(rot);
 	}
 	
 	public Camera getCamara() {
@@ -48,6 +51,30 @@ public class Jugador extends GameObject{
 
 	public DynamicRigidBody getRigidBody() {
 		return rigidBody;
+	}
+	
+	public float getPitch() {
+		return this.objetoCamara.getTransform().getRotation().getEulerAnglesXYZ(new Vector3f()).x;
+	}
+	
+	public float getYaw() {
+		return this.getTransform().getRotation().getEulerAnglesXYZ(new Vector3f()).y;
+	}
+	
+	public void rotatePitch(float angle) {
+		this.getObjetoCamara().getTransform().setRotation(this.objetoCamara.getTransform().getRotation().rotateX(angle));
+	}
+	
+	public void rotateYaw(float angle) {
+		this.getTransform().setRotation(this.getTransform().getRotation().rotateY(angle));
+	}
+	
+	public void setPitch(float angle) {
+		this.objetoCamara.getTransform().setRotation(new Quaternionf().rotateX(angle));
+	}
+	
+	public void setYaw(float angle) {
+		this.getTransform().setRotation(new Quaternionf().rotateY(angle));
 	}
 	
 }

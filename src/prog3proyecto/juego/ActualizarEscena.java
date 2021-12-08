@@ -4,7 +4,6 @@ import org.joml.Vector3f;
 
 import com.lndf.glengine.engine.DeltaTime;
 import com.lndf.glengine.engine.Engine;
-import com.lndf.glengine.scene.GameObject;
 
 import prog3proyecto.main.DatosJugador;
 
@@ -18,12 +17,13 @@ public class ActualizarEscena implements Runnable {
 			Engine.setClose(true);
 		}
 		//Se recogen los datos del juego y se guardan todo el rato
-		GameObject jugador = escena.getJugador();
+		Jugador jugador = (Jugador) escena.getJugador();
 		DatosJugador datos = escena.getDatos();
 		Vector3f posicion = jugador.getTransform().getWorldPosition();
-		Vector3f rotacion = jugador.getTransform().getWorldRotation().getEulerAnglesXYZ(new Vector3f());
+		float pitch = jugador.getPitch();
+		float yaw = jugador.getYaw();
 		datos.setPos(posicion.x, posicion.y, posicion.z);
-		datos.setRotacion(rotacion.x, rotacion.y, rotacion.z);
+		datos.setRotacion(yaw, pitch);
 		datos.addTiempo(DeltaTime.get());
 		datos.actualizar();
 	}
