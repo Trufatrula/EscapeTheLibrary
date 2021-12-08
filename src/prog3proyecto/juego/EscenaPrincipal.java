@@ -9,6 +9,7 @@ import com.lndf.glengine.primitives.Cube;
 import com.lndf.glengine.scene.GameObject;
 import com.lndf.glengine.scene.Scene;
 import com.lndf.glengine.scene.components.Camera;
+import com.lndf.glengine.scene.components.lighting.PointLight;
 import com.lndf.glengine.scene.components.physics.BoxCollider;
 import com.lndf.glengine.scene.components.physics.DynamicRigidBody;
 
@@ -30,20 +31,9 @@ public class EscenaPrincipal extends Scene {
 		this.jugador = new Jugador();
 		this.camara = this.jugador.getCamara();
 		this.addObject(this.jugador);
+		this.jugador.addComponent(new PointLight(new Vector3f(1, 1, 1), 1.0f, 0.5f, 0.017f));
 		this.jugador.getTransform().setPosition(new Vector3f(0, 2f, 0));
-		///TEMPORAL
-		this.setAmbientLight(1);
-		DefaultMaterial m = new DefaultMaterial(new Vector4f(0,1,0,1), new Vector4f(0,0,0,1), 1);
-		Cube c1 = new Cube(m);
-		c1.addComponent(new BoxCollider(new PhysicalMaterial(0.5f,0.5f,0.5f)));
-		c1.addComponent(new DynamicRigidBody());
-		c1.getTransform().setPosition(new Vector3f(0, 40, -3));
-		this.addObject(c1);
-		Cube c2 = new Cube(m);
-		c2.addComponent(new BoxCollider(new PhysicalMaterial(0.5f,0.5f,0.5f)));
-		c2.addComponent(new DynamicRigidBody());
-		c2.getTransform().setPosition(new Vector3f(0, 50, -3));
-		this.addObject(c2);
+		this.setAmbientLight(0.1f);
 	}
 	
 	public Camera getCamara() {
