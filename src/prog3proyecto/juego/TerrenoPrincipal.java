@@ -2,11 +2,13 @@ package prog3proyecto.juego;
 
 import java.util.ArrayList;
 
+import org.joml.Vector3f;
+
 import com.lndf.glengine.asset.Asset;
 import com.lndf.glengine.gl.Mesh;
 import com.lndf.glengine.model.Model;
-import com.lndf.glengine.physics.PhysicalTriangleMesh;
 import com.lndf.glengine.physics.PhysicalMaterial;
+import com.lndf.glengine.physics.PhysicalTriangleMesh;
 import com.lndf.glengine.scene.Component;
 import com.lndf.glengine.scene.GameObject;
 import com.lndf.glengine.scene.components.MeshRenderer;
@@ -27,7 +29,9 @@ public class TerrenoPrincipal extends GameObject {
 		if (modelo == null) {
 			modelo = new Model(new Asset("resource:/models/terreno.fbx"));
 		}
-		this.addChild(modelo.createGameObject());
+		GameObject t = modelo.createGameObject();
+		t.getTransform().setScale(new Vector3f(2, 2, 2));
+		this.addChild(t);
 		materialFisico = new PhysicalMaterial(64, 32, 0.3f);
 		crearFisicas(this);
 	}
