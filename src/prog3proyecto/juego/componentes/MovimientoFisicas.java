@@ -16,7 +16,7 @@ public class MovimientoFisicas extends Component {
 	
 	private CharacterController controller;
 	
-	private float speed = 1000f;
+	private float speed = 5f;
 	
 	private int forwardKey = KeyEvent.VK_W;
 	private int backWardsKey = KeyEvent.VK_S;
@@ -112,8 +112,8 @@ public class MovimientoFisicas extends Component {
 		if(Input.getKey(this.upKey)) {
 			v.add(t.getUp());
 		}
-		v.mul(step);
-		this.controller.move(v, step);
+		v.normalize().mul(step);
+		this.controller.move(v, 0);
 	}
 	
 }
