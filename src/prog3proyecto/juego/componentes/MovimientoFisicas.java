@@ -112,6 +112,7 @@ public class MovimientoFisicas extends Component {
 		if(Input.getKey(this.upKey)) {
 			v.add(t.getUp());
 		}
+		v.mul(step);
 		this.controller.move(v, step);
 	}
 	
