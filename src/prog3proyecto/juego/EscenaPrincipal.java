@@ -1,17 +1,11 @@
 package prog3proyecto.juego;
 
 import org.joml.Vector3f;
-import org.joml.Vector4f;
 
-import com.lndf.glengine.gl.DefaultMaterial;
-import com.lndf.glengine.physics.PhysicalMaterial;
-import com.lndf.glengine.primitives.Cube;
 import com.lndf.glengine.scene.GameObject;
 import com.lndf.glengine.scene.Scene;
 import com.lndf.glengine.scene.components.Camera;
 import com.lndf.glengine.scene.components.lighting.PointLight;
-import com.lndf.glengine.scene.components.physics.BoxCollider;
-import com.lndf.glengine.scene.components.physics.DynamicRigidBody;
 
 import prog3proyecto.main.DatosJugador;
 

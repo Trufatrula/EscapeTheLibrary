@@ -10,11 +10,11 @@ import com.lndf.glengine.engine.Input;
 import com.lndf.glengine.scene.Component;
 import com.lndf.glengine.scene.GameObject;
 import com.lndf.glengine.scene.Transform;
-import com.lndf.glengine.scene.components.physics.DynamicRigidBody;
+import com.lndf.glengine.scene.components.physics.CharacterController;
 
 public class MovimientoFisicas extends Component {
 	
-	private DynamicRigidBody rigidBody;
+	private CharacterController controller;
 	
 	private float speed = 1000f;
 	
@@ -25,8 +25,8 @@ public class MovimientoFisicas extends Component {
 	private int upKey = KeyEvent.VK_SPACE;
 	private int downKey = GLFW.GLFW_KEY_LEFT_SHIFT;
 	
-	public MovimientoFisicas(DynamicRigidBody rigidBody) {
-		this.rigidBody = rigidBody;
+	public MovimientoFisicas(CharacterController controller) {
+		this.controller = controller;
 	}
 	
 	public float getSpeed() {
@@ -105,13 +105,14 @@ public class MovimientoFisicas extends Component {
 		}
 		if (v.length() == 0) return;
 		v.normalize().mul(step);
-		this.rigidBody.setLinearVelocity(v);
-//		if(Input.getKey(this.downKey)) {
-//			pos.add(0, -step, 0);
-//		}
-//		if(Input.getKey(this.upKey)) {
-//			pos.add(0, step, 0);
-//		}
+		this.controller.move(v, step);
+		if(Input.getKey(this.downKey)) {
+			v.add(t.getDown());
+		}
+		if(Input.getKey(this.upKey)) {
+			v.add(t.getUp());
+		}
+		this.controller.move(v, step);
 	}
 	
 }
