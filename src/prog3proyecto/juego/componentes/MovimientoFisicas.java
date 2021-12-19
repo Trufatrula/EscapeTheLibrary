@@ -7,6 +7,7 @@ import org.lwjgl.glfw.GLFW;
 
 import com.lndf.glengine.engine.DeltaTime;
 import com.lndf.glengine.engine.Input;
+import com.lndf.glengine.physics.CharacterCollisionData;
 import com.lndf.glengine.scene.Component;
 import com.lndf.glengine.scene.GameObject;
 import com.lndf.glengine.scene.Transform;
@@ -16,7 +17,14 @@ public class MovimientoFisicas extends Component {
 	
 	private CharacterController controller;
 	
-	private float speed = 5f;
+	private float speed = 300f;
+	private float jumpHeight = 5f;
+	
+	private Vector3f velocity = new Vector3f();
+	private Vector3f posicionPrevia = new Vector3f();
+	private boolean onGround = false;
+	private boolean touchingWall = false;
+	private boolean touchingUp = false;
 	
 	private int forwardKey = KeyEvent.VK_W;
 	private int backWardsKey = KeyEvent.VK_S;
@@ -91,6 +99,7 @@ public class MovimientoFisicas extends Component {
 		Transform t = obj.getTransform();
 		float step = (float) (speed * DeltaTime.get());
 		Vector3f v = new Vector3f();
+		Vector3f disp = new Vector3f();
 		if(Input.getKey(this.forwardKey)) {
 			v.add(t.getFront());
 		}
@@ -103,17 +112,38 @@ public class MovimientoFisicas extends Component {
 		if(Input.getKey(this.leftKey)) {
 			v.add(t.getLeft());
 		}
-		if (v.length() == 0) return;
-		v.normalize().mul(step);
-		this.controller.move(v, step);
-		if(Input.getKey(this.downKey)) {
-			v.add(t.getDown());
+		if (v.length() > 0) v.normalize().mul(step);
+		disp.add(this.velocity);
+		if (this.onGround) {
+			if (Input.getKey(this.upKey)) {
+				this.velocity.set(v);
+				this.velocity.y = this.jumpHeight;
+				this.onGround = false;
+			} else {
+				disp.add(v);
+			}
 		}
-		if(Input.getKey(this.upKey)) {
-			v.add(t.getUp());
+		disp.mul((float) DeltaTime.get());
+		CharacterCollisionData data = this.controller.move(disp, 0);
+		if (this.onGround) {
+			this.velocity.set(0);
+		} else {
+			this.velocity.add(this.getScene().getGravity().mul((float) DeltaTime.get()));
 		}
-		v.normalize().mul(step);
-		this.controller.move(v, 0);
+		Vector3f p = t.getWorldPosition();
+		if (this.onGround && !data.collidesDown()) {
+			this.velocity.set(v);
+		}
+		this.onGround = data.collidesDown();
+		this.touchingWall = data.collidesSide();
+		if (!this.touchingUp && data.collidesUp()) {
+			this.velocity.y = 0;
+		}
+		if (this.touchingWall) {
+			p.sub(this.posicionPrevia, this.velocity);
+		}
+		this.touchingUp = data.collidesUp();
+		this.posicionPrevia.set(p);
 	}
 	
 }
