@@ -6,6 +6,7 @@ import org.joml.Vector3f;
 import com.lndf.glengine.physics.PhysicalMaterial;
 import com.lndf.glengine.scene.GameObject;
 import com.lndf.glengine.scene.components.Camera;
+import com.lndf.glengine.scene.components.lighting.PointLight;
 import com.lndf.glengine.scene.components.physics.CapsuleCharacterController;
 
 import prog3proyecto.juego.componentes.MovimientoFisicas;
@@ -21,6 +22,8 @@ public class Jugador extends GameObject{
 		super("");
 		PhysicalMaterial mat = new PhysicalMaterial(64, 32, 0);
 		this.controller = new CapsuleCharacterController(mat, 0.25f, 0.25f);
+		this.controller.setConstrainedClimbing(true);
+		this.controller.setStepOffset(0.16f);
 		MovimientoFisicas mov = new MovimientoFisicas(this.controller);
 		RotacionFisicas rot = new RotacionFisicas();
 		this.camara = new Camera((float) Math.PI / 4, 1000);
@@ -28,6 +31,7 @@ public class Jugador extends GameObject{
 		this.objetoCamara.getTransform().setPosition(new Vector3f(0, 0.125f, 0));
 		this.addChild(this.objetoCamara);
 		this.objetoCamara.addComponent(this.camara);
+		this.objetoCamara.addComponent(new PointLight(new Vector3f(1, 1, 1), 1.0f, 0.5f, 0.017f));
 		this.addComponent(mov);
 		this.addComponent(rot);
 		this.addComponent(this.controller);

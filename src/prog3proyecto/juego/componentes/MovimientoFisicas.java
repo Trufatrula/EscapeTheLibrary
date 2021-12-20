@@ -17,7 +17,7 @@ public class MovimientoFisicas extends Component {
 	
 	private CharacterController controller;
 	
-	private float speed = 300f;
+	private float speed = 200f;
 	private float jumpHeight = 5f;
 	
 	private Vector3f velocity = new Vector3f();

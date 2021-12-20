@@ -26,7 +26,6 @@ public class EscenaPrincipal extends Scene {
 		this.jugador = new Jugador();
 		this.camara = this.jugador.getCamara();
 		this.addObject(this.jugador);
-		this.jugador.addComponent(new PointLight(new Vector3f(1, 1, 1), 1.0f, 0.5f, 0.017f));
 		this.jugador.getTransform().setPosition(new Vector3f(0, 1.5f, 0));
 		this.setAmbientLight(0.1f);
 	}
