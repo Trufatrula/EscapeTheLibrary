@@ -17,14 +17,17 @@ public class MovimientoFisicas extends Component {
 	
 	private CharacterController controller;
 	
-	private float speed = 200f;
+	private float speed = 2f;
 	private float jumpHeight = 5f;
 	
+	private Vector3f tmp = new Vector3f();
 	private Vector3f velocity = new Vector3f();
 	private Vector3f posicionPrevia = new Vector3f();
 	private boolean onGround = false;
 	private boolean touchingWall = false;
 	private boolean touchingUp = false;
+	
+	private int contadorGround = 0;
 	
 	private int forwardKey = KeyEvent.VK_W;
 	private int backWardsKey = KeyEvent.VK_S;
@@ -97,9 +100,8 @@ public class MovimientoFisicas extends Component {
 	public void update() {
 		GameObject obj = this.getGameObject();
 		Transform t = obj.getTransform();
-		float step = (float) (speed * DeltaTime.get());
+		float step = this.speed;
 		Vector3f v = new Vector3f();
-		Vector3f disp = new Vector3f();
 		if(Input.getKey(this.forwardKey)) {
 			v.add(t.getFront());
 		}
@@ -113,37 +115,27 @@ public class MovimientoFisicas extends Component {
 			v.add(t.getLeft());
 		}
 		if (v.length() > 0) v.normalize().mul(step);
-		disp.add(this.velocity);
 		if (this.onGround) {
-			if (Input.getKey(this.upKey)) {
-				this.velocity.set(v);
+			this.velocity.set(v);
+			this.velocity.add(this.getScene().getGravity());
+			if (Input.getKey(upKey)) {
 				this.velocity.y = this.jumpHeight;
 				this.onGround = false;
-			} else {
-				disp.add(v);
 			}
-		}
-		disp.mul((float) DeltaTime.get());
-		CharacterCollisionData data = this.controller.move(disp, 0);
-		if (this.onGround) {
-			this.velocity.set(0);
 		} else {
 			this.velocity.add(this.getScene().getGravity().mul((float) DeltaTime.get()));
 		}
-		Vector3f p = t.getWorldPosition();
+		this.velocity.mul((float) DeltaTime.get(), this.tmp);
+		CharacterCollisionData data = this.controller.move(this.tmp, 0);
 		if (this.onGround && !data.collidesDown()) {
 			this.velocity.set(v);
 		}
-		this.onGround = data.collidesDown();
-		this.touchingWall = data.collidesSide();
 		if (!this.touchingUp && data.collidesUp()) {
 			this.velocity.y = 0;
 		}
-		if (this.touchingWall) {
-			p.sub(this.posicionPrevia, this.velocity);
-		}
+		this.onGround = data.collidesDown();
+		this.touchingWall = data.collidesSide();
 		this.touchingUp = data.collidesUp();
-		this.posicionPrevia.set(p);
 	}
 	
 }
