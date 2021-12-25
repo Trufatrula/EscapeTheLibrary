@@ -117,7 +117,7 @@ public class MovimientoFisicas extends Component {
 		if (v.length() > 0) v.normalize().mul(step);
 		if (this.onGround) {
 			this.velocity.set(v);
-			this.velocity.add(this.getScene().getGravity());
+			//this.velocity.add(this.getScene().getGravity());
 			if (Input.getKey(upKey)) {
 				this.velocity.y = this.jumpHeight;
 				this.onGround = false;
