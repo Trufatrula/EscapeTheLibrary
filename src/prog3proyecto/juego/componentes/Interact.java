@@ -40,7 +40,7 @@ public abstract class Interact extends Component {
 	
 	@Override
 	public void update() {
-		Vector3f rotacionJugador = jugador.getTransform().getFront().normalize();
+		Vector3f rotacionJugador = jugador.getTransform().getWorldFront().normalize();
 		Vector3f posicion = this.getGameObject().getTransform().getWorldPosition();
 		Vector3f direccion = posicion.sub(jugador.getTransform().getWorldPosition());
 		float distanciaActual = direccion.length();
