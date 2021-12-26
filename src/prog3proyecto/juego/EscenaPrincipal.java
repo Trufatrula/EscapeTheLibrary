@@ -44,15 +44,15 @@ public class EscenaPrincipal extends Scene {
 	}
 	
 	public void crearLaberinto() {
-		
 		for(Estanteria estanteria : estanterias) {
 			this.removeObject(estanteria);
 		}
-
 		estanterias.clear();
-
 		Laberinto berinto = new Laberinto(12, 7);
-		
+		berinto.setPared(0, 3, false);
+		berinto.setPared(0, 4, false);
+		berinto.setPared(11, 3, false);
+		berinto.setPared(11, 4, false);
 		for(int i = 0; i < 12; i++) {
 			for(int j = 0; j < 7; j++) {
 				if(berinto.getPared(i,j)) {
@@ -62,5 +62,11 @@ public class EscenaPrincipal extends Scene {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void destroy() {
+		Estanteria.destruirCache();
+		super.destroy();
 	}
 }

@@ -1,7 +1,9 @@
 package prog3proyecto.juego;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.joml.Vector3f;
+
 import com.lndf.glengine.asset.Asset;
 import com.lndf.glengine.gl.Mesh;
 import com.lndf.glengine.model.Model;
@@ -14,9 +16,9 @@ import com.lndf.glengine.scene.components.physics.TriangleMeshCollider;
 
 public class Estanteria extends GameObject {
 	
-	private Model modelo = null;
-	private PhysicalMaterial materialFisico;
-	private ArrayList<PhysicalTriangleMesh> fisicas = new ArrayList<>();
+	private static Model modelo = null;
+	private static PhysicalMaterial materialFisico;
+	private static HashMap<String, PhysicalTriangleMesh> fisicas = new HashMap<>();
 	
 	public Estanteria(int x, int y) {
 		this("", x, y);
@@ -30,36 +32,41 @@ public class Estanteria extends GameObject {
 		GameObject t = modelo.createGameObject();
 		t.getTransform().setScale(new Vector3f(2, 2, 2));
 		this.addChild(t);
-		materialFisico = new PhysicalMaterial(64, 32, 0.3f);
-		crearFisicas(this);
-		float a = 1.57f * x - 5.5f;
-		float b = 1.58f * y - 9.5f;
-		this.getTransform().setPosition(new Vector3f(b*2,0.5f,a*2));
+		if (materialFisico == null) materialFisico = new PhysicalMaterial(64, 32, 0.3f);
+		crearFisicas(this, this.getName());
+		float a = 1.57f * x - 8.725f;
+		float b = 1.58f * y - 4.725f;
+		this.getTransform().setPosition(new Vector3f(b*2,-0.2f,a*2));
 	}
 	
-	private void crearFisicas(GameObject obj) {
+	private void crearFisicas(GameObject obj, String name) {
 		for (Component comp : obj.getComponents(MeshRenderer.class)) {
 			MeshRenderer renderer = (MeshRenderer) comp;
-			Mesh mesh = renderer.getMesh();
-			PhysicalTriangleMesh TriangleMesh = new PhysicalTriangleMesh(mesh);
+			String n = name + ":" + renderer.getName();
+			PhysicalTriangleMesh TriangleMesh;
+			if (Estanteria.fisicas.containsKey(n)) {
+				TriangleMesh = Estanteria.fisicas.get(n);
+			} else {
+				Mesh mesh = renderer.getMesh();
+				TriangleMesh = new PhysicalTriangleMesh(mesh);
+				Estanteria.fisicas.put(n, TriangleMesh);
+			}
 			TriangleMeshCollider collider = new TriangleMeshCollider(materialFisico, TriangleMesh);
 			obj.addComponent(collider);
 		}
 		for (GameObject child : obj.getChildren()) {
-			crearFisicas(child);
+			crearFisicas(child, name + "/" + child.getName());
 		}
 	}
 	
-	@Override
-	public void destroy() {
-		super.destroy();
-		for (PhysicalTriangleMesh mesh : fisicas) {
+	public static void destruirCache() {
+		for (PhysicalTriangleMesh mesh : Estanteria.fisicas.values()) {
 			mesh.destroy();
 		}
-		fisicas.clear();
-		materialFisico.destroy();
+		Estanteria.fisicas.clear();
+		Estanteria.materialFisico.destroy();
+		Estanteria.materialFisico = null;
+		Estanteria.modelo = null;
 	}
-	
-	
 	
 }

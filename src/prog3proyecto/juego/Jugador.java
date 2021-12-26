@@ -41,7 +41,6 @@ public class Jugador extends GameObject{
 		this.addComponent(this.controller);
 		this.addComponent(new Fase1());
 		this.setYaw((float) Math.PI);
-		this.getTransform().setPosition(new Vector3f(0, 0, -18));
 	}
 	
 	public Camera getCamara() {
