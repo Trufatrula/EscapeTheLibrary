@@ -1,5 +1,7 @@
 package prog3proyecto.juego;
 
+import java.util.ArrayList;
+
 import org.joml.Vector3f;
 
 import com.lndf.glengine.scene.GameObject;
@@ -14,6 +16,7 @@ public class EscenaPrincipal extends Scene {
 	private Camera camara;
 	private Jugador jugador;
 	private DatosJugador datos;
+	private ArrayList<Estanteria> estanterias = new ArrayList<>();
 	
 	public EscenaPrincipal(DatosJugador datos) {
 		this.subscribeToUpdates();
@@ -38,5 +41,26 @@ public class EscenaPrincipal extends Scene {
 	
 	public DatosJugador getDatos() {
 		return datos;
+	}
+	
+	public void crearLaberinto() {
+		
+		for(Estanteria estanteria : estanterias) {
+			this.removeObject(estanteria);
+		}
+
+		estanterias.clear();
+
+		Laberinto berinto = new Laberinto(12, 7);
+		
+		for(int i = 0; i < 12; i++) {
+			for(int j = 0; j < 7; j++) {
+				if(berinto.getPared(i,j)) {
+					Estanteria estanteria = new Estanteria(i, j);
+					estanterias.add(estanteria);
+					this.addObject(estanteria);
+				}
+			}
+		}
 	}
 }
