@@ -16,6 +16,7 @@ public class Jugador extends GameObject{
 	
 	private Camera camara;
 	private GameObject objetoCamara;
+	private GameObject objetoMano;
 	private CapsuleCharacterController controller;
 	
 	public Jugador() {
@@ -26,6 +27,8 @@ public class Jugador extends GameObject{
 		this.controller.setStepOffset(0.16f);
 		MovimientoFisicas mov = new MovimientoFisicas(this.controller);
 		RotacionFisicas rot = new RotacionFisicas();
+		this.objetoMano = new GameObject();
+		this.addChild(this.objetoMano);
 		this.camara = new Camera((float) Math.PI / 4, 1000);
 		this.objetoCamara = new GameObject();
 		this.objetoCamara.getTransform().setPosition(new Vector3f(0, 0.125f, 0));
@@ -35,6 +38,8 @@ public class Jugador extends GameObject{
 		this.addComponent(mov);
 		this.addComponent(rot);
 		this.addComponent(this.controller);
+		this.setYaw((float) Math.PI);
+		this.getTransform().setPosition(new Vector3f(0, 0, -18));
 	}
 	
 	public Camera getCamara() {
@@ -45,6 +50,10 @@ public class Jugador extends GameObject{
 		return objetoCamara;
 	}
 	
+	public GameObject getObjetoMano() {
+		return objetoMano;
+	}
+
 	public float getPitch() {
 		return this.objetoCamara.getTransform().getRotation().getEulerAnglesXYZ(new Vector3f()).x;
 	}

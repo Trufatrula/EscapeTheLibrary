@@ -53,4 +53,8 @@ public class InteractConObjeto extends Interact {
 		this.interactKey = interactKey;
 	}
 
+	public boolean isPulsadoAntes() {
+		return pulsadoAntes;
+	}
+
 }
