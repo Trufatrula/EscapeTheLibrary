@@ -27,8 +27,6 @@ public class MovimientoFisicas extends Component {
 	private boolean touchingWall = false;
 	private boolean touchingUp = false;
 	
-	private int contadorGround = 0;
-	
 	private int forwardKey = KeyEvent.VK_W;
 	private int backWardsKey = KeyEvent.VK_S;
 	private int leftKey = KeyEvent.VK_A;
@@ -94,6 +92,18 @@ public class MovimientoFisicas extends Component {
 
 	public void setDownKey(int downKey) {
 		this.downKey = downKey;
+	}
+
+	public boolean isOnGround() {
+		return onGround;
+	}
+
+	public boolean isTouchingWall() {
+		return touchingWall;
+	}
+
+	public boolean isTouchingUp() {
+		return touchingUp;
 	}
 
 	@Override
