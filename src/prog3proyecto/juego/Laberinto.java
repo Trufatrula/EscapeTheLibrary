@@ -17,7 +17,7 @@ public class Laberinto {
 	}
 	
 	public void generarLaberinto(int xInicio, int yInicio, int xFinal, int yFinal) {
-		if(xFinal - xInicio <= 2 || yFinal - yInicio <= 2) {
+		if(xFinal - xInicio <= 1 || yFinal - yInicio <= 1) {
 			return;
 		}
 
@@ -75,9 +75,9 @@ public class Laberinto {
 		return a;
 	}
 	
-//	public static void main(String[] args) {
-//		Laberinto a = new Laberinto(30, 30);
-//		System.out.println(a.toString());
-//	}
+	public static void main(String[] args) {
+		Laberinto a = new Laberinto(24, 14);
+		System.out.println(a.toString());
+	}
 	
 }

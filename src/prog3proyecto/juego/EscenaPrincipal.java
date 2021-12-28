@@ -48,13 +48,15 @@ public class EscenaPrincipal extends Scene {
 			this.removeObject(estanteria);
 		}
 		estanterias.clear();
-		Laberinto berinto = new Laberinto(12, 7);
-		berinto.setPared(0, 3, false);
-		berinto.setPared(0, 4, false);
-		berinto.setPared(11, 3, false);
-		berinto.setPared(11, 4, false);
-		for(int i = 0; i < 12; i++) {
-			for(int j = 0; j < 7; j++) {
+		Laberinto berinto = new Laberinto(24, 14);
+		berinto.setPared(0, 6, false);
+		berinto.setPared(0, 7, false);
+		berinto.setPared(0, 8, false);
+		berinto.setPared(23, 6, false);
+		berinto.setPared(23, 7, false);
+		berinto.setPared(23, 8, false);
+		for(int i = 0; i < 24; i++) {
+			for(int j = 0; j < 14; j++) {
 				if(berinto.getPared(i,j)) {
 					Estanteria estanteria = new Estanteria(i, j);
 					estanterias.add(estanteria);

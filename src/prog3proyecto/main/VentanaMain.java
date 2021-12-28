@@ -197,6 +197,7 @@ public class VentanaMain extends JFrame {
 		JTextField yawTextField = new JTextField(10);
 		JButton botonTP = new JButton("Teletransportarse");
 		JButton botonRotar = new JButton("Rotar cámara");
+		JButton botonGenLaberinto = new JButton("Regenerar laberinto");
 		panelE.setLayout(new BoxLayout(panelE, BoxLayout.PAGE_AXIS));
 		panelE.setAlignmentY(JPanel.TOP_ALIGNMENT);
 		panelE.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
@@ -234,6 +235,17 @@ public class VentanaMain extends JFrame {
 				pitchTextField.setText("");
 			}
 		});
+		botonGenLaberinto.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Engine.addEndOfLoopRunnable(new Runnable() {
+					@Override
+					public void run() {
+						Juego.escena.crearLaberinto();
+					}
+				});
+			}
+		});
 		
 		//Finalizar panel W
 		panelW.add(msgDatos, BorderLayout.CENTER);
@@ -244,6 +256,7 @@ public class VentanaMain extends JFrame {
 		panelE.add(panelCoords);
 		panelE.add(botonRotar);
 		panelE.add(panelRotacion);
+		panelE.add(botonGenLaberinto);
 		
 		//Finalizar panel
 		panel.add(panelW);

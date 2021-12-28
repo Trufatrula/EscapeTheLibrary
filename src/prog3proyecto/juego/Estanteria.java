@@ -30,12 +30,12 @@ public class Estanteria extends GameObject {
 			modelo = new Model(new Asset("resource:/models/estanteria.fbx"));
 		}
 		GameObject t = modelo.createGameObject();
-		t.getTransform().setScale(new Vector3f(2, 2, 2));
+		t.getTransform().setScale(new Vector3f(1, 2, 1));
 		this.addChild(t);
 		if (materialFisico == null) materialFisico = new PhysicalMaterial(64, 32, 0.3f);
 		crearFisicas(this, this.getName());
-		float a = 1.57f * x - 8.725f;
-		float b = 1.58f * y - 4.725f;
+		float a = 0.785f * x - 9.1f;
+		float b = 0.79f * y - 5.15f;
 		this.getTransform().setPosition(new Vector3f(b*2,-0.2f,a*2));
 	}
 	
