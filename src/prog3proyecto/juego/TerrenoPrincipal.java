@@ -12,11 +12,14 @@ import com.lndf.glengine.physics.PhysicalTriangleMesh;
 import com.lndf.glengine.scene.Component;
 import com.lndf.glengine.scene.GameObject;
 import com.lndf.glengine.scene.components.MeshRenderer;
+import com.lndf.glengine.scene.components.physics.DynamicRigidBody;
 import com.lndf.glengine.scene.components.physics.TriangleMeshCollider;
 
 public class TerrenoPrincipal extends GameObject {
 	
 	private Model modelo = null;
+	private GameObject elevador;
+	private DynamicRigidBody elevadorRigid;
 	private PhysicalMaterial materialFisico;
 	private ArrayList<PhysicalTriangleMesh> fisicas = new ArrayList<>();
 	
@@ -32,6 +35,10 @@ public class TerrenoPrincipal extends GameObject {
 		GameObject t = modelo.createGameObject();
 		t.getTransform().setScale(new Vector3f(2, 2, 2));
 		this.addChild(t);
+		this.elevador = t.search("Elevador");
+		this.elevadorRigid = new DynamicRigidBody();
+		this.elevadorRigid.setKinematic(true);
+		this.elevador.addComponent(elevadorRigid);
 		materialFisico = new PhysicalMaterial(64, 32, 0.3f);
 		crearFisicas(this);
 	}
@@ -55,6 +62,8 @@ public class TerrenoPrincipal extends GameObject {
 		for (PhysicalTriangleMesh mesh : fisicas) {
 			mesh.destroy();
 		}
+		if (this.elevadorRigid != null) this.elevadorRigid.destroy();
+		this.elevadorRigid = null;
 		fisicas.clear();
 		materialFisico.destroy();
 	}
