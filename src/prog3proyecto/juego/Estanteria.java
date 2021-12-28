@@ -34,9 +34,9 @@ public class Estanteria extends GameObject {
 		this.addChild(t);
 		if (materialFisico == null) materialFisico = new PhysicalMaterial(64, 32, 0.3f);
 		crearFisicas(this, this.getName());
-		float a = 0.785f * x - 9.1f;
-		float b = 0.79f * y - 5.15f;
-		this.getTransform().setPosition(new Vector3f(b*2,-0.2f,a*2));
+		float a = 0.785f * x - 5.1f;
+		float b = 0.79f * y - 9.1f;
+		this.getTransform().setPosition(new Vector3f(a*2,-0.2f,b*2));
 	}
 	
 	private void crearFisicas(GameObject obj, String name) {

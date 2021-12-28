@@ -9,7 +9,7 @@ public class Laberinto {
 	private boolean[] laberinto;
 	private Random random = new Random();
 	
-	public Laberinto(int alto, int ancho) {
+	public Laberinto(int ancho, int alto) {
 		this.alto = alto;
 		this.ancho = ancho;
 		laberinto = new boolean[alto*ancho];
@@ -58,6 +58,37 @@ public class Laberinto {
 	public boolean getPared(int x, int y) {
 		return laberinto[ancho*y+x];
 	}
+	
+	public boolean hayCamino(int inicioX, int inicioY, int finX, int finY) {
+		return this.hayCamino(inicioX, inicioY, finX, finY, new boolean[alto][ancho]);
+	}
+	
+	private boolean hayCamino(int inicioX, int inicioY, int finX, int finY, boolean[][] explorado) {
+		if (inicioX == finX && inicioY == finY) return true;
+		if (this.getPared(inicioX, inicioY) || explorado[inicioY][inicioX]) return false;
+		explorado[inicioY][inicioX] = true;
+		if (inicioX != 0) {
+			if (this.hayCamino(inicioX - 1, inicioY, finX, finY, explorado)) {
+				return true;
+			}
+		}
+		if (inicioX != this.ancho - 1) {
+			if (this.hayCamino(inicioX + 1, inicioY, finX, finY, explorado)) {
+				return true;
+			}
+		}
+		if (inicioY != 0) {
+			if (this.hayCamino(inicioX, inicioY - 1, finX, finY, explorado)) {
+				return true;
+			}
+		}
+		if (inicioY != this.alto - 1) {
+			if (this.hayCamino(inicioX, inicioY + 1, finX, finY, explorado)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public String toString() {
@@ -75,9 +106,9 @@ public class Laberinto {
 		return a;
 	}
 	
-	public static void main(String[] args) {
-		Laberinto a = new Laberinto(24, 14);
-		System.out.println(a.toString());
-	}
+//	public static void main(String[] args) {
+//		Laberinto a = new Laberinto(24, 14);
+//		System.out.println(a.toString());
+//	}
 	
 }

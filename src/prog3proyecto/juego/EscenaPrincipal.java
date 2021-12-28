@@ -12,6 +12,7 @@ import prog3proyecto.main.DatosJugador;
 
 public class EscenaPrincipal extends Scene {
 	
+	private Laberinto berinto;
 	private TerrenoPrincipal terreno;
 	private Camera camara;
 	private Jugador jugador;
@@ -48,15 +49,17 @@ public class EscenaPrincipal extends Scene {
 			this.removeObject(estanteria);
 		}
 		estanterias.clear();
-		Laberinto berinto = new Laberinto(24, 14);
-		berinto.setPared(0, 6, false);
-		berinto.setPared(0, 7, false);
-		berinto.setPared(0, 8, false);
-		berinto.setPared(23, 6, false);
-		berinto.setPared(23, 7, false);
-		berinto.setPared(23, 8, false);
-		for(int i = 0; i < 24; i++) {
-			for(int j = 0; j < 14; j++) {
+		do {
+			berinto = new Laberinto(14, 24);
+			berinto.setPared(6, 0, false);
+			berinto.setPared(7, 0, false);
+			berinto.setPared(8, 0, false);
+			berinto.setPared(6, 23, false);
+			berinto.setPared(7, 23, false);
+			berinto.setPared(8, 23, false);
+		} while(!berinto.hayCamino(7, 0, 7, 23));
+		for(int i = 0; i < 14; i++) {
+			for(int j = 0; j < 24; j++) {
 				if(berinto.getPared(i,j)) {
 					Estanteria estanteria = new Estanteria(i, j);
 					estanterias.add(estanteria);
