@@ -15,6 +15,8 @@ import com.lndf.glengine.scene.components.MeshRenderer;
 import com.lndf.glengine.scene.components.physics.DynamicRigidBody;
 import com.lndf.glengine.scene.components.physics.TriangleMeshCollider;
 
+import prog3proyecto.juego.componentes.ElevadorSubeYBaja;
+
 public class TerrenoPrincipal extends GameObject {
 	
 	private Model modelo = null;
@@ -39,6 +41,7 @@ public class TerrenoPrincipal extends GameObject {
 		this.elevadorRigid = new DynamicRigidBody();
 		this.elevadorRigid.setKinematic(true);
 		this.elevador.addComponent(elevadorRigid);
+		this.elevador.addComponent(new ElevadorSubeYBaja(elevadorRigid)); //TEMPORAL
 		materialFisico = new PhysicalMaterial(64, 32, 0.3f);
 		crearFisicas(this);
 	}
