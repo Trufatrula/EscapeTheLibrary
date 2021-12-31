@@ -69,6 +69,10 @@ public class EscenaPrincipal extends Scene {
 		}
 	}
 	
+	public Laberinto getLaberinto() {
+		return berinto;
+	}
+
 	@Override
 	public void destroy() {
 		Estanteria.destruirCache();
