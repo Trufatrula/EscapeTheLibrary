@@ -7,6 +7,7 @@ import org.joml.Vector4f;
 
 import com.lndf.glengine.gl.DefaultMaterial;
 import com.lndf.glengine.gl.Material;
+import com.lndf.glengine.primitives.Cube;
 import com.lndf.glengine.scene.Component;
 
 import prog3proyecto.juego.EscenaPrincipal;
@@ -19,7 +20,7 @@ public class Fase1 extends Component {
 	private Random random = new Random();
 	private Material material = new DefaultMaterial(new Vector4f(1,0,0,1), new Vector4f(1,1,1,1), 1f);
 	
-	private void añadirLibros() {
+	private void crearLibros() {
 		EscenaPrincipal pepe = (EscenaPrincipal) this.getScene();
 		Laberinto laberinto = pepe.getLaberinto();
 		for (int i = 0; i < 3; i++) {
@@ -27,7 +28,7 @@ public class Fase1 extends Component {
 			do {
 				x = this.random.nextInt(14);
 				y = this.random.nextInt(24);
-			} while(laberinto.getPared(x, y) && (
+			} while(!laberinto.getPared(x, y) && (
 						laberinto.hayCamino(7, 0, x+1, y) ||
 						laberinto.hayCamino(7, 0, x-1, y) ||
 						laberinto.hayCamino(7, 0, x, y+1) ||
@@ -35,6 +36,9 @@ public class Fase1 extends Component {
 					));
 			float a = 2 * (0.785f * x - 5.1f);
 			float b = 2 * (0.79f * y - 9.1f);
+			Cube cube = new Cube(this.material);
+			cube.getTransform().setPosition(new Vector3f(a, 1, b));
+			pepe.addObject(cube);
 		}
 	}
 	
@@ -50,6 +54,7 @@ public class Fase1 extends Component {
 	public void addToScene() {
 		EscenaPrincipal pepe = (EscenaPrincipal) this.getScene();
 		pepe.crearLaberinto();
+		this.crearLibros();
 		
 	}
 	
