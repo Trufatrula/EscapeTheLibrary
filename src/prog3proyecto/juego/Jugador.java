@@ -29,6 +29,7 @@ public class Jugador extends GameObject{
 		MovimientoFisicas mov = new MovimientoFisicas(this.controller);
 		RotacionFisicas rot = new RotacionFisicas();
 		this.objetoMano = new GameObject();
+		this.objetoMano.getTransform().setPosition(new Vector3f(0,0,-0.5f));
 		this.addChild(this.objetoMano);
 		this.camara = new Camera((float) Math.PI / 4, 1000);
 		this.objetoCamara = new GameObject();

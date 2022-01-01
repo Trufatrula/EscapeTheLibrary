@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.joml.Vector3f;
 
-import com.lndf.glengine.scene.GameObject;
 import com.lndf.glengine.scene.Scene;
 import com.lndf.glengine.scene.components.Camera;
 
@@ -36,7 +35,7 @@ public class EscenaPrincipal extends Scene {
 		return camara;
 	}
 	
-	public GameObject getJugador() {
+	public Jugador getJugador() {
 		return jugador;
 	}
 	
