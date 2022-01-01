@@ -76,6 +76,7 @@ public class EscenaPrincipal extends Scene {
 	@Override
 	public void destroy() {
 		Estanteria.destruirCache();
+		Libro.destruirCache();
 		super.destroy();
 	}
 }
