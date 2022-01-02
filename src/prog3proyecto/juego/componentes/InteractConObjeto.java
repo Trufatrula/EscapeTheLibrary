@@ -14,6 +14,7 @@ public class InteractConObjeto extends Interact {
 	public InteractConObjeto(GameObject jugador) {
 		super(jugador);
 		this.setDistancia(1.2f);
+		this.setAngulo((float) Math.PI / 2f);
 	}
 	
 	@Override

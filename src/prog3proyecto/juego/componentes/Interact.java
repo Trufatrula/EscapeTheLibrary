@@ -34,6 +34,14 @@ public abstract class Interact extends Component {
 		this.distancia = distancia;
 	}
 	
+	public float getAngulo() {
+		return angulo;
+	}
+
+	public void setAngulo(float angulo) {
+		this.angulo = angulo;
+	}
+
 	public boolean estaInteractuando() {
 		return interactuando;
 	}

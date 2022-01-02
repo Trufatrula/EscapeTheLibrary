@@ -23,6 +23,7 @@ public class ObjetoLlevable extends InteractConObjeto {
 	private boolean puedeSoltar = true;
 	
 	private float maxDistancia = 3f;
+	private float maxMovimiento = 10f;
 	
 	public ObjetoLlevable(GameObject jugador, CharacterController controller, GameObject mano) {
 		super(jugador);
@@ -45,7 +46,12 @@ public class ObjetoLlevable extends InteractConObjeto {
 			return;
 		}
 		if (this.isPulsadoAntes() == false) this.puedeSoltar = true;
+		this.getGameObject().getTransform().setWorldRotation(this.mano.getTransform().getWorldRotation());
 		this.mano.getTransform().getWorldPosition().sub(this.getGameObject().getTransform().getWorldPosition(), tmpV);
+		float s = this.maxMovimiento * (float) DeltaTime.get();
+		if (tmpV.length() > s) {
+			tmpV.normalize().mul(s);
+		}
 		this.controller.move(tmpV, 0.001f);
 		if ((ObjetoLlevable.interactActivado && this.puedeSoltar && Input.getKey(this.getInteractKey())) || this.tmpV.length() > this.maxDistancia) {
 			this.soltar();
@@ -104,6 +110,14 @@ public class ObjetoLlevable extends InteractConObjeto {
 
 	public boolean isPuedeSoltar() {
 		return puedeSoltar;
+	}
+
+	public float getMaxMovimiento() {
+		return maxMovimiento;
+	}
+
+	public void setMaxMovimiento(float maxMovimiento) {
+		this.maxMovimiento = maxMovimiento;
 	}
 
 	public boolean isLlevando() {
