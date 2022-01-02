@@ -6,6 +6,7 @@ import com.lndf.glengine.asset.Asset;
 import com.lndf.glengine.model.Model;
 import com.lndf.glengine.physics.PhysicalMaterial;
 import com.lndf.glengine.scene.GameObject;
+import com.lndf.glengine.scene.components.physics.BoxCharacterController;
 import com.lndf.glengine.scene.components.physics.BoxCollider;
 import com.lndf.glengine.scene.components.physics.DynamicRigidBody;
 
@@ -15,7 +16,7 @@ public class Libro extends GameObject{
 
 	private static Model modelo = null;
 	private static PhysicalMaterial materialFisico;
-	private DynamicRigidBody rigidBody;
+	private BoxCharacterController controller;
 	private ObjetoLlevable llevable;
 	
 	public Libro(int x, int y, EscenaPrincipal escena) {
@@ -31,17 +32,17 @@ public class Libro extends GameObject{
 		t.getTransform().setScale(new Vector3f(1, 2, 1));
 		this.addChild(t);
 		if (materialFisico == null) materialFisico = new PhysicalMaterial(64, 32, 0.3f);
-		rigidBody = new DynamicRigidBody();
-		this.addComponent(rigidBody);
-		BoxCollider vox = new BoxCollider(materialFisico, 0.258f, 0.0465f, 0.189f);
-		this.addComponent(vox);
-		llevable = new ObjetoLlevable(escena.getJugador(), rigidBody, escena.getJugador().getObjetoMano());
+		controller = new BoxCharacterController(materialFisico, 0.129f, 0.02325f, 0.0945f);
+		controller.setStepOffset(0);
+		controller.setContactOffset(0.001f);
+		this.addComponent(controller);
+		llevable = new ObjetoLlevable(escena.getJugador(), controller, escena.getJugador().getObjetoMano());
 		this.addComponent(llevable);
 		float a = 2 * (0.785f * x - 5.1f);
 		float b = 2 * (0.79f * y - 9.1f);
 		this.getTransform().setPosition(new Vector3f(a,0.75f,b));
 		this.getTransform().setScale(new Vector3f(0.5f));
-	}	
+	}
 	
 	public static void destruirCache() {
 		Libro.materialFisico.destroy();

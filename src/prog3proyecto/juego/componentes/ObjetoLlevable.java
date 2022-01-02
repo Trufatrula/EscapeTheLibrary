@@ -2,43 +2,52 @@ package prog3proyecto.juego.componentes;
 
 import org.joml.Vector3f;
 
+import com.lndf.glengine.engine.DeltaTime;
 import com.lndf.glengine.engine.Input;
+import com.lndf.glengine.physics.CharacterCollisionData;
 import com.lndf.glengine.scene.GameObject;
-import com.lndf.glengine.scene.components.physics.DynamicRigidBody;
+import com.lndf.glengine.scene.components.physics.CharacterController;
 
 public class ObjetoLlevable extends InteractConObjeto {
 
 	private static ObjetoLlevable objetoLlevando;
 	private static boolean interactActivado = true;
 	
-	private DynamicRigidBody rigid;
+	private Vector3f velocidad = new Vector3f();
+	private Vector3f tmpV = new Vector3f();
+	private boolean ground;
+	
+	private CharacterController controller;
 	private GameObject mano;
 	private boolean llevando = false;
 	private boolean puedeSoltar = true;
-	private float velocidad = 3f;
-	private float minDistancia = 0.015f;
 	
-	public ObjetoLlevable(GameObject jugador, DynamicRigidBody rigid, GameObject mano) {
+	private float maxDistancia = 3f;
+	
+	public ObjetoLlevable(GameObject jugador, CharacterController controller, GameObject mano) {
 		super(jugador);
-		this.rigid = rigid;
+		this.controller = controller;
 		this.mano = mano;
 	}
 	
 	@Override
 	public void update() {
 		super.update();
-		if (!this.llevando) return;
-		if (this.isPulsadoAntes() == false) this.puedeSoltar = true;
-		Vector3f dir = mano.getTransform().getWorldPosition();
-		dir.sub(this.getGameObject().getTransform().getWorldPosition());
-		float dist = dir.length();
-		if (dist > this.minDistancia) {
-			dir.normalize().mul(this.velocidad);
-			this.rigid.setLinearVelocity(dir);
-		} else {
-			this.rigid.setLinearVelocity(new Vector3f());
+		if (!this.llevando) {
+			if (ground) {
+				this.velocidad.set(0);
+			} else {
+				this.velocidad.add(this.getScene().getGravity().mul((float) DeltaTime.get()));
+			}
+			this.velocidad.mul((float) DeltaTime.get(), tmpV);
+			CharacterCollisionData data = this.controller.move(tmpV, 0.001f);
+			this.ground = data.collidesDown();
+			return;
 		}
-		if (ObjetoLlevable.interactActivado && this.puedeSoltar && Input.getKey(this.getInteractKey())) {
+		if (this.isPulsadoAntes() == false) this.puedeSoltar = true;
+		this.mano.getTransform().getWorldPosition().sub(this.getGameObject().getTransform().getWorldPosition(), tmpV);
+		this.controller.move(tmpV, 0.001f);
+		if ((ObjetoLlevable.interactActivado && this.puedeSoltar && Input.getKey(this.getInteractKey())) || this.tmpV.length() > this.maxDistancia) {
 			this.soltar();
 		}
 	}
@@ -47,8 +56,8 @@ public class ObjetoLlevable extends InteractConObjeto {
 		if (this.llevando) {
 			this.llevando = false;
 			ObjetoLlevable.objetoLlevando = null;
-			this.rigid.setLinearVelocity(new Vector3f());
-			this.rigid.setGravityEnabled(true);
+			this.velocidad.set(0);
+			this.ground = false;
 		}
 	}
 	
@@ -58,7 +67,6 @@ public class ObjetoLlevable extends InteractConObjeto {
 			ObjetoLlevable.objetoLlevando = this;
 			this.llevando = true;
 			this.puedeSoltar = false;
-			this.rigid.setGravityEnabled(false);
 		}
 	}
 
@@ -70,28 +78,32 @@ public class ObjetoLlevable extends InteractConObjeto {
 		ObjetoLlevable.interactActivado = interactActivado;
 	}
 
-	public float getVelocidad() {
+	public float getMaxDistancia() {
+		return maxDistancia;
+	}
+
+	public void setMaxDistancia(float maxDistancia) {
+		this.maxDistancia = maxDistancia;
+	}
+
+	public Vector3f getVelocidad() {
 		return velocidad;
 	}
 
-	public void setVelocidad(float velocidad) {
-		this.velocidad = velocidad;
+	public boolean isGround() {
+		return ground;
 	}
 
-	public float getMinDistancia() {
-		return minDistancia;
+	public CharacterController getController() {
+		return controller;
 	}
 
-	public void setMinDistancia(float minDistancia) {
-		this.minDistancia = minDistancia;
+	public GameObject getMano() {
+		return mano;
 	}
 
-	public static ObjetoLlevable getObjetoLlevando() {
-		return objetoLlevando;
-	}
-
-	public DynamicRigidBody getRigid() {
-		return rigid;
+	public boolean isPuedeSoltar() {
+		return puedeSoltar;
 	}
 
 	public boolean isLlevando() {
