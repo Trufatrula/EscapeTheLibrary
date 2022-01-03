@@ -123,5 +123,9 @@ public class ObjetoLlevable extends InteractConObjeto {
 	public boolean isLlevando() {
 		return llevando;
 	}
+
+	public static ObjetoLlevable getObjetoLlevando() {
+		return objetoLlevando;
+	}
 	
 }

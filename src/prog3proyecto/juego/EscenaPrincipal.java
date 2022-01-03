@@ -22,9 +22,9 @@ public class EscenaPrincipal extends Scene {
 		this.subscribeToUpdates();
 		this.addUpdateRunnable(new ActualizarEscena(this));
 		this.datos = datos;
-		this.terreno = new TerrenoPrincipal();
-		this.addObject(this.terreno);
 		this.jugador = new Jugador();
+		this.terreno = new TerrenoPrincipal(jugador);
+		this.addObject(this.terreno);
 		this.camara = this.jugador.getCamara();
 		this.addObject(this.jugador);
 		this.jugador.getTransform().setPosition(new Vector3f(0, 1.5f, 0));
@@ -77,5 +77,9 @@ public class EscenaPrincipal extends Scene {
 		Estanteria.destruirCache();
 		Libro.destruirCache();
 		super.destroy();
+	}
+
+	public TerrenoPrincipal getTerreno() {
+		return terreno;
 	}
 }

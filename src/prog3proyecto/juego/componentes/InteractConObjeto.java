@@ -44,6 +44,7 @@ public class InteractConObjeto extends Interact {
 		this.pulsadoAntes = false;
 	}
 	
+	
 	public void interactuar() {}
 
 	public int getInteractKey() {

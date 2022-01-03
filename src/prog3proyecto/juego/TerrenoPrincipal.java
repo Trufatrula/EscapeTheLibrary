@@ -16,20 +16,25 @@ import com.lndf.glengine.scene.components.physics.DynamicRigidBody;
 import com.lndf.glengine.scene.components.physics.TriangleMeshCollider;
 
 import prog3proyecto.juego.componentes.ElevadorSubeYBaja;
+import prog3proyecto.juego.componentes.InteractuarMesa;
 
 public class TerrenoPrincipal extends GameObject {
 	
 	private Model modelo = null;
 	private GameObject elevador;
+	private GameObject mesa;
+	private GameObject posarLibro1;
+	private GameObject posarLibro2;
+	private GameObject posarLibro3;
 	private DynamicRigidBody elevadorRigid;
 	private PhysicalMaterial materialFisico;
 	private ArrayList<PhysicalTriangleMesh> fisicas = new ArrayList<>();
 	
-	public TerrenoPrincipal() {
-		this("");
+	public TerrenoPrincipal(Jugador jugador) {
+		this(jugador, "");
 	}
 	
-	public TerrenoPrincipal(String nombre) {
+	public TerrenoPrincipal(Jugador jugador, String nombre) {
 		super(nombre);
 		if (modelo == null) {
 			modelo = new Model(new Asset("resource:/models/terreno.fbx"));
@@ -41,7 +46,11 @@ public class TerrenoPrincipal extends GameObject {
 		this.elevadorRigid = new DynamicRigidBody();
 		this.elevadorRigid.setKinematic(true);
 		this.elevador.addComponent(elevadorRigid);
-		this.elevador.addComponent(new ElevadorSubeYBaja(elevadorRigid)); //TEMPORAL
+		this.mesa = t.search("Mesa");
+		this.posarLibro1 = t.search("PosarLibro1");
+		this.posarLibro2 = t.search("PosarLibro2");
+		this.posarLibro3 = t.search("PosarLibro3");
+		this.mesa.addComponent(new InteractuarMesa(jugador, posarLibro1, posarLibro2, posarLibro3));
 		materialFisico = new PhysicalMaterial(64, 32, 0.3f);
 		crearFisicas(this);
 	}
@@ -59,6 +68,13 @@ public class TerrenoPrincipal extends GameObject {
 		}
 	}
 	
+	public GameObject getElevador() {
+		return elevador;
+	}
+	
+	public void movilizarElevador() {
+		this.elevador.addComponent(new ElevadorSubeYBaja(this.elevadorRigid));
+	}
 	@Override
 	public void destroy() {
 		super.destroy();
@@ -70,5 +86,5 @@ public class TerrenoPrincipal extends GameObject {
 		fisicas.clear();
 		materialFisico.destroy();
 	}
-	
+
 }
