@@ -23,7 +23,7 @@ public class ObjetoLlevable extends InteractConObjeto {
 	private boolean puedeSoltar = true;
 	
 	private float maxDistancia = 3f;
-	private float maxMovimiento = 10f;
+	private float maxMovimiento = 5f;
 	
 	public ObjetoLlevable(GameObject jugador, CharacterController controller, GameObject mano) {
 		super(jugador);
