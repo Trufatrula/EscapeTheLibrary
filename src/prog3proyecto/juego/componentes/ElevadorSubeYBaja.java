@@ -24,7 +24,7 @@ public class ElevadorSubeYBaja extends Component{
 	@Override
 	public void addToGameObject() {
 		this.posicionAbajo = this.getGameObject().getTransform().getWorldPosition();
-		this.posicionArriba = this.posicionAbajo.add(new Vector3f(0, 3, 0), new Vector3f());
+		this.posicionArriba = this.posicionAbajo.add(new Vector3f(0, 7, 0), new Vector3f());
 	}
 	
 	@Override
