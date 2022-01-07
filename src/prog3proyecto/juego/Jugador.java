@@ -36,7 +36,7 @@ public class Jugador extends GameObject{
 		this.objetoCamara.getTransform().setPosition(new Vector3f(0, 0.125f, 0));
 		this.addChild(this.objetoCamara);
 		this.objetoCamara.addComponent(this.camara);
-		this.objetoCamara.addComponent(new PointLight(new Vector3f(1, 1, 1), 1.0f, 0.5f, 0.017f));
+		this.objetoCamara.addComponent(new PointLight(new Vector3f(1, 1, 1), 0f, 1f, 1f));
 		this.addComponent(mov);
 		this.addComponent(rot);
 		this.addComponent(this.controller);

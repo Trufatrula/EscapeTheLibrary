@@ -24,7 +24,7 @@ public class ElevadorSubeYBaja extends Component{
 	@Override
 	public void addToGameObject() {
 		this.posicionAbajo = this.getGameObject().getTransform().getWorldPosition();
-		this.posicionArriba = this.posicionAbajo.add(new Vector3f(0, 7, 0), new Vector3f());
+		this.posicionArriba = this.posicionAbajo.add(new Vector3f(0, 7.5f, 0), new Vector3f());
 	}
 	
 	@Override
@@ -32,6 +32,11 @@ public class ElevadorSubeYBaja extends Component{
 		Vector3f pos = this.getGameObject().getTransform().getWorldPosition();
 		if (pos.y > this.posicionArriba.y || pos.y < this.posicionAbajo.y) {
 			this.direccion = -this.direccion;
+			if (pos.y > this.posicionArriba.y) {
+				pos.y = this.posicionArriba.y;
+			} else {
+				pos.y = this.posicionAbajo.y;
+			}
 		}
 		pos.y += this.direccion * (float) DeltaTime.get();
 		this.rigid.setKinematicTarget(pos, rot0);
