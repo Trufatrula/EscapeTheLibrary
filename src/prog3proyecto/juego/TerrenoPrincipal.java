@@ -15,6 +15,7 @@ import com.lndf.glengine.scene.components.MeshRenderer;
 import com.lndf.glengine.scene.components.physics.DynamicRigidBody;
 import com.lndf.glengine.scene.components.physics.TriangleMeshCollider;
 
+import prog3proyecto.juego.componentes.Bola;
 import prog3proyecto.juego.componentes.ElevadorSubeYBaja;
 import prog3proyecto.juego.componentes.InteractuarMesa;
 
@@ -23,6 +24,8 @@ public class TerrenoPrincipal extends GameObject {
 	private Model modelo = null;
 	private GameObject elevador;
 	private GameObject mesa;
+	private GameObject[] bolas = new GameObject[9];
+	private GameObject[] cubos = new GameObject[9];
 	private GameObject posarLibro1;
 	private GameObject posarLibro2;
 	private GameObject posarLibro3;
@@ -50,6 +53,12 @@ public class TerrenoPrincipal extends GameObject {
 		this.posarLibro1 = t.search("PosarLibro1");
 		this.posarLibro2 = t.search("PosarLibro2");
 		this.posarLibro3 = t.search("PosarLibro3");
+		for(int i = 0; i < 9; i++) {
+			bolas[i] = t.search("Bola"+i);
+			bolas[i].addComponent(new Bola(jugador, i));
+			cubos[i] = t.search("Cubo"+i);
+		}
+		
 		this.mesa.addComponent(new InteractuarMesa(jugador, posarLibro1, posarLibro2, posarLibro3));
 		materialFisico = new PhysicalMaterial(64, 32, 0.3f);
 		crearFisicas(this);
@@ -85,6 +94,14 @@ public class TerrenoPrincipal extends GameObject {
 		this.elevadorRigid = null;
 		fisicas.clear();
 		materialFisico.destroy();
+	}
+
+	public GameObject[] getBolas() {
+		return bolas;
+	}
+
+	public GameObject[] getCubos() {
+		return cubos;
 	}
 
 }

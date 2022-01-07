@@ -28,7 +28,7 @@ public class EscenaPrincipal extends Scene {
 		this.camara = this.jugador.getCamara();
 		this.addObject(this.jugador);
 		this.jugador.getTransform().setPosition(new Vector3f(0, 1.5f, 0));
-		this.setAmbientLight(0.1f);
+//		this.setAmbientLight(0.1f);
 	}
 	
 	public Camera getCamara() {
