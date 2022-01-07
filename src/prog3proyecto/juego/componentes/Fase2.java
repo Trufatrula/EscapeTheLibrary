@@ -1,5 +1,7 @@
 package prog3proyecto.juego.componentes;
 
+import org.joml.Vector3f;
+
 import com.lndf.glengine.gl.DefaultMaterial;
 import com.lndf.glengine.scene.Component;
 import com.lndf.glengine.scene.GameObject;
@@ -16,7 +18,7 @@ public class Fase2 extends Component {
 	public void addToScene() {
 		EscenaPrincipal pepe = (EscenaPrincipal) this.getScene();
 		pepe.getDatos().setFase(2);
-		
+		pepe.getTerreno().movilizarElevador();
 		DefaultMaterial[] materialesBolas = new DefaultMaterial[9];
 		DefaultMaterial[] materialesCubos = new DefaultMaterial[9];
 		int c = 0;
@@ -31,7 +33,8 @@ public class Fase2 extends Component {
 			DefaultMaterial material = (DefaultMaterial) meshBola.getMaterial();
 			materialesBolas[c++] = material;
 		}
-		puzzle = new PuzzlePatron(materialesCubos, materialesBolas);
+		puzzle = new PuzzlePatron(materialesBolas, materialesCubos);
+		puzzle.generarPatron();
 	}
 	
 	public static PuzzlePatron getPuzzle() {

@@ -8,6 +8,7 @@ public class Bola extends InteractConObjeto {
 	
 	public Bola(GameObject jugador, int i) {
 		super(jugador);
+		this.setDistancia(2.5f);
 		this.i = i;
 	}
 	

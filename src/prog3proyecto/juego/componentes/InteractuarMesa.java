@@ -49,7 +49,6 @@ public class InteractuarMesa extends InteractConObjeto {
 				break;
 			case 2:
 				posar = posarLibro2;
-				Juego.escena.getTerreno().movilizarElevador();
 				Juego.escena.getJugador().removeComponent(Juego.escena.getJugador().getComponent(Fase1.class));
 				Juego.escena.getJugador().addComponent(new Fase2());
 				break;
