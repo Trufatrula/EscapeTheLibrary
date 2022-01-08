@@ -20,6 +20,7 @@ public class EscenaPrincipal extends Scene {
 	
 	public EscenaPrincipal(DatosJugador datos) {
 		this.subscribeToUpdates();
+		this.setAmbientLight(0.004f);
 		this.addUpdateRunnable(new ActualizarEscena(this));
 		this.datos = datos;
 		this.jugador = new Jugador();
@@ -28,7 +29,6 @@ public class EscenaPrincipal extends Scene {
 		this.camara = this.jugador.getCamara();
 		this.addObject(this.jugador);
 		this.jugador.getTransform().setPosition(new Vector3f(0, 1.5f, 0));
-		this.setAmbientLight(0.004f);
 	}
 	
 	public Camera getCamara() {
