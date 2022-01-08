@@ -18,11 +18,13 @@ import com.lndf.glengine.scene.components.physics.TriangleMeshCollider;
 import prog3proyecto.juego.componentes.Bola;
 import prog3proyecto.juego.componentes.ElevadorSubeYBaja;
 import prog3proyecto.juego.componentes.InteractuarMesa;
+import prog3proyecto.juego.componentes.PuertaSoloSube;
 
 public class TerrenoPrincipal extends GameObject {
 	
 	private Model modelo = null;
 	private GameObject elevador;
+	private GameObject puerta;
 	private GameObject mesa;
 	private GameObject[] bolas = new GameObject[9];
 	private GameObject[] cubos = new GameObject[9];
@@ -30,6 +32,7 @@ public class TerrenoPrincipal extends GameObject {
 	private GameObject posarLibro2;
 	private GameObject posarLibro3;
 	private DynamicRigidBody elevadorRigid;
+	private DynamicRigidBody puertaRigid;
 	private PhysicalMaterial materialFisico;
 	private ArrayList<PhysicalTriangleMesh> fisicas = new ArrayList<>();
 	
@@ -49,6 +52,10 @@ public class TerrenoPrincipal extends GameObject {
 		this.elevadorRigid = new DynamicRigidBody();
 		this.elevadorRigid.setKinematic(true);
 		this.elevador.addComponent(elevadorRigid);
+		this.puerta = t.search("Puerto");
+		this.puertaRigid= new DynamicRigidBody();
+		this.puertaRigid.setKinematic(true);
+		this.puerta.addComponent(puertaRigid);
 		this.mesa = t.search("Mesa");
 		this.posarLibro1 = t.search("PosarLibro1");
 		this.posarLibro2 = t.search("PosarLibro2");
@@ -84,6 +91,15 @@ public class TerrenoPrincipal extends GameObject {
 	public void movilizarElevador() {
 		this.elevador.addComponent(new ElevadorSubeYBaja(this.elevadorRigid));
 	}
+	
+	public GameObject getPuerta() {
+		return puerta;
+	}
+	
+	public void movilizarPuerta() {
+		this.puerta.addComponent(new PuertaSoloSube(this.puertaRigid));
+	}
+	
 	@Override
 	public void destroy() {
 		super.destroy();
@@ -94,6 +110,12 @@ public class TerrenoPrincipal extends GameObject {
 		this.elevadorRigid = null;
 		fisicas.clear();
 		materialFisico.destroy();
+		
+		if (this.puertaRigid != null) this.puertaRigid.destroy();
+		this.puertaRigid = null;
+		fisicas.clear();
+		materialFisico.destroy();
+		
 	}
 
 	public GameObject[] getBolas() {
