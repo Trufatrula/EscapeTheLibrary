@@ -69,7 +69,7 @@ public class ObjetoLlevable extends InteractConObjeto {
 	
 	@Override
 	public void interactuar() {
-		if (!this.llevando && ObjetoLlevable.objetoLlevando == null && ObjetoLlevable.interactActivado) {
+		if (!this.llevando && ObjetoLlevable.objetoLlevando == null) {
 			ObjetoLlevable.objetoLlevando = this;
 			this.llevando = true;
 			this.puedeSoltar = false;
