@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.lndf.glengine.engine.Engine;
+import com.lndf.glengine.gl.DefaultMaterial;
 
 import prog3proyecto.main.DatosJugador;
 
@@ -18,6 +19,7 @@ public class Juego {
 		Engine.createWindow("Juego de Prog 3", 800, 600, true);
 		escena = new EscenaPrincipal(datos);
 		Engine.addDrawable(escena.getCamara());
+		DefaultMaterial.disableAO = true;
 		Engine.mainLoop();
 		escena.destroy();
 		escena = null;

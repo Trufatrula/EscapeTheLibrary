@@ -19,6 +19,7 @@ public class Jugador extends GameObject{
 	private GameObject objetoCamara;
 	private GameObject objetoMano;
 	private CapsuleCharacterController controller;
+	private PointLight luz;
 	
 	public Jugador() {
 		super("");
@@ -36,7 +37,8 @@ public class Jugador extends GameObject{
 		this.objetoCamara.getTransform().setPosition(new Vector3f(0, 0.125f, 0));
 		this.addChild(this.objetoCamara);
 		this.objetoCamara.addComponent(this.camara);
-		this.objetoCamara.addComponent(new PointLight(new Vector3f(1, 1, 1), 0f, 1f, 1f));
+		this.luz = new PointLight(new Vector3f(1), 10f, 0.5f);
+		this.objetoCamara.addComponent(this.luz);
 		this.addComponent(mov);
 		this.addComponent(rot);
 		this.addComponent(this.controller);
@@ -54,6 +56,10 @@ public class Jugador extends GameObject{
 	
 	public GameObject getObjetoMano() {
 		return objetoMano;
+	}
+
+	public PointLight getLuz() {
+		return luz;
 	}
 
 	public float getPitch() {

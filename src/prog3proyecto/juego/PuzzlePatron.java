@@ -5,6 +5,8 @@ import java.util.Random;
 import org.joml.Vector3f;
 
 import com.lndf.glengine.gl.DefaultMaterial;
+import com.lndf.glengine.scene.GameObject;
+import com.lndf.glengine.scene.components.lighting.PointLight;
 
 public class PuzzlePatron {
 
@@ -14,9 +16,14 @@ public class PuzzlePatron {
 	private DefaultMaterial[] materialesCubos;
 	private Random random = new Random();
 	
-	public PuzzlePatron(DefaultMaterial[] materialesBolas, DefaultMaterial[] materialesCubos) {
+	private GameObject[] cubos;
+	private GameObject[] bolas;
+	
+	public PuzzlePatron(DefaultMaterial[] materialesBolas, DefaultMaterial[] materialesCubos, GameObject[] cubos, GameObject[] bolas) {
 		this.materialesBolas = materialesBolas;
 		this.materialesCubos = materialesCubos;
+		this.cubos = cubos;
+		this.bolas = bolas;
 	}
 	
 	public void generarPatron() {
@@ -36,10 +43,13 @@ public class PuzzlePatron {
 		if(c==9) {
 			cubosEstado[random.nextInt(10)] = true;
 		}
-		
 		for (int i = 0; i < 9; i++) {
 			if (cubosEstado[i]) {
 				this.materialesCubos[i].setEmissiveColor(new Vector3f(0.8f,0,0));
+				GameObject luzObjeto = new GameObject();
+				luzObjeto.getTransform().setPosition(new Vector3f(0, 0, 1f));
+				cubos[i].addChild(luzObjeto);
+				luzObjeto.addComponent(new PointLight(new Vector3f(1, 0, 0), 2, 2.3f));
 			} 
 		}
 	}
