@@ -1,7 +1,5 @@
 package prog3proyecto.juego.componentes;
 
-import org.joml.Vector3f;
-
 import com.lndf.glengine.gl.DefaultMaterial;
 import com.lndf.glengine.scene.Component;
 import com.lndf.glengine.scene.GameObject;
