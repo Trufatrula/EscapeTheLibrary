@@ -37,30 +37,48 @@ public class BaseDatos {
 	}	
 		
 	public static void meterUsuario( Usuario usuario ) {
-		String sent = "insert into usuario (nombre, tiempo1, tiempo2, tiempo3, tiempoTotal, partidasJugadas) values ('" + usuario.getNombre() + "'," + usuario.getTiempo1() + "," + usuario.getTiempo2() + "," + usuario.getTiempo3() + "," + usuario.getTiempoTotal() + "," + usuario.getPartidasJugadas() + ");";
-		logger.log( Level.INFO, "Statement: " + sent );
+		String sent = "insert into usuario (nombre, tiempo1, tiempo2, tiempo3, tiempoTotal, partidasJugadas) values (?,?,?,?,?,?);";
 		try {
-			statement.executeUpdate(sent);
+			PreparedStatement s = conexion.prepareStatement(sent);
+			s.setString(1, usuario.getNombre());
+			s.setLong(2, usuario.getTiempo1());
+			s.setLong(3, usuario.getTiempo2());
+			s.setLong(4, usuario.getTiempo3());
+			s.setLong(5, usuario.getTiempoTotal());
+			s.setInt(6, usuario.getPartidasJugadas());
+			logger.log( Level.INFO, "Statement: " + s );
+			s.executeUpdate();
 		} catch (SQLException e) {
 			logger.log( Level.WARNING, "No se puede meter", e );
 		}
 	}
 	
 	public static void eliminarUsuario( Usuario usuario ) {
-		String sent = "delete from usuario where nombre='"+ usuario.getNombre()  +"';";
+		String sent = "delete from usuario where nombre=?;";
 		logger.log( Level.INFO, "Statement: " + sent );
 		try {
-			statement.executeUpdate(sent);
+			PreparedStatement s = conexion.prepareStatement(sent);
+			s.setString(1, usuario.getNombre());
+			logger.log( Level.INFO, "Statement: " + s );
+			s.executeUpdate();
 		} catch (SQLException e) {
 			logger.log( Level.WARNING, "No se puede eliminar", e );
 		}
 	}
 	
 	public static void modificarUsuario( Usuario usuario ) {
-		String sent = "update usuario set tiempo1=" + usuario.getTiempo1() + ", tiempo2=" + usuario.getTiempo2() + ", tiempo3=" + usuario.getTiempo3() + ", tiempoTotal=" + usuario.getTiempoTotal() + ", partidasJugadas=" + usuario.getPartidasJugadas() + " where nombre='" + usuario.getNombre() + "';";
+		String sent = "update usuario set tiempo1=?, tiempo2=?, tiempo3=?, tiempoTotal=?, partidasJugadas=? where nombre=?;";
 		logger.log( Level.INFO, "Statement: " + sent );
 		try {
-			statement.executeUpdate(sent);
+			PreparedStatement s = conexion.prepareStatement(sent);
+			s.setLong(1, usuario.getTiempo1());
+			s.setLong(2, usuario.getTiempo2());
+			s.setLong(3, usuario.getTiempo3());
+			s.setLong(4, usuario.getTiempoTotal());
+			s.setInt(5, usuario.getPartidasJugadas());
+			s.setString(6, usuario.getNombre());
+			logger.log( Level.INFO, "Statement: " + s );
+			s.executeUpdate();
 		} catch (SQLException e) {
 			logger.log( Level.WARNING, "No se puede modificar", e );
 		}
