@@ -19,11 +19,19 @@ public class Libro extends GameObject{
 	private BoxCharacterController controller;
 	private ObjetoLlevable llevable;
 	
-	public Libro(int x, int y, EscenaPrincipal escena) {
-		this("", x, y, escena);
+	public Libro(int x, int y, Jugador jugador) {
+		this("", x, y, jugador);
 	}
 
-	public Libro(String nombre, int x, int y, EscenaPrincipal escena) {
+	public Libro(String nombre, int x, int y, Jugador jugador) {
+		this(nombre, new Vector3f(2 * (0.785f * x - 5.1f), 0.75f, 2 * (0.79f * y - 9.1f)), jugador);
+	}
+	
+	public Libro(Vector3f pos, Jugador jugador) {
+		this("", pos, jugador);
+	}
+	
+	public Libro(String nombre, Vector3f pos, Jugador jugador) {
 		super(nombre);
 		if (modelo == null) {
 			modelo = new Model(new Asset("resource:/models/libroFase1.fbx"));
@@ -36,12 +44,10 @@ public class Libro extends GameObject{
 		controller.setStepOffset(0);
 		controller.setContactOffset(0.001f);
 		this.addComponent(controller);
-		llevable = new ObjetoLlevable(escena.getJugador(), controller, escena.getJugador().getObjetoMano());
+		llevable = new ObjetoLlevable(jugador, controller, jugador.getObjetoMano());
 		this.addComponent(llevable);
-		float a = 2 * (0.785f * x - 5.1f);
-		float b = 2 * (0.79f * y - 9.1f);
-		this.addComponent(new Respawn(0, new Vector3f(a,0.75f,b), new Quaternionf()));
-		this.getTransform().setPosition(new Vector3f(a,0.75f,b));
+		this.addComponent(new Respawn(0, pos, new Quaternionf()));
+		this.getTransform().setPosition(pos);
 		this.getTransform().setScale(new Vector3f(0.5f));
 	}
 	

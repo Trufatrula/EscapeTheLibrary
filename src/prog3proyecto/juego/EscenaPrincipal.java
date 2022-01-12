@@ -24,7 +24,7 @@ public class EscenaPrincipal extends Scene {
 		this.addUpdateRunnable(new ActualizarEscena(this));
 		this.datos = datos;
 		this.jugador = new Jugador();
-		this.terreno = new TerrenoPrincipal(jugador);
+		this.terreno = new TerrenoPrincipal(this);
 		this.addObject(this.terreno);
 		this.camara = this.jugador.getCamara();
 		this.addObject(this.jugador);

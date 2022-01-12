@@ -42,12 +42,13 @@ public class TerrenoPrincipal extends GameObject {
 	private PhysicalMaterial materialFisico;
 	private ArrayList<PhysicalTriangleMesh> fisicas = new ArrayList<>();
 	
-	public TerrenoPrincipal(Jugador jugador) {
-		this(jugador, "");
+	public TerrenoPrincipal(EscenaPrincipal escena) {
+		this(escena, "");
 	}
 	
-	public TerrenoPrincipal(Jugador jugador, String nombre) {
+	public TerrenoPrincipal(EscenaPrincipal escena, String nombre) {
 		super(nombre);
+		Jugador jugador = escena.getJugador();
 		if (modelo == null) {
 			modelo = new Model(new Asset("resource:/models/terreno.fbx"));
 		}
@@ -105,6 +106,8 @@ public class TerrenoPrincipal extends GameObject {
 		bolaFin2Material.setEmissiveColor(new Vector3f(0.8f,0,0));
 		bolaFin2Material.setMetalness(0.6f);
 		bolaFin2Material.setRoughness(0.32f);
+		Libro libroFinal = new Libro(new Vector3f(14f, 404f, -233f), jugador);
+		escena.addObject(libroFinal);
 		for (int i = 0; i < 3; i++) {
 			vasos[i] = t.search("Vaso"+i);
 			DynamicRigidBody r = new DynamicRigidBody();

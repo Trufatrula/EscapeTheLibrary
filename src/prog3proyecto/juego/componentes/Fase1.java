@@ -31,7 +31,7 @@ public class Fase1 extends Component {
 						laberinto.hayCamino(7, 0, x, y+1) ||
 						laberinto.hayCamino(7, 0, x, y-1)
 					));
-			Libro libro = new Libro(x, y, pepe);
+			Libro libro = new Libro(x, y, pepe.getJugador());
 			pepe.addObject(libro);
 		}
 	}
