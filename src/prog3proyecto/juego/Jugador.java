@@ -9,8 +9,9 @@ import com.lndf.glengine.scene.components.Camera;
 import com.lndf.glengine.scene.components.lighting.PointLight;
 import com.lndf.glengine.scene.components.physics.CapsuleCharacterController;
 
-import prog3proyecto.juego.componentes.Fase3;
+import prog3proyecto.juego.componentes.Fase1;
 import prog3proyecto.juego.componentes.MovimientoFisicas;
+import prog3proyecto.juego.componentes.Respawn;
 import prog3proyecto.juego.componentes.RotacionFisicas;
 
 public class Jugador extends GameObject{
@@ -20,6 +21,7 @@ public class Jugador extends GameObject{
 	private GameObject objetoMano;
 	private CapsuleCharacterController controller;
 	private PointLight luz;
+	private Respawn respawn;
 	
 	public Jugador() {
 		super("");
@@ -34,6 +36,7 @@ public class Jugador extends GameObject{
 		this.addChild(this.objetoMano);
 		this.camara = new Camera((float) Math.PI / 4, 1000);
 		this.objetoCamara = new GameObject();
+		this.respawn = new Respawn(0, new Vector3f(0, 1, -18), new Quaternionf());
 		this.objetoCamara.getTransform().setPosition(new Vector3f(0, 0.125f, 0));
 		this.addChild(this.objetoCamara);
 		this.objetoCamara.addComponent(this.camara);
@@ -41,8 +44,9 @@ public class Jugador extends GameObject{
 		this.objetoCamara.addComponent(this.luz);
 		this.addComponent(mov);
 		this.addComponent(rot);
+		this.addComponent(respawn);
 		this.addComponent(this.controller);
-		this.addComponent(new Fase3());
+		this.addComponent(new Fase1());
 		this.setYaw((float) Math.PI);
 	}
 	
@@ -60,6 +64,10 @@ public class Jugador extends GameObject{
 
 	public PointLight getLuz() {
 		return luz;
+	}
+
+	public Respawn getRespawn() {
+		return respawn;
 	}
 
 	public float getPitch() {

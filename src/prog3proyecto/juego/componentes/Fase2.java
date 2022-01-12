@@ -1,5 +1,8 @@
 package prog3proyecto.juego.componentes;
 
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
+
 import com.lndf.glengine.gl.DefaultMaterial;
 import com.lndf.glengine.scene.Component;
 import com.lndf.glengine.scene.GameObject;
@@ -16,6 +19,8 @@ public class Fase2 extends Component {
 	public void addToScene() {
 		EscenaPrincipal pepe = (EscenaPrincipal) this.getScene();
 		pepe.getDatos().setFase(2);
+		pepe.getJugador().getRespawn().setPos(new Vector3f(0, 8, 17));
+		pepe.getJugador().getRespawn().setRot(new Quaternionf());
 		pepe.setAmbientLight(0);
 		pepe.getJugador().getLuz().setRadius(3);
 		pepe.getJugador().getLuz().setStrength(2);
