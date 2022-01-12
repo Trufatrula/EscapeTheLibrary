@@ -17,7 +17,7 @@ public class PuzzleVasos {
 	}
 	
 	public void moverVasos() {
-		int countMoves = random.nextInt(5) + 5;
+		int countMoves = random.nextInt(5) + 10;
 		int[][] movesVasos = new int[3][countMoves];
 		movesVasos[0][0] = this.vasos[0].getPos();
 		movesVasos[1][0] = this.vasos[1].getPos();

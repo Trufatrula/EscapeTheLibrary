@@ -201,9 +201,9 @@ public class VentanaMain extends JFrame {
 		JButton botonTP = new JButton("Teletransportarse");
 		JButton botonRotar = new JButton("Rotar cámara");
 		JButton botonGenLaberinto = new JButton("Regenerar laberinto");
-		JButton botonFase1 = new JButton("     Ir a Fase1   ");
-		JButton botonFase2 = new JButton("Ir a Fase2");
-		JButton botonFase3 = new JButton("Ir a Fase3");
+		JButton botonFase1 = new JButton("         Ir a Fase1         ");
+		JButton botonFase2 = new JButton("         Ir a Fase2         ");
+		JButton botonFase3 = new JButton("         Ir a Fase3         ");
 		panelE.setLayout(new BoxLayout(panelE, BoxLayout.PAGE_AXIS));
 		panelE.setAlignmentY(JPanel.TOP_ALIGNMENT);
 		panelE.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
