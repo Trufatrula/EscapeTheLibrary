@@ -32,6 +32,9 @@ import com.lndf.glengine.engine.Engine;
 import prog3proyecto.juego.EscenaPrincipal;
 import prog3proyecto.juego.Juego;
 import prog3proyecto.juego.Jugador;
+import prog3proyecto.juego.componentes.Fase1;
+import prog3proyecto.juego.componentes.Fase2;
+import prog3proyecto.juego.componentes.Fase3;
 
 public class VentanaMain extends JFrame {
 	
@@ -198,6 +201,9 @@ public class VentanaMain extends JFrame {
 		JButton botonTP = new JButton("Teletransportarse");
 		JButton botonRotar = new JButton("Rotar cámara");
 		JButton botonGenLaberinto = new JButton("Regenerar laberinto");
+		JButton botonFase1 = new JButton("     Ir a Fase1   ");
+		JButton botonFase2 = new JButton("Ir a Fase2");
+		JButton botonFase3 = new JButton("Ir a Fase3");
 		panelE.setLayout(new BoxLayout(panelE, BoxLayout.PAGE_AXIS));
 		panelE.setAlignmentY(JPanel.TOP_ALIGNMENT);
 		panelE.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
@@ -246,6 +252,27 @@ public class VentanaMain extends JFrame {
 				});
 			}
 		});
+		botonFase1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				setPosicion("0", "1", "-18");
+				setFase(1);
+			}
+		});
+		botonFase2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				setPosicion("0", "8", "17");
+				setFase(2);
+			}
+		});
+		botonFase3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				setPosicion("0", "8", "-3");
+				setFase(3);
+			}
+		});
 		
 		//Finalizar panel W
 		panelW.add(msgDatos, BorderLayout.CENTER);
@@ -257,7 +284,10 @@ public class VentanaMain extends JFrame {
 		panelE.add(botonRotar);
 		panelE.add(panelRotacion);
 		panelE.add(botonGenLaberinto);
-		
+		panelE.add(botonFase1);
+		panelE.add(botonFase2);
+		panelE.add(botonFase3);
+			
 		//Finalizar panel
 		panel.add(panelW);
 		panel.add(panelE, BorderLayout.EAST);
@@ -341,6 +371,42 @@ public class VentanaMain extends JFrame {
 		if (hiloJuego != null) {
 			hiloJuego.interrupt();
 		}
+	}
+	
+	public void setFase(int i) {
+		
+		Engine.addEndOfLoopRunnable(new Runnable() {
+			@Override
+			public void run() {
+				Fase1 fase1 = (Fase1) Juego.escena.getJugador().getComponent(Fase1.class);
+				Fase2 fase2 = (Fase2) Juego.escena.getJugador().getComponent(Fase2.class);
+				Fase3 fase3 = (Fase3) Juego.escena.getJugador().getComponent(Fase3.class);
+				
+				if(fase1 != null) {
+					Juego.escena.getJugador().removeComponent(fase1);
+				}
+				
+				if(fase2 != null) {
+					Juego.escena.getJugador().removeComponent(fase2);
+				}
+				
+				if(fase3 != null) {
+					Juego.escena.getJugador().removeComponent(fase3);
+				}
+				
+				switch(i) {
+				case 1:
+					Juego.escena.getJugador().addComponent(new Fase1());
+					break;
+				case 2:
+					Juego.escena.getJugador().addComponent(new Fase2());
+					break;
+				case 3:
+					Juego.escena.getJugador().addComponent(new Fase3());
+					break;
+				}
+			}
+		});
 	}
 	
 	public void crearUsuario(String nombre) {

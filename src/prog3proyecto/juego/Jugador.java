@@ -36,7 +36,7 @@ public class Jugador extends GameObject{
 		this.addChild(this.objetoMano);
 		this.camara = new Camera((float) Math.PI / 4, 1000);
 		this.objetoCamara = new GameObject();
-		this.respawn = new Respawn(0, new Vector3f(0, 1, -18), new Quaternionf());
+		this.respawn = new Respawn(-10, new Vector3f(0, 1, -18), new Quaternionf());
 		this.objetoCamara.getTransform().setPosition(new Vector3f(0, 0.125f, 0));
 		this.addChild(this.objetoCamara);
 		this.objetoCamara.addComponent(this.camara);
