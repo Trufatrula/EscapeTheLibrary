@@ -2,6 +2,7 @@ package prog3proyecto.juego;
 
 import java.util.ArrayList;
 
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import com.lndf.glengine.asset.Asset;
@@ -21,6 +22,7 @@ import prog3proyecto.juego.componentes.Bola;
 import prog3proyecto.juego.componentes.ElevadorSubeYBaja;
 import prog3proyecto.juego.componentes.InteractuarMesa;
 import prog3proyecto.juego.componentes.PuertaSoloSube;
+import prog3proyecto.juego.componentes.TpFinal;
 
 public class TerrenoPrincipal extends GameObject {
 	
@@ -128,6 +130,7 @@ public class TerrenoPrincipal extends GameObject {
 		sixpikerMaterial.setAlbedoColor(new Vector3f(0.6f, 0.5f, 0.13f));
 		sixpikerMaterial.setMetalness(0.74f);
 		sixpikerMaterial.setRoughness(0.37f);
+		sixpiker.addComponent(new TpFinal(jugador, new Vector3f(10.849f, 404, -221.171f), new Quaternionf()));
 		this.mesa.addComponent(new InteractuarMesa(jugador, posarLibro1, posarLibro2, posarLibro3));
 		materialFisico = new PhysicalMaterial(64, 32, 0.3f);
 		crearFisicas(this);

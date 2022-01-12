@@ -94,6 +94,7 @@ public class VasoMover extends InteractConObjeto {
 				if (this.cono != null) {
 					if (this.haInteractuado) {
 						Fase3.getPuzzleVasos().completado();
+						this.cono.addComponent(new TpFinal(this.getJugador(), new Vector3f(10.849f, 404, -221.171f), new Quaternionf()));
 					} else {
 						Fase3.getPuzzleVasos().moverVasos();
 					}
@@ -110,6 +111,9 @@ public class VasoMover extends InteractConObjeto {
 		if (arriba && this.moves != null) return;
 		this.haInteractuado = true;
 		Fase3.getPuzzleVasos().subirVasos();
+		if (this.cono != null) {
+			Fase3.getPuzzleVasos().setTiemposCortos();
+		}
 	}
 
 	public int getPos() {

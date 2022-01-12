@@ -53,4 +53,10 @@ public class PuzzleVasos {
 			obj.removeComponent(vaso);
 		}
 	}
+	
+	public void setTiemposCortos() {
+		for (VasoMover vaso : this.vasos) {
+			vaso.setTiempoArriba(1);
+		}
+	}
 }
