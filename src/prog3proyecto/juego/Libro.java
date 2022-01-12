@@ -45,7 +45,7 @@ public class Libro extends GameObject{
 	}
 	
 	public static void destruirCache() {
-		Libro.materialFisico.destroy();
+		if (Libro.materialFisico != null) Libro.materialFisico.destroy();
 		Libro.materialFisico = null;
 		Libro.modelo = null;
 	}

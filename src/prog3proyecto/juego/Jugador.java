@@ -9,7 +9,7 @@ import com.lndf.glengine.scene.components.Camera;
 import com.lndf.glengine.scene.components.lighting.PointLight;
 import com.lndf.glengine.scene.components.physics.CapsuleCharacterController;
 
-import prog3proyecto.juego.componentes.Fase1;
+import prog3proyecto.juego.componentes.Fase3;
 import prog3proyecto.juego.componentes.MovimientoFisicas;
 import prog3proyecto.juego.componentes.RotacionFisicas;
 
@@ -42,7 +42,7 @@ public class Jugador extends GameObject{
 		this.addComponent(mov);
 		this.addComponent(rot);
 		this.addComponent(this.controller);
-		this.addComponent(new Fase1());
+		this.addComponent(new Fase3());
 		this.setYaw((float) Math.PI);
 	}
 	

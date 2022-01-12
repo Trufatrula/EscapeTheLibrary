@@ -28,6 +28,10 @@ public class TerrenoPrincipal extends GameObject {
 	private GameObject mesa;
 	private GameObject[] bolas = new GameObject[9];
 	private GameObject[] cubos = new GameObject[9];
+	private GameObject[] vasos = new GameObject[3];
+	private DynamicRigidBody[] vasosRigid = new DynamicRigidBody[3];
+	private GameObject conoVictoria;
+	private DynamicRigidBody conoVictoriaRigid;
 	private GameObject posarLibro1;
 	private GameObject posarLibro2;
 	private GameObject posarLibro3;
@@ -65,7 +69,17 @@ public class TerrenoPrincipal extends GameObject {
 			bolas[i].addComponent(new Bola(jugador, i));
 			cubos[i] = t.search("Cubo"+i);
 		}
-		
+		for (int i = 0; i < 3; i++) {
+			vasos[i] = t.search("Vaso"+i);
+			DynamicRigidBody r = new DynamicRigidBody();
+			r.setKinematic(true);
+			vasos[i].addComponent(r);
+			vasosRigid[i] = r;
+		}
+		this.conoVictoria = t.search("ConoVictoria");
+		this.conoVictoriaRigid = new DynamicRigidBody();
+		this.conoVictoriaRigid.setKinematic(true);
+		this.conoVictoria.addComponent(conoVictoriaRigid);
 		this.mesa.addComponent(new InteractuarMesa(jugador, posarLibro1, posarLibro2, posarLibro3));
 		materialFisico = new PhysicalMaterial(64, 32, 0.3f);
 		crearFisicas(this);
@@ -109,13 +123,17 @@ public class TerrenoPrincipal extends GameObject {
 		if (this.elevadorRigid != null) this.elevadorRigid.destroy();
 		this.elevadorRigid = null;
 		fisicas.clear();
-		materialFisico.destroy();
-		
+		if (this.materialFisico != null) materialFisico.destroy();
+		this.materialFisico = null;
 		if (this.puertaRigid != null) this.puertaRigid.destroy();
 		this.puertaRigid = null;
+		for (int i = 0; i < 3; i++) {
+			if (this.vasosRigid[i] != null) {
+				this.vasosRigid[i].destroy();
+				this.vasosRigid[i] = null;
+			}
+		}
 		fisicas.clear();
-		materialFisico.destroy();
-		
 	}
 
 	public GameObject[] getBolas() {
@@ -124,6 +142,22 @@ public class TerrenoPrincipal extends GameObject {
 
 	public GameObject[] getCubos() {
 		return cubos;
+	}
+	
+	public GameObject[] getVasos() {
+		return vasos;
+	}
+
+	public DynamicRigidBody[] getVasosRigid() {
+		return vasosRigid;
+	}
+
+	public GameObject getConoVictoria() {
+		return conoVictoria;
+	}
+
+	public DynamicRigidBody getConoVictoriaRigid() {
+		return conoVictoriaRigid;
 	}
 
 }

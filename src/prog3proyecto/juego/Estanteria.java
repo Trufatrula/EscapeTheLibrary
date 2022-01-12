@@ -64,7 +64,7 @@ public class Estanteria extends GameObject {
 			mesh.destroy();
 		}
 		Estanteria.fisicas.clear();
-		Estanteria.materialFisico.destroy();
+		if (Estanteria.materialFisico != null) Estanteria.materialFisico.destroy();
 		Estanteria.materialFisico = null;
 		Estanteria.modelo = null;
 	}
