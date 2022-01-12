@@ -62,9 +62,17 @@ private static final Vector3f UP = new Vector3f(0, 1, 0);
 		Jugador jugador = (Jugador) obj;
 		float rotAngle = (float) (rotationSpeed * DeltaTime.get());
 		if (Input.getKey(this.camUpKey)) {
+			float rotadoAhora = jugador.getPitch();
+			if (rotAngle + rotadoAhora >= Math.PI / 2) {
+				rotAngle = (float) (Math.PI / 2) - rotadoAhora;
+			}
 			jugador.rotatePitch(rotAngle);
 		}
 		if (Input.getKey(this.camDownKey)) {
+			float rotadoAhora = jugador.getPitch();
+			if (rotadoAhora - rotAngle <= -Math.PI / 2) {
+				rotAngle = (float) (Math.PI / 2) - Math.abs(rotadoAhora);
+			}
 			jugador.rotatePitch(-rotAngle);
 		}
 		if (Input.getKey(this.camLeftKey)) {
