@@ -2,6 +2,7 @@ package prog3proyecto.juego.componentes;
 
 import java.util.Random;
 
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import com.lndf.glengine.scene.Component;
@@ -47,6 +48,8 @@ public class Fase1 extends Component {
 	public void addToScene() {
 		EscenaPrincipal pepe = (EscenaPrincipal) this.getScene();
 		pepe.crearLaberinto();
+		pepe.getJugador().getRespawn().setPos(new Vector3f(0, 1, -18));
+		pepe.getJugador().getRespawn().setRot(new Quaternionf().rotateY((float) Math.PI));
 		this.crearLibros();
 		pepe.getDatos().setFase(1);
 	}

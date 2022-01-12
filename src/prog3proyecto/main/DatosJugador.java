@@ -1,9 +1,8 @@
 package prog3proyecto.main;
 
+import java.sql.Time;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,25 +42,20 @@ public class DatosJugador {
 	/**
 	 * Devolver la hora POSIX en un string HH:mm:ss
 	 */
-	public static String doubleDeTiempoAString(double tiempo) {
-		String s = String.format("%06d", (long)tiempo);   
-		DateFormat format = new SimpleDateFormat("HHmmss");
-		DateFormat formatOut = new SimpleDateFormat("HH:mm:ss");
-		try {
-			Date date = format.parse(s);
-			return formatOut.format(date);
-		} catch (ParseException e) {
-			return "00:00:00";
-		}
+	public static String doubleDeTiempoAString(long tiempo) {
+		tiempo = -3600000 + (1000 * tiempo);
+		Time time = new Time(tiempo);
+		DateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		return sdf.format(time);
 	}
 	
 	/**
 	 * Enviar las actualizaciónes a swing
 	 */
 	public void actualizar() {
-		String strTiempoJuego = doubleDeTiempoAString(tiempoJuego);
-		String strTiempoEnPartida = doubleDeTiempoAString(tiempoEnPartida);
-		String strTiempoFase = doubleDeTiempoAString(this.getTiempoFase());
+		String strTiempoJuego = doubleDeTiempoAString((long) tiempoJuego);
+		String strTiempoEnPartida = doubleDeTiempoAString((long) tiempoEnPartida);
+		String strTiempoFase = doubleDeTiempoAString((long) this.getTiempoFase());
 		String msg = "<html>Posición X/Y/Z:" +
 					 " " + pX + " /" +
 					 " " + pY + " / " +

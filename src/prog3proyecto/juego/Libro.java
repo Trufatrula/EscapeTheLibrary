@@ -1,5 +1,6 @@
 package prog3proyecto.juego;
 
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import com.lndf.glengine.asset.Asset;
@@ -7,10 +8,9 @@ import com.lndf.glengine.model.Model;
 import com.lndf.glengine.physics.PhysicalMaterial;
 import com.lndf.glengine.scene.GameObject;
 import com.lndf.glengine.scene.components.physics.BoxCharacterController;
-import com.lndf.glengine.scene.components.physics.BoxCollider;
-import com.lndf.glengine.scene.components.physics.DynamicRigidBody;
 
 import prog3proyecto.juego.componentes.ObjetoLlevable;
+import prog3proyecto.juego.componentes.Respawn;
 
 public class Libro extends GameObject{
 
@@ -40,12 +40,13 @@ public class Libro extends GameObject{
 		this.addComponent(llevable);
 		float a = 2 * (0.785f * x - 5.1f);
 		float b = 2 * (0.79f * y - 9.1f);
+		this.addComponent(new Respawn(0, new Vector3f(a,0.75f,b), new Quaternionf()));
 		this.getTransform().setPosition(new Vector3f(a,0.75f,b));
 		this.getTransform().setScale(new Vector3f(0.5f));
 	}
 	
 	public static void destruirCache() {
-		Libro.materialFisico.destroy();
+		if (Libro.materialFisico != null) Libro.materialFisico.destroy();
 		Libro.materialFisico = null;
 		Libro.modelo = null;
 	}
