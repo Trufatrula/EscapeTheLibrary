@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.joml.Vector3f;
 
 import com.lndf.glengine.asset.Asset;
+import com.lndf.glengine.gl.DefaultMaterial;
 import com.lndf.glengine.gl.Mesh;
 import com.lndf.glengine.model.Model;
 import com.lndf.glengine.physics.PhysicalMaterial;
@@ -12,6 +13,7 @@ import com.lndf.glengine.physics.PhysicalTriangleMesh;
 import com.lndf.glengine.scene.Component;
 import com.lndf.glengine.scene.GameObject;
 import com.lndf.glengine.scene.components.MeshRenderer;
+import com.lndf.glengine.scene.components.lighting.PointLight;
 import com.lndf.glengine.scene.components.physics.DynamicRigidBody;
 import com.lndf.glengine.scene.components.physics.TriangleMeshCollider;
 
@@ -64,11 +66,45 @@ public class TerrenoPrincipal extends GameObject {
 		this.posarLibro1 = t.search("PosarLibro1");
 		this.posarLibro2 = t.search("PosarLibro2");
 		this.posarLibro3 = t.search("PosarLibro3");
+		DefaultMaterial posarLibro1Material = materialDesdeObjeto(posarLibro1);
+		DefaultMaterial posarLibro2Material = materialDesdeObjeto(posarLibro2);
+		DefaultMaterial posarLibro3Material = materialDesdeObjeto(posarLibro3);
+		posarLibro1Material.setAlbedoColor(new Vector3f(0.6f, 0.2f, 0.7f));
+		posarLibro1Material.setMetalness(0.5f);
+		posarLibro1Material.setRoughness(0.3f);
+		posarLibro2Material.setAlbedoColor(new Vector3f(0.6f, 0.2f, 0.7f));
+		posarLibro2Material.setMetalness(0.5f);
+		posarLibro2Material.setRoughness(0.3f);
+		posarLibro3Material.setAlbedoColor(new Vector3f(0.6f, 0.2f, 0.7f));
+		posarLibro3Material.setMetalness(0.5f);
+		posarLibro3Material.setRoughness(0.3f);
 		for(int i = 0; i < 9; i++) {
 			bolas[i] = t.search("Bola"+i);
+			DefaultMaterial b = materialDesdeObjeto(bolas[i]);
+			b.setAlbedoColor(new Vector3f(0.54f, 0.24f, 0.24f));
+			b.setMetalness(0.6f);
+			b.setRoughness(0.32f);
 			bolas[i].addComponent(new Bola(jugador, i));
 			cubos[i] = t.search("Cubo"+i);
+			DefaultMaterial c = materialDesdeObjeto(cubos[i]);
+			c.setAlbedoColor(new Vector3f(0.54f, 0.24f, 0.24f));
+			c.setMetalness(0.6f);
+			c.setRoughness(0.32f);
 		}
+		GameObject bolaFin1 = t.search("BolaFin1");
+		GameObject bolaFin2 = t.search("BolaFin2");
+		DefaultMaterial bolaFin1Material = materialDesdeObjeto(bolaFin1);
+		DefaultMaterial bolaFin2Material = materialDesdeObjeto(bolaFin2);
+		bolaFin1.addComponent(new PointLight(new Vector3f(1, 0, 0), 4, 2.3f));
+		bolaFin2.addComponent(new PointLight(new Vector3f(1, 0, 0), 4, 2.3f));
+		bolaFin1Material.setAlbedoColor(new Vector3f(0.54f, 0.24f, 0.24f));
+		bolaFin1Material.setEmissiveColor(new Vector3f(0.8f,0,0));
+		bolaFin1Material.setMetalness(0.6f);
+		bolaFin1Material.setRoughness(0.32f);
+		bolaFin2Material.setAlbedoColor(new Vector3f(0.54f, 0.24f, 0.24f));
+		bolaFin2Material.setEmissiveColor(new Vector3f(0.8f,0,0));
+		bolaFin2Material.setMetalness(0.6f);
+		bolaFin2Material.setRoughness(0.32f);
 		for (int i = 0; i < 3; i++) {
 			vasos[i] = t.search("Vaso"+i);
 			DynamicRigidBody r = new DynamicRigidBody();
@@ -80,9 +116,22 @@ public class TerrenoPrincipal extends GameObject {
 		this.conoVictoriaRigid = new DynamicRigidBody();
 		this.conoVictoriaRigid.setKinematic(true);
 		this.conoVictoria.addComponent(conoVictoriaRigid);
+		DefaultMaterial conoVictoriaMaterial = materialDesdeObjeto(this.conoVictoria);
+		conoVictoriaMaterial.setAlbedoColor(new Vector3f(0.6f, 0.5f, 0.13f));
+		conoVictoriaMaterial.setMetalness(0.74f);
+		conoVictoriaMaterial.setRoughness(0.37f);
+		GameObject sixpiker = t.search("Sixpiker");
+		DefaultMaterial sixpikerMaterial = materialDesdeObjeto(sixpiker);
+		sixpikerMaterial.setAlbedoColor(new Vector3f(0.6f, 0.5f, 0.13f));
+		sixpikerMaterial.setMetalness(0.74f);
+		sixpikerMaterial.setRoughness(0.37f);
 		this.mesa.addComponent(new InteractuarMesa(jugador, posarLibro1, posarLibro2, posarLibro3));
 		materialFisico = new PhysicalMaterial(64, 32, 0.3f);
 		crearFisicas(this);
+	}
+	
+	public static DefaultMaterial materialDesdeObjeto(GameObject obj) {
+		return (DefaultMaterial) ((MeshRenderer) obj.getComponent(MeshRenderer.class)).getMaterial();
 	}
 	
 	private void crearFisicas(GameObject obj) {
