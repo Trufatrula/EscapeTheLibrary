@@ -178,7 +178,7 @@ public class VentanaMain extends JFrame {
 		msgDatos.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 0));
 		
 		//Configurar panel de controles
-		JLabel controles = new JLabel("<html>Controles:<br>TODO</html>");
+		JLabel controles = new JLabel("<html>Controles:<br>W/A/S/D: Moverse<br>I/J/K/L: mover cámara<br>Espacio: Saltar<br>F: Interactuar con objeto</html>");
 		controles.setVerticalAlignment(JLabel.BOTTOM);
 		controles.setVerticalTextPosition(JLabel.BOTTOM);
 		controles.setAlignmentY(BOTTOM_ALIGNMENT);
