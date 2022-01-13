@@ -18,6 +18,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -132,6 +133,7 @@ public class VentanaMain extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				int sel = tUsuarios.getSelectedRow();
 				if(sel == -1) {
+					JOptionPane.showMessageDialog(VentanaMain.this, "No has seleccionado ningun usuario para jugar", "Error", JOptionPane.PLAIN_MESSAGE);
 					logger.log(Level.FINE, "No hay usuario selecionado");
 					return;
 				}
@@ -152,6 +154,7 @@ public class VentanaMain extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				int sel = tUsuarios.getSelectedRow();
 				if(sel == -1) {
+					JOptionPane.showMessageDialog(VentanaMain.this, "No has seleccionado ningun usuario para borrar", "Error", JOptionPane.WARNING_MESSAGE);
 					logger.log(Level.FINE, "No hay usuario selecionado");
 					return;
 				}
@@ -401,6 +404,26 @@ public class VentanaMain extends JFrame {
 						verUsuarios();
 						revalidate();
 						repaint();
+						if (datos.isGuardarDatos()) {
+							HashMap<Integer, Double> tiempos = datos.getFases();
+							double t1 = 0;
+							double t2 = 0;
+							double t3 = 0;
+							if (tiempos.containsKey(1)) {
+								t1 = tiempos.get(1);
+							}
+							if (tiempos.containsKey(2)) {
+								t2 = tiempos.get(2);
+							}
+							if (tiempos.containsKey(3)) {
+								t3 = tiempos.get(3);
+							}
+							String tTotalString = DatosJugador.doubleDeTiempoAString((long) datos.getTiempoEnPartida());
+							String tT1String = DatosJugador.doubleDeTiempoAString((long) t1);
+							String tT2String = DatosJugador.doubleDeTiempoAString((long) t2);
+							String tT3String = DatosJugador.doubleDeTiempoAString((long) t3);
+							JOptionPane.showMessageDialog(VentanaMain.this, "Has completado el juego en " + tTotalString + "\n Tiempo en primera fase 2: " + tT1String + "\n Tiempo de fase 2: " + tT2String + "\n Tiempo de fase 3: " + tT3String + "\nSe han guardado los datos en la base de datos.", "Juego completado", JOptionPane.INFORMATION_MESSAGE);
+						}
 					}
 				});
 			};
@@ -462,6 +485,7 @@ public class VentanaMain extends JFrame {
 	public void crearUsuario(String nombre) {
 		try {
 			if(nombre.isEmpty()) {
+				JOptionPane.showMessageDialog(VentanaMain.this, "El campo del usuario está vacio", "Error", JOptionPane.WARNING_MESSAGE);
 			} else {
 				BaseDatos.meterUsuario(new Usuario(nombre, 0, 0, 0, 0, 0));
 				verUsuarios();
