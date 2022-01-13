@@ -141,13 +141,19 @@ public class TerrenoPrincipal extends GameObject {
 	}
 	
 	private void crearFisicas(GameObject obj) {
-		for (Component comp : obj.getComponents(MeshRenderer.class)) {
-			MeshRenderer renderer = (MeshRenderer) comp;
-			Mesh mesh = renderer.getMesh();
-			PhysicalTriangleMesh TriangleMesh = new PhysicalTriangleMesh(mesh);
-			TriangleMeshCollider collider = new TriangleMeshCollider(materialFisico, TriangleMesh);
-			obj.addComponent(collider);
+		if (obj.getName().startsWith("Skydome")) {
+			DefaultMaterial m = materialDesdeObjeto(obj);
+			m.setAlbedoColor(new Vector3f());
+		} else {
+			for (Component comp : obj.getComponents(MeshRenderer.class)) {
+				MeshRenderer renderer = (MeshRenderer) comp;
+				Mesh mesh = renderer.getMesh();
+				PhysicalTriangleMesh TriangleMesh = new PhysicalTriangleMesh(mesh);
+				TriangleMeshCollider collider = new TriangleMeshCollider(materialFisico, TriangleMesh);
+				obj.addComponent(collider);
+			}
 		}
+		
 		for (GameObject child : obj.getChildren()) {
 			crearFisicas(child);
 		}
