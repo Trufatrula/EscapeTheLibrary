@@ -1,5 +1,8 @@
 package prog3proyecto.juego.componentes;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -10,13 +13,17 @@ import com.lndf.glengine.scene.components.MeshRenderer;
 
 import prog3proyecto.juego.EscenaPrincipal;
 import prog3proyecto.juego.PuzzlePatron;
+import prog3proyecto.main.DatosJugador;
 
 public class Fase2 extends Component {
+	
+	public static Logger logger = Logger.getLogger(DatosJugador.class.getName());
 	
 	private static PuzzlePatron puzzle;
 	
 	@Override
 	public void addToScene() {
+		logger.log(Level.INFO, "Inicio de Fase 2...");
 		EscenaPrincipal pepe = (EscenaPrincipal) this.getScene();
 		pepe.getDatos().setFase(2);
 		pepe.getJugador().getRespawn().setPos(new Vector3f(0, 8, 17));
@@ -43,6 +50,7 @@ public class Fase2 extends Component {
 		}
 		puzzle = new PuzzlePatron(materialesBolas, materialesCubos, cubos, bolas);
 		puzzle.generarPatron();
+		logger.log(Level.INFO, "Inicio de Fase 2 completado");
 	}
 	
 	public static PuzzlePatron getPuzzle() {

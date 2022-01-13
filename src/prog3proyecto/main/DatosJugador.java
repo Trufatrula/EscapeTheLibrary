@@ -18,6 +18,8 @@ public class DatosJugador {
 	
 	public static Logger logger = Logger.getLogger(DatosJugador.class.getName());
 	
+	private boolean guardarDatos = false;
+	
 	private float pX = 0;
 	private float pY = 0;
 	private float pZ = 0;
@@ -105,7 +107,7 @@ public class DatosJugador {
 	
 	public void setFase(int fase) {
 		this.fase = fase;
-		logger.log(Level.FINE, "Cambiando a fase " + fase);
+		logger.log(Level.INFO, "Cambiando a fase " + fase);
 	}
 	
 	public double getTiempoFase() {
@@ -157,6 +159,14 @@ public class DatosJugador {
 		return fase;
 	}
 
+	public boolean isGuardarDatos() {
+		return guardarDatos;
+	}
+
+	public void setGuardarDatos(boolean guardarDatos) {
+		this.guardarDatos = guardarDatos;
+	}
+
 	/**
 	 * Añadir tiempo a todos los tiempos
 	 */
@@ -176,7 +186,9 @@ public class DatosJugador {
 		setTiempoJuego(0);
 		setTiempoEnPartida(0);
 		setTiempoFase(0);
+		fases.clear();
 		setFase(0);
+		setGuardarDatos(false);
 	}
 	
 }

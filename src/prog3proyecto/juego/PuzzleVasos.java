@@ -1,12 +1,17 @@
 package prog3proyecto.juego;
 
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.lndf.glengine.scene.GameObject;
 
 import prog3proyecto.juego.componentes.VasoMover;
+import prog3proyecto.main.DatosJugador;
 
 public class PuzzleVasos {
+	
+	public static Logger logger = Logger.getLogger(DatosJugador.class.getName());
 	
 	private VasoMover[] vasos;
 	
@@ -48,6 +53,7 @@ public class PuzzleVasos {
 	}
 	
 	public void completado() {
+		logger.log(Level.INFO, "Fin de puzle de vasos.");
 		for (VasoMover vaso : this.vasos) {
 			GameObject obj = vaso.getGameObject();
 			obj.removeComponent(vaso);

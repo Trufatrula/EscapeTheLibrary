@@ -15,15 +15,17 @@ public class Juego {
 	public static EscenaPrincipal escena;
 	
 	public static void juego(DatosJugador datos) {
-		logger.log(Level.FINE, "Iniciando juego");
+		logger.log(Level.INFO, "Iniciando juego");
 		Engine.createWindow("Juego de Prog 3", 800, 600, true);
 		escena = new EscenaPrincipal(datos);
 		Engine.addDrawable(escena.getCamara());
 		DefaultMaterial.disableAO = true;
+		logger.log(Level.INFO, "Todo listo para entrar en el main loop. Entrando...");
 		Engine.mainLoop();
+		logger.log(Level.INFO, "Salido del main loop. Destruir todo y terminar ahora.");
 		escena.destroy();
 		escena = null;
-		logger.log(Level.FINE, "Terminando juego");
 		Engine.terminate();
+		logger.log(Level.INFO, "Juego terminado");
 	}
 }

@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -135,7 +136,7 @@ public class VentanaMain extends JFrame {
 					logger.log(Level.FINE, "No hay usuario selecionado");
 					return;
 				}
-				startJuego(listaUsuarios.get(sel).getNombre());
+				startJuego(listaUsuarios.get(sel));
 			}
 		});
 			
@@ -338,8 +339,10 @@ public class VentanaMain extends JFrame {
 		}
 	}
 	
-	public void startJuego(String nombre) {
+	public void startJuego(Usuario usuario) {
 		if (hiloJuego != null) return;
+		String nombre = usuario.getNombre();
+		long tiempoTotal = usuario.getTiempoTotal();
 		remove(panelPrincipal);
 		add(panelJuego);
 		revalidate();
@@ -350,13 +353,34 @@ public class VentanaMain extends JFrame {
 				datos.reset();
 				datos.setUsuario(nombre);
 				datos.actualizar();
+				datos.setTiempoJuego(tiempoTotal);
 				Juego.juego(datos);
 				hiloJuego = null;
+				if (datos.isGuardarDatos()) {
+					logger.log(Level.INFO, "Hay que actualizar los valores del usuario...");
+					HashMap<Integer, Double> tiempos = datos.getFases();
+					double t1 = tiempos.get(1);
+					double t2 = tiempos.get(2);
+					double t3 = tiempos.get(3);
+					double t1Actual = usuario.getTiempo1();
+					double t2Actual = usuario.getTiempo2();
+					double t3Actual = usuario.getTiempo3();
+					if (t1Actual > t1) t1 = t1Actual;
+					if (t2Actual > t2) t2 = t2Actual;
+					if (t3Actual > t3) t3 = t3Actual;
+					usuario.setTiempo1((long) t1);
+					usuario.setTiempo2((long) t2);
+					usuario.setTiempo3((long) t3);
+					usuario.setTiempoTotal((long) datos.getTiempoJuego());
+					usuario.setPartidasJugadas(usuario.getPartidasJugadas() + 1);
+					BaseDatos.modificarUsuario(usuario);
+				}
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
 					public void run() {
 						remove(panelJuego);
 						add(panelPrincipal);
+						verUsuarios();
 						revalidate();
 						repaint();
 					}
@@ -437,7 +461,7 @@ public class VentanaMain extends JFrame {
 	}
 	
 	private void verUsuarios() {
-		Vector<String> vectorColumnas = new Vector<String>( Arrays.asList( "Nombre", "Laberinto", "Fuego Puzzle", "Balance Centrico", "TiempoTotal", "Partidas Jugadas" ) );
+		Vector<String> vectorColumnas = new Vector<String>( Arrays.asList( "Nombre", "Laberinto", "Puzzle Patrón", "Puzzle Vasos", "Tiempo Total", "Partidas Jugadas" ) );
 		mUsuarios = new DefaultTableModel(
 			new Vector<Vector<Object>>(),
 			vectorColumnas

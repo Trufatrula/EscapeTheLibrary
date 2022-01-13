@@ -1,14 +1,20 @@
 package prog3proyecto.juego.componentes;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import com.lndf.glengine.scene.GameObject;
 
 import prog3proyecto.juego.Juego;
+import prog3proyecto.main.DatosJugador;
 
 public class InteractuarMesa extends InteractConObjeto {
-
+	
+	public static Logger logger = Logger.getLogger(DatosJugador.class.getName());
+	
 	private GameObject posarLibro1;
 	private GameObject posarLibro2;
 	private GameObject posarLibro3;
@@ -40,6 +46,7 @@ public class InteractuarMesa extends InteractConObjeto {
 		ObjetoLlevable llevado = ObjetoLlevable.getObjetoLlevando();
 		if(llevado!=null) {
 			GameObject posar = null;
+			logger.log(Level.INFO, "Libro " + contador + "OK!");
 			switch(contador) {
 			case 0:
 				posar = posarLibro1;
