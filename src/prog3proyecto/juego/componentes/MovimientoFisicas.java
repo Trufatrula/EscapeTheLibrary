@@ -22,7 +22,6 @@ public class MovimientoFisicas extends Component {
 	
 	private Vector3f tmp = new Vector3f();
 	private Vector3f velocity = new Vector3f();
-	private Vector3f posicionPrevia = new Vector3f();
 	private boolean onGround = false;
 	private boolean touchingWall = false;
 	private boolean touchingUp = false;
