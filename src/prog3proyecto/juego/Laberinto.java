@@ -105,6 +105,14 @@ public class Laberinto {
 		}
 		return a;
 	}
+
+	public int getAlto() {
+		return alto;
+	}
+
+	public int getAncho() {
+		return ancho;
+	}
 	
 //	public static void main(String[] args) {
 //		Laberinto a = new Laberinto(24, 14);

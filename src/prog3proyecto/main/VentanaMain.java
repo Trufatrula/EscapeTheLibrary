@@ -111,7 +111,6 @@ public class VentanaMain extends JFrame {
 		
 		//Crear elementos
 		JButton botonJugar = new JButton("Jugar");
-		JButton botonOpciones = new JButton("Opciones");
 		JButton botonCrearUsuario = new JButton("Crear usuario");
 		JButton botonBorrarUsuario = new JButton("Borrar usuario");
 		JLabel lnombre = new JLabel("Nombre de usuario: ");
@@ -124,7 +123,6 @@ public class VentanaMain extends JFrame {
 		panelN.add(lnombre);
 		panelN.add(tnombre);
 		panelS.add(botonJugar);
-		panelS.add(botonOpciones);
 
 		panelS.add(botonCrearUsuario);
 		panelS.add(botonBorrarUsuario);
@@ -203,10 +201,10 @@ public class VentanaMain extends JFrame {
 		JButton botonTP = new JButton("Teletransportarse");
 		JButton botonRotar = new JButton("Rotar cámara");
 		JButton botonGenLaberinto = new JButton("Regenerar laberinto");
-		JButton botonFase1 = new JButton("         Ir a Fase1         ");
-		JButton botonFase2 = new JButton("         Ir a Fase2         ");
-		JButton botonFase3 = new JButton("         Ir a Fase3         ");
-		JButton botonFaseFinal = new JButton("      Ir a Fase Final      ");
+		JButton botonFase1 = new JButton("         Ir a Fase1          ");
+		JButton botonFase2 = new JButton("         Ir a Fase2          ");
+		JButton botonFase3 = new JButton("         Ir a Fase3          ");
+		JButton botonFaseFinal = new JButton("      Ir a Fase Final     ");
 		panelE.setLayout(new BoxLayout(panelE, BoxLayout.PAGE_AXIS));
 		panelE.setAlignmentY(JPanel.TOP_ALIGNMENT);
 		panelE.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
