@@ -206,7 +206,7 @@ public class VentanaMain extends JFrame {
 		JButton botonFase1 = new JButton("         Ir a Fase1         ");
 		JButton botonFase2 = new JButton("         Ir a Fase2         ");
 		JButton botonFase3 = new JButton("         Ir a Fase3         ");
-		JButton botonFaseFinal = new JButton("       Ir a Fase Final       ");
+		JButton botonFaseFinal = new JButton("      Ir a Fase Final      ");
 		panelE.setLayout(new BoxLayout(panelE, BoxLayout.PAGE_AXIS));
 		panelE.setAlignmentY(JPanel.TOP_ALIGNMENT);
 		panelE.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
@@ -370,9 +370,18 @@ public class VentanaMain extends JFrame {
 				if (datos.isGuardarDatos()) {
 					logger.log(Level.INFO, "Hay que actualizar los valores del usuario...");
 					HashMap<Integer, Double> tiempos = datos.getFases();
-					double t1 = tiempos.get(1);
-					double t2 = tiempos.get(2);
-					double t3 = tiempos.get(3);
+					double t1 = 0;
+					double t2 = 0;
+					double t3 = 0;
+					if (tiempos.containsKey(1)) {
+						t1 = tiempos.get(1);
+					}
+					if (tiempos.containsKey(2)) {
+						t2 = tiempos.get(2);
+					}
+					if (tiempos.containsKey(3)) {
+						t3 = tiempos.get(3);
+					}
 					double t1Actual = usuario.getTiempo1();
 					double t2Actual = usuario.getTiempo2();
 					double t3Actual = usuario.getTiempo3();

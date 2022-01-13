@@ -6,7 +6,10 @@ import java.util.logging.Logger;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
+import com.lndf.glengine.gl.DefaultMaterial;
 import com.lndf.glengine.scene.GameObject;
+import com.lndf.glengine.scene.components.MeshRenderer;
+import com.lndf.glengine.scene.components.lighting.PointLight;
 
 import prog3proyecto.juego.Juego;
 import prog3proyecto.main.DatosJugador;
@@ -61,6 +64,13 @@ public class InteractuarMesa extends InteractConObjeto {
 				break;
 			}
 			this.contador++;
+			MeshRenderer meshRenderer = (MeshRenderer) posar.getComponent(MeshRenderer.class);
+			DefaultMaterial material = (DefaultMaterial) meshRenderer.getMaterial();
+			GameObject luzObjeto = new GameObject();
+			luzObjeto.getTransform().setPosition(new Vector3f(0, 1, 0));
+			material.setEmissiveColor(new Vector3f(0.6f,0.2f,0.7f));
+			luzObjeto.addComponent(new PointLight(new Vector3f(0.8f, 0.4f, 1), 2, 2.3f));
+			posar.addChild(luzObjeto);
 			GameObject objeto = llevado.getGameObject();
 			llevado.soltar();
 			objeto.removeComponent(llevado);
