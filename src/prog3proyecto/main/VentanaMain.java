@@ -385,9 +385,9 @@ public class VentanaMain extends JFrame {
 					double t1Actual = usuario.getTiempo1();
 					double t2Actual = usuario.getTiempo2();
 					double t3Actual = usuario.getTiempo3();
-					if (t1Actual > t1) t1 = t1Actual;
-					if (t2Actual > t2) t2 = t2Actual;
-					if (t3Actual > t3) t3 = t3Actual;
+					t1 += t1Actual;
+					t2 += t2Actual;
+					t3 += t3Actual;
 					usuario.setTiempo1((long) t1);
 					usuario.setTiempo2((long) t2);
 					usuario.setTiempo3((long) t3);
