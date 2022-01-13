@@ -16,7 +16,7 @@ public class Juego {
 	
 	public static void juego(DatosJugador datos) {
 		logger.log(Level.INFO, "Iniciando juego");
-		Engine.createWindow("Juego de Prog 3", 800, 600, true);
+		Engine.createWindow("Escape the library", 800, 600, true);
 		escena = new EscenaPrincipal(datos);
 		Engine.addDrawable(escena.getCamara());
 		DefaultMaterial.disableAO = true;

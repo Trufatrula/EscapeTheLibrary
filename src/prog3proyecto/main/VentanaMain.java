@@ -94,6 +94,7 @@ public class VentanaMain extends JFrame {
 				terminarJuego();
 			}
 		});
+		this.setTitle("Escape the library");
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
