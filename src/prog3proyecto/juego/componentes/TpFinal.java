@@ -51,6 +51,22 @@ public class TpFinal extends InteractConObjeto {
 		rot.rotateY((float) ((Math.PI/5)*DeltaTime.get()));
 		this.getGameObject().getTransform().setRotation(rot);
 	}
+
+	public Vector3f getPosicion() {
+		return posicion;
+	}
+
+	public void setPosicion(Vector3f posicion) {
+		this.posicion = posicion;
+	}
+
+	public Quaternionf getRotacion() {
+		return rotacion;
+	}
+
+	public void setRotacion(Quaternionf rotacion) {
+		this.rotacion = rotacion;
+	}
 	
 	
 }

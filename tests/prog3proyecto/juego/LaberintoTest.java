@@ -1,4 +1,4 @@
-package prog3proyecto.main;
+package prog3proyecto.juego;
 
 import static org.junit.Assert.*;
 
@@ -23,5 +23,7 @@ public class LaberintoTest {
 		laberinto.setPared(0, 0, false);
 		
 		assertFalse(laberinto.getPared(0, 0));
+		
+		
 	}
 }
