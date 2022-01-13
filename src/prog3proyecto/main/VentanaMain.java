@@ -36,6 +36,7 @@ import prog3proyecto.juego.Jugador;
 import prog3proyecto.juego.componentes.Fase1;
 import prog3proyecto.juego.componentes.Fase2;
 import prog3proyecto.juego.componentes.Fase3;
+import prog3proyecto.juego.componentes.FaseFinal;
 
 public class VentanaMain extends JFrame {
 	
@@ -205,6 +206,7 @@ public class VentanaMain extends JFrame {
 		JButton botonFase1 = new JButton("         Ir a Fase1         ");
 		JButton botonFase2 = new JButton("         Ir a Fase2         ");
 		JButton botonFase3 = new JButton("         Ir a Fase3         ");
+		JButton botonFaseFinal = new JButton("       Ir a Fase Final       ");
 		panelE.setLayout(new BoxLayout(panelE, BoxLayout.PAGE_AXIS));
 		panelE.setAlignmentY(JPanel.TOP_ALIGNMENT);
 		panelE.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 20));
@@ -274,6 +276,13 @@ public class VentanaMain extends JFrame {
 				setFase(3);
 			}
 		});
+		botonFaseFinal.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				setPosicion("10.849", "404", "-221.171");
+				setFase(4);
+			}
+		});
 		
 		//Finalizar panel W
 		panelW.add(msgDatos, BorderLayout.CENTER);
@@ -288,6 +297,8 @@ public class VentanaMain extends JFrame {
 		panelE.add(botonFase1);
 		panelE.add(botonFase2);
 		panelE.add(botonFase3);
+		panelE.add(botonFaseFinal);
+		
 			
 		//Finalizar panel
 		panel.add(panelW);
@@ -405,6 +416,7 @@ public class VentanaMain extends JFrame {
 				Fase1 fase1 = (Fase1) Juego.escena.getJugador().getComponent(Fase1.class);
 				Fase2 fase2 = (Fase2) Juego.escena.getJugador().getComponent(Fase2.class);
 				Fase3 fase3 = (Fase3) Juego.escena.getJugador().getComponent(Fase3.class);
+				FaseFinal faseFinal = (FaseFinal) Juego.escena.getJugador().getComponent(FaseFinal.class);
 				
 				if(fase1 != null) {
 					Juego.escena.getJugador().removeComponent(fase1);
@@ -418,6 +430,10 @@ public class VentanaMain extends JFrame {
 					Juego.escena.getJugador().removeComponent(fase3);
 				}
 				
+				if(faseFinal != null) {
+					Juego.escena.getJugador().removeComponent(faseFinal);
+				}
+				
 				switch(i) {
 				case 1:
 					Juego.escena.getJugador().addComponent(new Fase1());
@@ -428,7 +444,10 @@ public class VentanaMain extends JFrame {
 				case 3:
 					Juego.escena.getJugador().addComponent(new Fase3());
 					break;
-				}
+				case 4:
+					Juego.escena.getJugador().addComponent(new FaseFinal());
+					break;
+				} 
 			}
 		});
 	}
