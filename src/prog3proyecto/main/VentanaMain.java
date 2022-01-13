@@ -423,7 +423,7 @@ public class VentanaMain extends JFrame {
 							String tT1String = DatosJugador.doubleDeTiempoAString((long) t1);
 							String tT2String = DatosJugador.doubleDeTiempoAString((long) t2);
 							String tT3String = DatosJugador.doubleDeTiempoAString((long) t3);
-							JOptionPane.showMessageDialog(VentanaMain.this, "Has completado el juego en " + tTotalString + "\n Tiempo en primera fase 2: " + tT1String + "\n Tiempo de fase 2: " + tT2String + "\n Tiempo de fase 3: " + tT3String + "\nSe han guardado los datos en la base de datos.", "Juego completado", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(VentanaMain.this, "Has completado el juego en " + tTotalString + "\n Tiempo en el laberinto: " + tT1String + "\n Tiempo en el Puzzle Patron: " + tT2String + "\n Tiempo en los cubos: " + tT3String + "\nCreado por Lander y Andoni.", "Juego completado", JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				});
