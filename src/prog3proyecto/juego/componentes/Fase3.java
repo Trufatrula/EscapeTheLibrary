@@ -57,11 +57,8 @@ public class Fase3 extends Component {
 		logger.log(Level.INFO, "Inicio de Fase 3...");
 		EscenaPrincipal pepe = (EscenaPrincipal) this.getScene();
 		pepe.getDatos().setFase(3);
-		pepe.getJugador().getRespawn().setPos(new Vector3f(0, 8, -3));
 		pepe.getJugador().getRespawn().setRot(new Quaternionf());
-		pepe.setAmbientLight(0.004f);
-		pepe.getJugador().getLuz().setRadius(10);
-		pepe.getJugador().getLuz().setStrength(0.5f);
+		pepe.getJugador().getRespawn().setPos(new Vector3f(0, 8, -3));
 		pepe.getTerreno().movilizarPuerta();
 		logger.log(Level.INFO, "Todo preparado. Esperando para completar inicio de Fase 3.");
 	}

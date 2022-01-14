@@ -76,7 +76,7 @@ public class VentanaMain extends JFrame {
 		panelPrincipal.add(new JScrollPane(tUsuarios), BorderLayout.CENTER );
 		
 		this.setVisible(true);
-		this.setSize(800, 600);
+		this.setSize(860, 600);
 		this.addWindowListener(new WindowAdapter() {
 			
 			@Override
@@ -423,7 +423,7 @@ public class VentanaMain extends JFrame {
 							String tT1String = DatosJugador.doubleDeTiempoAString((long) t1);
 							String tT2String = DatosJugador.doubleDeTiempoAString((long) t2);
 							String tT3String = DatosJugador.doubleDeTiempoAString((long) t3);
-							JOptionPane.showMessageDialog(VentanaMain.this, "Has completado el juego en " + tTotalString + "\n Tiempo en el laberinto: " + tT1String + "\n Tiempo en el Puzzle Patron: " + tT2String + "\n Tiempo en los cubos: " + tT3String + "\nCreado por Lander y Andoni.", "Juego completado", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(VentanaMain.this, "Has completado el juego en " + tTotalString + "\n Tiempo en el laberinto: " + tT1String + "\n Tiempo en el Puzzle Patron: " + tT2String + "\n Tiempo en el Puzzle donde esta el cono: " + tT3String + "\nCreado por Lander y Andoni.", "Juego completado", JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				});
@@ -512,7 +512,7 @@ public class VentanaMain extends JFrame {
 	}
 	
 	private void verUsuarios() {
-		Vector<String> vectorColumnas = new Vector<String>( Arrays.asList( "Nombre", "Laberinto", "Puzzle Patrón", "Puzzle Vasos", "Tiempo Total", "Partidas Jugadas" ) );
+		Vector<String> vectorColumnas = new Vector<String>( Arrays.asList( "Nombre", "Laberinto", "Puzzle Patrón", "Puzzle Donde está el cono", "Tiempo Total", "Partidas Jugadas" ) );
 		mUsuarios = new DefaultTableModel(
 			new Vector<Vector<Object>>(),
 			vectorColumnas
@@ -534,7 +534,7 @@ public class VentanaMain extends JFrame {
 		tUsuarios.getColumnModel().getColumn(1).setMaxWidth(20);
 		tUsuarios.getColumnModel().getColumn(2).setMinWidth(110);
 		tUsuarios.getColumnModel().getColumn(2).setMaxWidth(20);
-		tUsuarios.getColumnModel().getColumn(3).setMinWidth(110);
+		tUsuarios.getColumnModel().getColumn(3).setMinWidth(180);
 		tUsuarios.getColumnModel().getColumn(3).setMaxWidth(20);
 		tUsuarios.getColumnModel().getColumn(4).setMinWidth(110);
 		tUsuarios.getColumnModel().getColumn(4).setMaxWidth(20);

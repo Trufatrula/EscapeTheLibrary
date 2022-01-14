@@ -53,6 +53,14 @@ public class Fase2 extends Component {
 		logger.log(Level.INFO, "Inicio de Fase 2 completado");
 	}
 	
+	@Override
+	public void removeFromScene() {
+		EscenaPrincipal pepe = (EscenaPrincipal) this.getScene();
+		pepe.getJugador().getLuz().setRadius(10);
+		pepe.getJugador().getLuz().setStrength(0.5f);
+		pepe.setAmbientLight(0.004f);
+	}
+	
 	public static PuzzlePatron getPuzzle() {
 		return puzzle;
 	}
