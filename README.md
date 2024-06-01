@@ -1,4 +1,4 @@
-# Prog3Proyecto (Escape the library)
+# Escape the library
 
 ## Proyecto de programación III por Lander Gallastegi y Andoni Torres.
 
